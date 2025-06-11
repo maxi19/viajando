@@ -19,20 +19,11 @@ import com.ventas.dao.marca.MarcasDaoImpl;
 @WebFilter("/filter")
 public class ServletFilter implements Filter {
 	
-	private CategoriaDao categoriaDao = new CategoriaDaoImpl();
-	private MarcasDao marcasDao = new MarcasDaoImpl();
-
+	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		HttpServletRequest req	 =(HttpServletRequest)request;
-		HttpServletResponse resp = (HttpServletResponse) response;
-		
-
-		
-		
-		
-		
+	
 
 		chain.doFilter(request, response);	
 	}
