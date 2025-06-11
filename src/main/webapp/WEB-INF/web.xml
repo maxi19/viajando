@@ -1,0 +1,90 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Gestor de ventas productos</display-name>
+  
+      <session-config>
+        <session-timeout>15</session-timeout>
+    </session-config>
+  
+  <servlet>
+        <servlet-name>productos</servlet-name>
+        <servlet-class>com.ventas.controller.ProductosServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+        <servlet-name>productos</servlet-name>
+        <url-pattern>/Ventas/productos</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+        <servlet-name>comprobante-compra</servlet-name>
+        <servlet-class>com.ventas.controller.ComprobanteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>comprobante-compra</servlet-name>
+        <url-pattern>/Ventas/comprobante</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>home</servlet-name>
+        <servlet-class>com.ventas.controller.HomeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>home</servlet-name>
+        <url-pattern>/Ventas/home</url-pattern>
+    </servlet-mapping>
+    
+    
+    
+  <!-- Declaro el filtro con nombre y su implementacion -->
+  <filter>
+    <filter-name>filtro-general</filter-name>
+    <filter-class>com.ventas.filters.ServletFilter</filter-class>
+  </filter>
+
+ <!-- le digo cuando voy a llamar a este fitro, es decir en cualquier request -->
+   <filter-mapping>
+	    <filter-name>filtro-general</filter-name>
+	    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+ <!-- le seteo a ese filtro un nombre de servlet -->
+  <filter-mapping>
+        <filter-name>filtro-general</filter-name>
+        <servlet-name>ninguno</servlet-name>
+  </filter-mapping>
+  
+  	<init-param>
+  		<param-name>compilerSourceVM</param-name>
+	  	<param-value>1.8</param-value>
+	</init-param>
+	<init-param>
+	 	<param-name>compilerTargetVM</param-name>
+	  	<param-value>11</param-value>
+	</init-param>
+  
+  <!-- Manejador de errores -->
+  <servlet>
+  	<servlet-name>ErrorHandler</servlet-name>
+  	<servlet-class>com.ventas.controller.ErrorHandlerServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>ErrorHandler</servlet-name>
+   	<url-pattern>/ErrorHandlerServlet</url-pattern>
+  </servlet-mapping>
+  
+    <error-page>
+	    <error-code>404</error-code>
+        <location>/general-error.html</location>
+    </error-page>
+	<error-page>
+	   <exception-type>
+	      javax.servlet.ServletException
+	   </exception-type >
+	   <location>/ErrorHandlerServlet</location>
+	</error-page>
+
+</web-app>
