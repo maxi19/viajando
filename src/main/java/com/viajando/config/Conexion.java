@@ -1,4 +1,4 @@
-package com.ventas.config;
+package com.viajando.config;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

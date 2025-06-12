@@ -7,11 +7,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import com.ventas.config.Conexion;
 import com.ventas.entity.Marca;
 import com.ventas.entity.Producto;
 import com.ventas.excepciones.MercaditoException;
+import com.viajando.config.Conexion;
 
 
 public class ProductoDaoImpl implements ProductoDao {

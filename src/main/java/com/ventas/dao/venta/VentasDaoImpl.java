@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ventas.config.Conexion;
 import com.ventas.entity.Contacto;
 import com.ventas.entity.Item;
 import com.ventas.entity.Marca;
@@ -14,6 +13,7 @@ import com.ventas.entity.Producto;
 import com.ventas.entity.Venta;
 import com.ventas.excepciones.MercaditoException;
 import com.ventas.service.VentaBuilder;
+import com.viajando.config.Conexion;
 
 public class VentasDaoImpl implements VentasDao{
 

@@ -3,9 +3,9 @@ package com.ventas.dao.roles;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import com.ventas.config.Conexion;
 import com.ventas.entity.Role;
 import com.ventas.excepciones.MercaditoException;
+import com.viajando.config.Conexion;
 
 public class RolesDaoImp implements RolesDao {
 

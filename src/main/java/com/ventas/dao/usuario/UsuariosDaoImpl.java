@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import com.ventas.config.Conexion;
 import com.ventas.entity.Usuario;
 import com.ventas.excepciones.MercaditoException;
+import com.viajando.config.Conexion;
 
 public class UsuariosDaoImpl implements UsuariosDao {
 

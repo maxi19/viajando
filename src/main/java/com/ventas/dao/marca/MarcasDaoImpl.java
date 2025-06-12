@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ventas.config.Conexion;
 import com.ventas.entity.Marca;
 import com.ventas.excepciones.MercaditoException;
+import com.viajando.config.Conexion;
 
 public class MarcasDaoImpl implements MarcasDao {
 

@@ -7,12 +7,10 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.List;
 
-//import org.apache.log4j.Logger;
-
-import com.ventas.config.Conexion;
 import com.ventas.entity.Item;
 import com.ventas.entity.Producto;
 import com.ventas.excepciones.MercaditoException;
+import com.viajando.config.Conexion;
 
 import utils.EstadoPedido;
 import utils.RamdomUtils;

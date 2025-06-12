@@ -7,9 +7,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ventas.config.Conexion;
 import com.ventas.entity.Categoria;
 import com.ventas.excepciones.MercaditoException;
+import com.viajando.config.Conexion;
 
 public class CategoriaDaoImpl implements CategoriaDao {
 
