@@ -1,14 +1,17 @@
 package com.viajando.domain;
 
 public class Paquete {
+	//armar en base paquetes prestablecidos y el 
+	// que cliente pueda armar sus propios paquetes
 	private int id;
 	private String nombre;
 	private int dias;
 	
-	private Destino destino;
 	private Hotel hotel;
-	private Vuelo vuelo;
+
+	private Vuelo vueloIda;
 	
+	private Vuelo vueloVuelta;	
 	
 	
 }

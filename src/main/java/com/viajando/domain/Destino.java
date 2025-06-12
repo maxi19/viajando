@@ -2,11 +2,14 @@ package com.viajando.domain;
 
 public class Destino {
 	
+	//haceer alta de destinos y listado de destino
+	//hacer listado de paises
 	private int id;
     private String nombre;
     private String pais;
     private int precio;
-	public int getId() {
+	
+    public int getId() {
 		return id;
 	}
 	public void setId(int id) {
