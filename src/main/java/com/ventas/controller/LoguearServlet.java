@@ -18,7 +18,7 @@ import com.ventas.dao.usuario.UsuariosDaoImpl;
 import com.ventas.entity.Usuario;
 import com.ventas.excepciones.MercaditoException;
 
-@WebServlet(urlPatterns = { "/login"})
+@WebServlet(urlPatterns = { "/loginviejo"})
 public class LoguearServlet extends HttpServlet{
 
 

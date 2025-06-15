@@ -8,17 +8,16 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<script src="<%=request.getContextPath()%>/scripts/mesasDisponibles.js"></script>
-		
-		<script type="text/javascript">
-				var contextPath="<%=request.getContextPath()%>";
-		</script>
+
 
 		<!--font-family-->
 		<link href="https://fonts.googleapis.com/css?family=Rufina:400,700" rel="stylesheet" />
 
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet" />
 
+		 <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+
+		<script src="<%=request.getContextPath()%>/assets/js/sweetalert2.all.min.js"></script>
 		<!-- TITLE OF SITE -->
 		<title>Travel</title>
 
@@ -55,6 +54,14 @@
 
 		<!--responsive.css-->
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/responsive.css" />
+
+
+		<script src="<%=request.getContextPath()%>/assets/js/jquery/jquery.min.js"></script>
+		<script src="<%=request.getContextPath()%>/scripts/viajandoScripts.js"></script>
+
+		<script type="text/javascript">
+				var contextPath="<%=request.getContextPath()%>";
+		</script>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -102,6 +109,7 @@
 										<li class="smooth-menu"><a href="#spo">Special Offers</a></li>
 										<li class="smooth-menu"><a href="#blog">blog</a></li>
 										<li class="smooth-menu"><a href="#subs">subscription</a></li>
+										<li class="smooth-menu"><input type="button" class="btn btn-danger btn-login" id="btn-abrir-pedido"> </li>
 										<li>
 											<button class="book-btn">book now
 											</button>
@@ -152,6 +160,15 @@
 		<!--about-us end -->
 
 		<!--travel-box start-->
+		<section  id="pannel-control" class="service">
+			<div class ="container mt-4">
+			
+				AGREGAR PANEL 
+
+			</div>
+				
+		</section>
+
 		<section  class="travel-box">
         	<div class="container">
         		<div class="row">
