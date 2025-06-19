@@ -20,7 +20,7 @@ public class Vuelo {
 		
 		this.id = id;
 		
-		Destino destino = new Destino();
+		Destino destino = new Destino();//Revisarr
 	    destino.setNombre(nombreDestino);
 	    this.destino = destino;
 		
