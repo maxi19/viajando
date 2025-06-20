@@ -6,11 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ventas.entity.Marca;
-import com.ventas.entity.Producto;
-import com.ventas.excepciones.MercaditoException;
 import com.viajando.config.Conexion;
 import com.viajando.domain.Destino;
+import com.viajando.exception.ErrorException;
 
 public class DestinoDao implements DaoBase<Integer, Destino>{
 
@@ -25,25 +23,25 @@ public class DestinoDao implements DaoBase<Integer, Destino>{
 	
 	
 	@Override
-	public void add(Destino t) throws MercaditoException {
+	public void add(Destino t) throws ErrorException {
 
 		
 	}
 
 	@Override
-	public void delete(Integer i) throws MercaditoException {
+	public void delete(Integer i) throws ErrorException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void edit(Destino t) throws MercaditoException {
+	public void edit(Destino t) throws ErrorException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public List<Destino> list() throws MercaditoException {
+	public List<Destino> list() throws ErrorException {
 
 		 ResultSet rs = null;
 		 List<Destino> destinos = null;
@@ -63,7 +61,7 @@ public class DestinoDao implements DaoBase<Integer, Destino>{
 			}
 				
 		 }catch (Exception e) {
-				throw new MercaditoException("Hubo un error al realizar la consulta", e);
+				throw new ErrorException("Hubo un error al realizar la consulta", e);
 		}finally {
 			try {
 				st.close();
@@ -80,7 +78,7 @@ public class DestinoDao implements DaoBase<Integer, Destino>{
 	}
 
 	@Override
-	public Destino getOne(Integer i) throws MercaditoException {
+	public Destino getOne(Integer i) throws ErrorException {
 
 		return null;
 	}
