@@ -32,7 +32,7 @@ public class LeerDatosExcursion extends HttpServlet {
 		try {
 
 			req.setAttribute("excursion", excursionService.list());
-			req.getRequestDispatcher("excursionPage.jsp").forward(req, resp);
+			req.getRequestDispatcher("excursion/excursionPage.jsp").forward(req, resp);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
