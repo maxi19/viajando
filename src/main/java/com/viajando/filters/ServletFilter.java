@@ -1,4 +1,4 @@
-package com.ventas.filters;
+package com.viajando.filters;
 
 import java.io.IOException;
 
