@@ -9,11 +9,11 @@
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/style/estiloForm.css">
 	
 	<!-- jQuery -->
-	<script src="<%=request.getContextPath()%>/scripts/jquery/jquery-3.6.4.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/jquery/jquery-3.6.4.min.js"></script>
 	
 	<!-- Validación -->
-	<script src="<%=request.getContextPath()%>/scripts/jquery/jquery.validate.min.js"></script>
-	<script src="<%=request.getContextPath()%>/scripts/jquery/localization/messages_es.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/jquery/jquery.validate.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/jquery/localization/messages_es.min.js"></script>
 	
 	<!-- Loading Overlay -->
 	<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
