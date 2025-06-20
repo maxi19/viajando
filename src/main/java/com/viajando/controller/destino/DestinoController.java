@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 import com.viajando.service.DestinoService;
 import com.viajando.service.DestinoServiceImp;
 
-@WebServlet(urlPatterns = { "/destinos"})
+@WebServlet(urlPatterns = { "/destinos.do"})
 public class DestinoController extends HttpServlet {
 
 	/**
