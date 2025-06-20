@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.ventas.entity.Marca;
-import com.ventas.entity.Producto;
-import com.ventas.excepciones.MercaditoException;
+
 import com.viajando.config.Conexion;
 import com.viajando.domain.Vuelo;
 import com.viajando.domain.Destino;

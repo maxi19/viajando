@@ -22,7 +22,7 @@
 	
   <filter>
 	    <filter-name>MyFilter</filter-name>
-	    <filter-class>com.ventas.filters.ServletFilter</filter-class>
+	    <filter-class>com.viajando.filters.ServletFilter</filter-class>
   </filter>
 
   <filter-mapping>
