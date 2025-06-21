@@ -15,7 +15,7 @@ import com.viajando.service.vuelo.VueloService;
 import com.viajando.service.vuelo.VueloServiceImp;
 
 @WebServlet(urlPatterns = "/crearVuelo")
-public class VueloController extends HttpServlet {
+public class CrearVueloController extends HttpServlet {
 
 	VueloService vueloService = new VueloServiceImp();
 
