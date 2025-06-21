@@ -24,7 +24,7 @@ class Excursion {
 					<h5 class="card-title">Excursion N° ${this.id}</h5>
 					<p class="card-text"><strong>ID:</strong> ${this.nombre}</p>
 					<p class="card-text"><strong>Estado:</strong> ${this.descripcion}</p>
-					<p class="card-text"><strong>Estado:</strong> ${this.fecha_inicio}</p>
+					<p class="card-text"><strong>Estado:</strong> ${this.fecha_inicio.day} /${this.fecha_inicio.month} / ${this.fecha_inicio.year}</p>
 					<p class="card-text"><strong>Estado:</strong> ${this.fecha_fin}</p>
 					<p class="card-text"><strong>Estado:</strong> ${this.precio}</p>
 					<p class="card-text"><strong>Estado:</strong> ${this.destino}</p>
@@ -37,6 +37,7 @@ class Excursion {
 }
 
 function cargarListadoExcursion() {
+
 	$.ajax({
 		url: contextPath + "/excursionController",
 		method: "GET",
