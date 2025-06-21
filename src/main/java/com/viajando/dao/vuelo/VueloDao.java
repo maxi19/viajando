@@ -15,6 +15,6 @@ public interface VueloDao{
 	
 	public List<Vuelo> listarVuelos() throws Exception;
 
-	
+	public Vuelo findById(int id) throws Exception;
 
 }

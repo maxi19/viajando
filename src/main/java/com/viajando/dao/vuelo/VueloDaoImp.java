@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 import com.viajando.config.Conexion;
 import com.viajando.domain.Vuelo;
+import com.viajando.exception.ErrorException;
 import com.viajando.domain.Destino;
 
 public class VueloDaoImp implements VueloDao {
@@ -21,15 +21,16 @@ public class VueloDaoImp implements VueloDao {
 
 	private static final String queryAddVuelo = "INSERT INTO vuelo(destino, ida, vuelta, precio, estrellas ,hora_ida, hora_vuelta) VALUES (?,?,?,?,?,?,?)";
 
-	private static final String queryList = "SELECT id, destino, ida, vuelta, precio, estrellas ,hora_ida, hora_vuelta from vuelo";
+	private static final String queryList = "SELECT id, destino, ida, vuelta, precio, estrellas ,hora_ida, hora_vuelta FROM vuelo";
+
+	private static final String queryConsultarVuelo = "SELECT id, destino, ida, vuelta, precio, estrellas ,hora_ida, hora_vuelta FROM vuelo where id=?";
 
 	@Override
-	public void crearVuelo(String destino, String ida, String vuelta, int precio, int estrellas,
-			LocalTime hora_ida, LocalTime hora_vuelta) throws Exception {
-		
-		
+	public void crearVuelo(String destino, String ida, String vuelta, int precio, int estrellas, LocalTime hora_ida,
+			LocalTime hora_vuelta) throws Exception {
+
 		PreparedStatement ps = null;
-		
+
 		try {
 			ps = conexion.dameConnection().prepareStatement(queryAddVuelo);
 			ps.setString(1, destino);
@@ -39,9 +40,9 @@ public class VueloDaoImp implements VueloDao {
 			ps.setInt(5, estrellas);
 			ps.setTime(6, Time.valueOf(hora_ida));
 			ps.setTime(7, Time.valueOf(hora_vuelta));
-			
-		}catch (Exception e) {
-			
+
+		} catch (Exception e) {
+
 		}
 
 	}
@@ -58,7 +59,8 @@ public class VueloDaoImp implements VueloDao {
 			rs = st.executeQuery();
 
 			while (rs.next()) {
-				vuelos.add(new Vuelo(rs.getInt(1),rs.getString(2),rs.getDate(3).toLocalDate(),rs.getDate(4).toLocalDate(), rs.getInt(5), rs.getInt(6),rs.getTime(7).toLocalTime(),rs.getTime(8).toLocalTime()));
+				vuelos.add(new Vuelo(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getDate(4), rs.getInt(5),
+						rs.getInt(6), rs.getTime(7), rs.getTime(8)));
 			}
 
 		} catch (SQLException e) {
@@ -78,5 +80,35 @@ public class VueloDaoImp implements VueloDao {
 		}
 
 		return vuelos;
+	}
+
+	@Override
+	public Vuelo findById(int id) throws Exception {
+
+		ResultSet rs = null;
+		PreparedStatement st = null;
+
+		try {
+			st = conexion.dameConnection().prepareStatement(queryConsultarVuelo);
+			st.setInt(1, id);
+			rs = st.executeQuery();
+
+			if (rs.next()) {
+				return new Vuelo(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getDate(4), rs.getInt(5),
+						rs.getInt(6), rs.getTime(7), rs.getTime(8));
+			}
+		} catch (Exception e) {
+			throw new ErrorException("Hubo un error al realizar la consulta", e);
+
+		} finally {
+			try {
+				st.close();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+		return null;
 	}
 }
