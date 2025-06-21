@@ -9,14 +9,14 @@ public class Vuelo {
 
 	private int id;
 	private Destino destino;
-	private LocalDate ida;
-	private LocalDate vuelta;
+	private Date ida;
+	private Date vuelta;
 	private int precio;
 	private int estrellas;
-	private LocalTime hora_ida;
-	private LocalTime hora_vuelta;
+	private Time hora_ida;
+	private Time hora_vuelta;
 
-	public Vuelo(int id, String nombreDestino, LocalDate ida, LocalDate vuelta, int precio, int estrellas, LocalTime hora_ida, LocalTime hora_vuelta) {
+	public Vuelo(int id, String nombreDestino, Date ida, Date vuelta, int precio, int estrellas, Time hora_ida, Time hora_vuelta) {
 		
 		this.id = id;
 		
@@ -52,19 +52,19 @@ public class Vuelo {
 		this.destino = destino;
 	}
 
-	public LocalDate getIda() {
+	public Date getIda() {
 		return ida;
 	}
 
-	public void setIda(LocalDate ida) {
+	public void setIda(Date ida) {
 		this.ida = ida;
 	}
 
-	public LocalDate getVuelta() {
+	public Date getVuelta() {
 		return vuelta;
 	}
 
-	public void setVuelta(LocalDate vuelta) {
+	public void setVuelta(Date vuelta) {
 		this.vuelta = vuelta;
 	}
 
@@ -84,19 +84,19 @@ public class Vuelo {
 		this.estrellas = estrellas;
 	}
 
-	public LocalTime getHora_ida() {
+	public Time getHora_ida() {
 		return hora_ida;
 	}
 
-	public void setHora_ida(LocalTime hora_ida) {
+	public void setHora_ida(Time hora_ida) {
 		this.hora_ida = hora_ida;
 	}
 
-	public LocalTime getHora_vuelta() {
+	public Time getHora_vuelta() {
 		return hora_vuelta;
 	}
 
-	public void setHora_vuelta(LocalTime hora_vuelta) {
+	public void setHora_vuelta(Time hora_vuelta) {
 		this.hora_vuelta = hora_vuelta;
 	}
 
