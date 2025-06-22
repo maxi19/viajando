@@ -24,5 +24,11 @@ public class VueloServiceImp implements VueloService{
 		return vueloDao.listarVuelos();
 	}
 
+	@Override
+	public Vuelo findById(int int1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }

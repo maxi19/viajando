@@ -15,7 +15,7 @@ import com.viajando.domain.Vuelo;
 import com.viajando.service.vuelo.VueloService;
 import com.viajando.service.vuelo.VueloServiceImp;
 
-@WebServlet(urlPatterns = "loadVueloForm")
+@WebServlet(urlPatterns = "/loadVueloForm")
 public class LoadVueloForm extends HttpServlet {
 
 	private VueloService vueloService = new VueloServiceImp();
