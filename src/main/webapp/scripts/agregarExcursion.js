@@ -1,7 +1,14 @@
 $(function() { 
 
-	$("#btn-confirmar").click(function(e) {
+	$("#formExcursion").submit(function(e) {
 		e.preventDefault();
+		
+		if (!$("#formExcursion").valid()) {
+		            // si la validación falla, no sigue
+		            return;
+		        }
+		
+		
 		var nombre = $("#nombre").val();
 		var descripcion = $("#descripcion").val();
 		var fecha_inicio = $("#fecha_inicio").val();
