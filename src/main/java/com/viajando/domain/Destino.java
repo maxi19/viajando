@@ -1,20 +1,27 @@
 package com.viajando.domain;
 
-public class Destino {
+public class Destino extends GenericEntity {
 	
-	//haceer alta de destinos y listado de destino
-	//hacer listado de paises
-	private int id;
     private String nombre;
     private String pais;
     private int precio;
+    
+	public Destino(int id) {
+		super(id);
+	}
+	
+	public Destino(int id, String nombre, String pais, int precio) {
+		super(id);
+		this.nombre = nombre;
+		this.pais = pais;
+		this.precio = precio;
+	}
+
 	
     public int getId() {
-		return id;
+		return super.getId();
 	}
-	public void setId(int id) {
-		this.id = id;
-	}
+
 	public String getNombre() {
 		return nombre;
 	}

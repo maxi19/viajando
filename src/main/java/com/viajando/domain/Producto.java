@@ -1,7 +1,7 @@
 package com.viajando.domain;
 
 
-public class Producto {
+public class Producto extends GenericEntity{
 
 	private int id;
 	private int precio;
@@ -9,18 +9,11 @@ public class Producto {
 	private String descripcion;
 	
 	public Producto(int id, int precio, String img, String descripcion) {
-		super();
-		this.id = id;
+		super(id);
 		this.precio = precio;
 		this.img = img;
 		this.descripcion = descripcion;
 	}
 	
-	public Producto(int precio, String img, String descripcion) {
-		super();
-		this.precio = precio;
-		this.img = img;
-		this.descripcion = descripcion;
-	}
-	
+
 }

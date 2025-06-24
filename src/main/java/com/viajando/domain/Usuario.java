@@ -7,7 +7,7 @@ public class Usuario extends GenericEntity{
 	
 
 	public Usuario(int id, String usuario, String password) {
-		super.setId(id);
+		super(id);
 		this.usuario = usuario;
 		this.password = password;
 	}

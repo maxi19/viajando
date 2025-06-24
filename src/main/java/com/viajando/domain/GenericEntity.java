@@ -4,6 +4,11 @@ public class GenericEntity {
 
 	private int id;
 
+	
+	public GenericEntity(int id) {
+		this.id = id;
+	}
+
 	public int getId() {
 		return id;
 	}

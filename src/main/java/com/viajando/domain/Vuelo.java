@@ -3,7 +3,7 @@ package com.viajando.domain;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Vuelo {
+public class Vuelo extends GenericEntity{
 
 	private int id;
 	private String destino;
@@ -15,7 +15,7 @@ public class Vuelo {
 	private LocalTime horaVuelta;
 
 	public Vuelo(int id, String destino, LocalDate ida, LocalDate vuelta, int precio, double estrellas, LocalTime horaIda, LocalTime horaVuelta) {
-		this.id = id;
+		super(id);
 		this.destino = destino;
 		this.ida = ida;
 		this.vuelta = vuelta;

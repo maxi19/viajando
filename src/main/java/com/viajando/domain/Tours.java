@@ -10,9 +10,8 @@ public class Tours extends Producto{
 	private LocalDate checkIn;
 	private LocalDate checkOut;
 	
-	public Tours(int precio, String img, String descripcion) {
-		super(precio, img, descripcion);
-		// TODO Auto-generated constructor stub
+	public Tours(int id,  int precio, String img, String descripcion) {
+		super(id, precio, img, descripcion);
 	}
 	
 	

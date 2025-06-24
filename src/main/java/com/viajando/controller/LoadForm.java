@@ -32,12 +32,6 @@ public class LoadForm extends HttpServlet{
 
 		if (req.getParameter("method").equals("home") && session.getAttribute("CURRENT_USER") != null) {
 			req.getRequestDispatcher(PAGE_HOME).forward(req, resp);
-		}else if(req.getParameter("form").equals("bebidaForm") && session.getAttribute("CURRENT_USER") != null){
-			req.getRequestDispatcher(BEBIDA_FORM).forward(req, resp);
-		}else if (req.getParameter("form").equals("postreForm")&& session.getAttribute("CURRENT_USER") != null) {
-			req.getRequestDispatcher(POSTRE_FORM).forward(req, resp);
-		}else if(req.getParameter("form").equals("menuForm") && session.getAttribute("CURRENT_USER") != null) {
-			req.getRequestDispatcher(MENU_FORM).forward(req, resp);
 		}else {
 			req.getRequestDispatcher(LOGIN_FORM).forward(req, resp);
 		}

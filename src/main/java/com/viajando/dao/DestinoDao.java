@@ -52,11 +52,7 @@ public class DestinoDao implements DaoBase<Integer, Destino>{
 			rs = st.executeQuery();
 			destinos = new ArrayList<Destino>();
 			 while (rs.next()) {
-				destino = new Destino();
-				destino.setId(rs.getInt(1));
-				destino.setNombre(rs.getString(2));
-				destino.setPais(rs.getString(3));
-				destino.setPrecio(rs.getInt(4));
+				destino = new Destino(rs.getInt(1), rs.getString(2), rs.getString(3) ,rs.getInt(4));
 				destinos.add(destino);
 			}
 				

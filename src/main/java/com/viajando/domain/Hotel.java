@@ -1,6 +1,5 @@
 package com.viajando.domain;
 
-import java.time.LocalDate;
 
 public class Hotel extends Producto{
 	
