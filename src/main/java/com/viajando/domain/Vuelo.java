@@ -1,47 +1,52 @@
 package com.viajando.domain;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Vuelo {
 
-	//hacer alta de vuelos y listado de vuelos
-	private LocalDate fecha_salida;
-	private LocalDate fecha_llegada;
-	private Destino salida;
-	private Destino destino;
+	private int id;
+	private String destino;
+	private LocalDate ida;
+	private LocalDate vuelta;
 	private int precio;
-	
-	
-	public LocalDate getFecha_salida() {
-		return fecha_salida;
-	}
-	public void setFecha_salida(LocalDate fecha_salida) {
-		this.fecha_salida = fecha_salida;
-	}
-	public LocalDate getFecha_llegada() {
-		return fecha_llegada;
-	}
-	public void setFecha_llegada(LocalDate fecha_llegada) {
-		this.fecha_llegada = fecha_llegada;
-	}
-	public Destino getSalida() {
-		return salida;
-	}
-	public void setSalida(Destino salida) {
-		this.salida = salida;
-	}
-	public Destino getDestino() {
-		return destino;
-	}
-	public void setDestino(Destino destino) {
+	private double estrellas;
+	private LocalTime horaIda;
+	private LocalTime horaVuelta;
+
+	public Vuelo(int id, String destino, LocalDate ida, LocalDate vuelta, int precio, double estrellas, LocalTime horaIda, LocalTime horaVuelta) {
+		this.id = id;
 		this.destino = destino;
-	}
-	public int getPrecio() {
-		return precio;
-	}
-	public void setPrecio(int precio) {
+		this.ida = ida;
+		this.vuelta = vuelta;
 		this.precio = precio;
+		this.estrellas = estrellas;
+		this.horaIda = horaIda;
+		this.horaVuelta = horaVuelta;
 	}
-	
+
+	public int getId() { return id; }
+	public void setId(int id) { this.id = id; }
+
+	public String getDestino() { return destino; }
+	public void setDestino(String destino) { this.destino = destino; }
+
+	public LocalDate getIda() { return ida; }
+	public void setIda(LocalDate ida) { this.ida = ida; }
+
+	public LocalDate getVuelta() { return vuelta; }
+	public void setVuelta(LocalDate vuelta) { this.vuelta = vuelta; }
+
+	public int getPrecio() { return precio; }
+	public void setPrecio(int precio) { this.precio = precio; }
+
+	public double getEstrellas() { return estrellas; }
+	public void setEstrellas(double estrellas) { this.estrellas = estrellas; }
+
+	public LocalTime getHoraIda() { return horaIda; }
+	public void setHoraIda(LocalTime horaIda) { this.horaIda = horaIda; }
+
+	public LocalTime getHoraVuelta() { return horaVuelta; }
+	public void setHoraVuelta(LocalTime horaVuelta) { this.horaVuelta = horaVuelta; }
 
 }

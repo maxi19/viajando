@@ -335,7 +335,8 @@
 						</button>
 					</div>
 				</div>
-				<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+
+				<!--<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
 				
 
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -343,10 +344,10 @@
 				<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Home</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Destinos</button>
+				<button class="nav-link" id="destino-tab" data-bs-toggle="tab" data-bs-target="#destino-tab-pane" type="button" role="tab" aria-controls="destino-tab-pane" aria-selected="false">Destinos</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Vuelos</button>
+				<button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Vuelos</button>				
 			</li>
 			<li class="nav-item" role="presentation">
 				<button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false" disabled>Disabled</button>
@@ -354,38 +355,47 @@
 			</ul>
 
 			<div class="tab-content" id="myTabContent">
-				<div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">...</div>
-				<div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-									<ul class="nav nav-tabs">
-				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="#">Destinos</a>
-					<h2>Destinos Disponibles</h2>
-					<div class="table-responsive small" id ="destinos-grilla">
-						<table class="table table-striped table-sm">
-							<thead>
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col">Nombre</th>
-									<th scope="col">pais</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td width="10%" class="id"></td>
-									<td width="30%" class="nombre"></td>
-									<td width="25%" class="pais"></td>
-									<td width="25%" class="operar"></td>
-								</tr>
+				<div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+				home
+				</div>
+				<div class="tab-pane fade" id="destino-tab-pane" role="tabpanel" aria-labelledby="destino-tab" tabindex="0">
 								
-							</tbody>
-						</table>
-					</div>
-				</li>
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="#">Destinos</a>
+						<h2>Destinos Disponibles</h2>
+						<div class="table-responsive small" id ="destinos-grilla">
+							<table class="table table-striped table-sm">
+								<thead>
+									<tr>
+										<th scope="col">#</th>
+										<th scope="col">Nombre</th>
+										<th scope="col">pais</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td width="10%" class="id"></td>
+										<td width="30%" class="nombre"></td>
+										<td width="25%" class="pais"></td>
+										<td width="25%" class="operar"></td>
+									</tr>
+									
+								</tbody>
+							</table>
+						</div>
+					</li>
 		
 				</div>
-				<div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div>
+				<div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+			
+
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Agregar Vuelo </button>
+						<a href="#login-form" rel="modal:open">Login</a>
+
+				</div>
 				<div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
 			</div>
+			
 			</main>
 		</div>
 	</div>
@@ -395,6 +405,15 @@
 		src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js"
 		integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp"
 		crossorigin="anonymous" class="astro-vvvwv3sm"></script>
-	<script src="<%=request.getContextPath()%>/assets/dashboard.js" class="astro-vvvwv3sm"></script>
+	<script src="<%=request.getContextPath()%>/assets/dashboard.js" class="astro-vvvwv3sm"></script> 
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
 </body>
 </html>
+
+
+<form id="login-form" class="modal">
+  ...
+</form>
