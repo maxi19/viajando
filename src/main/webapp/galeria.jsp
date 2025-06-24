@@ -16,6 +16,10 @@
 <script src="<%=request.getContextPath()%>/assets/js/jquery/jquery-3.6.4.min.js"></script>
 <script src="<%=request.getContextPath()%>/assets/customjs/viajandoScripts.js"></script>
 
+
+<script src="<%=request.getContextPath()%>/scripts/excursion.js"></script>
+
+
 <script type="text/javascript">
 			var contextPath="<%=request.getContextPath()%>";
 </script>
@@ -104,6 +108,10 @@
 </style>
 </head>
 <body>
+
+					
+
+
 	<svg xmlns="http://www.w3.org/2000/svg" class="d-none"> <symbol
 			id="check2" viewBox="0 0 16 16"> <path
 			d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"></path> </symbol> <symbol
@@ -137,6 +145,10 @@
 						<use href="#check2"></use></svg>
 				</button>
 			</li>
+			
+			
+			
+			
 			<li>
 				<button type="button"
 					class="dropdown-item d-flex align-items-center"
@@ -219,6 +231,7 @@
 							href="#" class="btn btn-secondary my-2">Secondary action</a>
 					</p>
 				</div>
+				<div class="card-group homeitem mt-4" id="contenedorExcursion"></div> 
 			</div>
 		</section>
 		<div class="album py-5 bg-body-tertiary">
