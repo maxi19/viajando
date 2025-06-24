@@ -10,12 +10,12 @@ public class Excursion {
 	private LocalDate fecha_inicio;
 	private LocalDate fecha_fin;
 	private int precio;
-	private String destino;
+	private int destino;
 	private double estrellas;
 	private String imagen;
 	
 	public Excursion(int id, String nombre, String descripcion, LocalDate fecha_inicio, LocalDate fecha_fin, int precio,
-			String destino, double estrellas, String imagen) {
+			int destino, double estrellas, String imagen) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -76,11 +76,11 @@ public class Excursion {
 		this.precio = precio;
 	}
 
-	public String getDestino() {
+	public int getDestino_id() {
 		return destino;
 	}
 
-	public void setDestino(String destino) {
+	public void setDestino(int destino) {
 		this.destino = destino;
 	}
 
