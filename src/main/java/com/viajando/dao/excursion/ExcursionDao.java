@@ -11,7 +11,9 @@ public interface ExcursionDao {
 	
 	public Excursion findById(int id) throws Exception;
 	
-	public void save(String nombre, String descripcion, LocalDate fecha_inicio, LocalDate fecha_fin, int precio, String destino, double estrellas ) throws Exception;
+    public int saveAndReturnId(String nombre, String descripcion, LocalDate fechaInicio, LocalDate fechaFin, int precio, String destino, double estrellas) throws Exception;
+    
+    public void updateImage(int id, String nombreImagen) throws Exception;
 
 	public void delete(int id) throws Exception;
 
