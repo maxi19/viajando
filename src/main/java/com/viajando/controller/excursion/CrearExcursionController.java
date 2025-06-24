@@ -1,7 +1,9 @@
 package com.viajando.controller.excursion;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -10,20 +12,22 @@ import java.time.LocalDate;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.google.gson.JsonObject;
 import com.viajando.service.excursion.ExcursionService;
 import com.viajando.service.excursion.ExcursionServiceImp;
 
 @WebServlet(urlPatterns = "/crearExcursion")
+@MultipartConfig // Importante para recibir archivos
 public class CrearExcursionController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-
 	ExcursionService excursionService = new ExcursionServiceImp();
 
 	@Override
@@ -42,22 +46,54 @@ public class CrearExcursionController extends HttpServlet {
 		int precioInt = Integer.parseInt(precioString);
 		double estrellasDouble = Double.parseDouble(estrellasString);
 
-		try {
+        // Imagen
+        Part imagenPart = req.getPart("imagen");
+        
+        try {
+            // 1. Guardar excursion sin imagen para obtener el ID autogenerado
+            int idGenerado = excursionService.saveAndReturnId(nombre, descripcion, fechaInicio, fechaFin, precioInt, destino, estrellasDouble);
 
-			excursionService.save(nombre, descripcion, fechaInicio, fechaFin, precioInt, destino, estrellasDouble);
-			PrintWriter out = resp.getWriter();
-			resp.setContentType("application/json");
-			resp.setCharacterEncoding("utf-8");
-			JsonObject obj = new JsonObject();
-			// resp.setStatus(200);
-			obj.addProperty("estatus", "ok");
-			obj.addProperty("mensaje", "Se creo exitosamente el registro");
-			out.print(obj.toString());
-			out.flush();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            // 2. Definir nombre de imagen: img<ID>.jpg
+            String nombreOriginal = Paths.get(imagenPart.getSubmittedFileName()).getFileName().toString();
+            String extension = nombreOriginal.substring(nombreOriginal.lastIndexOf(".") + 1);
 
+            if(!extension.equalsIgnoreCase("jpg") && !extension.equalsIgnoreCase("png") && !extension.equalsIgnoreCase("jpeg")) {
+                throw new ServletException("Formato de imagen no permitido.");
+            }
+            
+            String nombreImagen = "excursionimg" + idGenerado + "." + extension; // Ej: img15.png o img16.jpg
+
+            // 3. Guardar archivo físico
+            String uploadPath = getServletContext().getRealPath("/images/");
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) uploadDir.mkdir();
+            imagenPart.write(uploadPath + File.separator + nombreImagen);
+
+            // 4. Actualizar imagen en DB
+            excursionService.updateImage(idGenerado, nombreImagen);
+
+            // 5. Respuesta JSON
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("utf-8");
+            PrintWriter out = resp.getWriter();
+            JsonObject obj = new JsonObject();
+            obj.addProperty("estatus", "ok");
+            obj.addProperty("mensaje", "Excursion creada con ID: " + idGenerado);
+            out.print(obj.toString());
+            out.flush();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("utf-8");
+            PrintWriter out = resp.getWriter();
+            JsonObject obj = new JsonObject();
+            obj.addProperty("estatus", "error");
+            obj.addProperty("mensaje", "Error interno: " + e.getMessage());
+            out.print(obj.toString());
+            out.flush();
+            return;
+        }
 	}
 }

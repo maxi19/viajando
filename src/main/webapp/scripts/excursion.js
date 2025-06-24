@@ -2,7 +2,7 @@
 
 
 class Excursion {
-	constructor(id, nombre, descripcion, fecha_inicio, fecha_fin, precio, destino, estrellas) {
+	constructor(id, nombre, descripcion, fecha_inicio, fecha_fin, precio, destino, estrellas, imagen) {
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -11,6 +11,8 @@ class Excursion {
 		this.precio = precio;
 		this.destino = destino;
 		this.estrellas = estrellas;
+		this.imagen = imagen;
+
 	}
 
 	renderizar() {
@@ -20,6 +22,7 @@ class Excursion {
 					  */
 		return `
 			<div class="card m-2" style="width: 18rem;">
+			<img src="${contextPath}/images/${this.imagen}"  class="card-img-top" alt="Imagen Excursion" style="width: 100%; height: 250px; object-fit: cover;>
 				<div class="card-body">	
 					<h5 class="card-title">Excursion N° ${this.id}</h5>
 					<p class="card-text"><strong>ID:</strong> ${this.nombre}</p>
@@ -43,11 +46,11 @@ function cargarListadoExcursion() {
 		method: "GET",
 		cache: false,
 		success: function(response) {
-			   // console.log(response);  // Revisar qué trae el campo estado
+			   	 console.log(response);  // Revisar qué trae el campo estado
 			$('#contenedorExcursion').empty();
 
 			response.forEach(m => {
-				const excursion = new Excursion(m.id, m.nombre, m.descripcion, m.fecha_inicio, m.fecha_fin, m.precio, m.destino, m.estrellas)
+				const excursion = new Excursion(m.id, m.nombre, m.descripcion, m.fecha_inicio, m.fecha_fin, m.precio, m.destino, m.estrellas, m.imagen)
 				
 				$('#contenedorExcursion').append(excursion.renderizar());
 			});

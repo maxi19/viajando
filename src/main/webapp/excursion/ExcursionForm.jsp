@@ -31,7 +31,7 @@
 </head>
 <body>
 
-	<form class="form" id="formExcursion">
+<form class="form" id="formExcursion" method="post" enctype="multipart/form-data">
 		<div class="form-group">
 			<label for="nombre">Nombre:</label>
 			<input type="text" class="form-control" id="nombre" name="nombre" required placeholder="Ingrese el nombre de la excursion">
@@ -65,6 +65,11 @@
 		<div class="form-group">
 			<label for="estrellas">Estrellas:</label>
 			<input type="number" step="0.1" class="form-control" id="estrellas" name="estrellas" required placeholder="Ingrese las estrellas">
+		</div>
+		
+		<div class="form-group">
+			<label for="imagen">Imagen:</label>
+			<input type="file" class="form-control" id="imagen" name="imagen" required placeholder="Ingrese la imagen">
 		</div>
 
 		<button type="submit" class="btn btn-primary" id="btn-confirmar">Submit</button>

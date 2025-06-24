@@ -20,12 +20,16 @@ public class ExcursionServiceImp implements ExcursionService{
 		return excursionDao.findById(id);
 	}
 
-	@Override
-	public void save(String nombre, String descripcion, LocalDate fecha_inicio, LocalDate fecha_fin, int precio,
-			String destino, double estrellas) throws Exception {
-		excursionDao.save(nombre, descripcion, fecha_inicio, fecha_fin, precio, destino, estrellas);
-		
-	}
+    @Override
+    public int saveAndReturnId(String nombre, String descripcion, LocalDate fechaInicio, LocalDate fechaFin,
+                               int precio, String destino, double estrellas) throws Exception {
+        return excursionDao.saveAndReturnId(nombre, descripcion, fechaInicio, fechaFin, precio, destino, estrellas);
+    }
+
+    @Override
+    public void updateImage(int id, String nombreImagen) throws Exception {
+        excursionDao.updateImage(id, nombreImagen);
+    }
 	
 	
 	@Override
