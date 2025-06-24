@@ -1,9 +1,11 @@
 package com.viajando.dao.excursion;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +13,12 @@ import java.util.List;
 import com.viajando.config.Conexion;
 import com.viajando.domain.Excursion;
 import com.viajando.exception.ErrorException;
-import com.viajando.domain.Excursion;
 
 public class ExcursionDaoImp implements ExcursionDao {
 
 	private Conexion conexion = Conexion.getInstance();
 
-	private static final String queryConsultarExcursion = "SELECT id, nombre, descripcion, fecha_inicio, fecha_fin, precio, destino, estrellas, imagen FROM excursion where id=?";
+	private static final String queryConsultarExcursion = "SELECT id, nombre, descripcion, fecha_inicio, fecha_fin, precio, destino_id, estrellas, imagen FROM excursion where id=?";
 
 	private static final String queryAddExcursion = "INSERT INTO excursion (nombre, descripcion, fecha_inicio, fecha_fin, precio, destino, estrellas) VALUES (?,?,?,?,?,?,?)";
 

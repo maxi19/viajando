@@ -25,13 +25,13 @@ class Excursion {
 			<img src="${contextPath}/images/${this.imagen}"  class="card-img-top" alt="Imagen Excursion" style="width: 100%; height: 250px; object-fit: cover;>
 				<div class="card-body">	
 					<h5 class="card-title">Excursion N° ${this.id}</h5>
-					<p class="card-text"><strong>ID:</strong> ${this.nombre}</p>
-					<p class="card-text"><strong>Estado:</strong> ${this.descripcion}</p>
-					<p class="card-text"><strong>Estado:</strong> ${this.fecha_inicio.day} /${this.fecha_inicio.month} / ${this.fecha_inicio.year}</p>
-					<p class="card-text"><strong>Estado:</strong> ${this.fecha_fin}</p>
-					<p class="card-text"><strong>Estado:</strong> ${this.precio}</p>
-					<p class="card-text"><strong>Estado:</strong> ${this.destino}</p>
-					<p class="card-text"><strong>Estado:</strong> ${this.estrellas}</p>
+					<p class="card-text"><strong>Nombre:</strong> ${this.nombre}</p>
+					<p class="card-text"><strong>Descripcion:</strong> ${this.descripcion}</p>
+					<p class="card-text"><strong>Fecha de Inicio:</strong> ${this.fecha_inicio.day} /${this.fecha_inicio.month} / ${this.fecha_inicio.year}</p>
+					<p class="card-text"><strong>Fecha de Finalizacion:</strong> ${this.fecha_fin}</p>
+					<p class="card-text"><strong>Precio:</strong> ${this.precio}</p>
+					<p class="card-text"><strong>Destino:</strong> ${this.destino}</p>
+					<p class="card-text"><strong>Estrellas:</strong> ${this.estrellas}</p>
 					<button class="btn btn-danger" data-id="${this.id}%" onClick="myFunction(this)">eliminar</button>
 					   </div>
 			</div>

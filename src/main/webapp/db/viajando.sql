@@ -1,78 +1,109 @@
--- phpMyAdmin SQL Dump
--- version 4.9.0.1
--- https://www.phpmyadmin.net/
+-- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 12-06-2025 a las 18:39:13
--- Versión del servidor: 10.4.6-MariaDB
--- Versión de PHP: 7.2.22
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
+-- Host: localhost    Database: viajando
+-- ------------------------------------------------------
+-- Server version	5.5.5-10.4.32-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Base de datos: `viajando`
+-- Table structure for table `destino`
 --
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `destinos`
---
-
-CREATE TABLE `destinos` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `destino`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `destino` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) DEFAULT NULL,
-  `pais` varchar(50) DEFAULT NULL,
-  `precio` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+  `pais` varchar(100) DEFAULT NULL,
+  `precio` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `excursion`
+-- Dumping data for table `destino`
 --
 
+LOCK TABLES `destino` WRITE;
+/*!40000 ALTER TABLE `destino` DISABLE KEYS */;
+/*!40000 ALTER TABLE `destino` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `excursion`
+--
+
+DROP TABLE IF EXISTS `excursion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `excursion` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) DEFAULT NULL,
   `descripcion` varchar(100) DEFAULT NULL,
   `fecha_inicio` date DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL,
   `precio` int(11) DEFAULT NULL,
   `destino` varchar(100) DEFAULT NULL,
-  `estrellas` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+  `estrellas` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `hotel`
+-- Dumping data for table `excursion`
 --
 
+LOCK TABLES `excursion` WRITE;
+/*!40000 ALTER TABLE `excursion` DISABLE KEYS */;
+/*!40000 ALTER TABLE `excursion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hotel`
+--
+
+DROP TABLE IF EXISTS `hotel`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `hotel` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `destino` varchar(100) DEFAULT NULL,
   `estrellas` int(11) DEFAULT NULL,
-  `precio` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+  `precio` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `hotel_destino_FK` FOREIGN KEY (`id`) REFERENCES `destino` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `paquete`
+-- Dumping data for table `hotel`
 --
 
+LOCK TABLES `hotel` WRITE;
+/*!40000 ALTER TABLE `hotel` DISABLE KEYS */;
+/*!40000 ALTER TABLE `hotel` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `paquete`
+--
+
+DROP TABLE IF EXISTS `paquete`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `paquete` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) DEFAULT NULL,
   `descripcion` varchar(100) DEFAULT NULL,
   `fecha_inicio` date DEFAULT NULL,
@@ -80,159 +111,115 @@ CREATE TABLE `paquete` (
   `precio` int(11) DEFAULT NULL,
   `destino` varchar(100) DEFAULT NULL,
   `estrellas` int(11) DEFAULT NULL,
-  `hotel_id` int(11) DEFAULT NULL,
-  `vuelo_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `reservas`
---
-
-CREATE TABLE `reservas` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `apellido` varchar(100) NOT NULL,
-  `clave` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+  `hora_ida` time DEFAULT NULL,
+  `hora_vuelta` time DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `paquete_destino_FK` FOREIGN KEY (`id`) REFERENCES `destino` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Dumping data for table `paquete`
 --
 
+LOCK TABLES `paquete` WRITE;
+/*!40000 ALTER TABLE `paquete` DISABLE KEYS */;
+/*!40000 ALTER TABLE `paquete` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `reserva`
+--
+
+DROP TABLE IF EXISTS `reserva`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `reserva` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) DEFAULT NULL,
+  `apellido` varchar(100) DEFAULT NULL,
+  `clave` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reserva`
+--
+
+LOCK TABLES `reserva` WRITE;
+/*!40000 ALTER TABLE `reserva` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reserva` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuario` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) DEFAULT NULL,
   `apellido` varchar(100) DEFAULT NULL,
   `usuario` varchar(100) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
-  `correo` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+  `correo` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `vuelo`
+-- Dumping data for table `usuario`
 --
 
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `vuelo`
+--
+
+DROP TABLE IF EXISTS `vuelo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `vuelo` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `destino` varchar(100) DEFAULT NULL,
   `ida` date DEFAULT NULL,
   `vuelta` date DEFAULT NULL,
   `precio` int(11) DEFAULT NULL,
   `estrellas` int(11) DEFAULT NULL,
-  `hora_ida` time DEFAULT NULL,
-  `hora_vuelta` time DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `hora_ida` date DEFAULT NULL,
+  `hora_vuelta` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `vuelo_destino_FK` FOREIGN KEY (`id`) REFERENCES `destino` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Índices para tablas volcadas
+-- Dumping data for table `vuelo`
 --
 
---
--- Indices de la tabla `destinos`
---
-ALTER TABLE `destinos`
-  ADD PRIMARY KEY (`id`);
+LOCK TABLES `vuelo` WRITE;
+/*!40000 ALTER TABLE `vuelo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vuelo` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Indices de la tabla `excursion`
+-- Dumping routines for database 'viajando'
 --
-ALTER TABLE `excursion`
-  ADD PRIMARY KEY (`id`);
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
---
--- Indices de la tabla `hotel`
---
-ALTER TABLE `hotel`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `paquete`
---
-ALTER TABLE `paquete`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `reservas`
---
-ALTER TABLE `reservas`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `vuelo`
---
-ALTER TABLE `vuelo`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `destinos`
---
-ALTER TABLE `destinos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `excursion`
---
-ALTER TABLE `excursion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `hotel`
---
-ALTER TABLE `hotel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `paquete`
---
-ALTER TABLE `paquete`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `reservas`
---
-ALTER TABLE `reservas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `vuelo`
---
-ALTER TABLE `vuelo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `paquete`
---
-ALTER TABLE `paquete`
-  ADD CONSTRAINT `paquete_hotel_FK` FOREIGN KEY (`id`) REFERENCES `hotel` (`id`),
-  ADD CONSTRAINT `paquete_vuelo_FK` FOREIGN KEY (`id`) REFERENCES `vuelo` (`id`);
-COMMIT;
-
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2025-06-20 23:41:02

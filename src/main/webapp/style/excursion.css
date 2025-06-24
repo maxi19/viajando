@@ -1,0 +1,63 @@
+/* Estilo general del contenedor de excursiones */
+#contenedorExcursion {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+/* Tarjeta individual */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Imagen de la excursión */
+.card-img-top {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    object-fit: cover;
+}
+
+/* Título */
+.card-title {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+/* Texto dentro de la tarjeta */
+.card-text {
+	padding: 5px;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* Botón de eliminar */
+.btn-danger {
+	padding: 4px 10px;
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+    transition: background-color 0.2s ease;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+/* Responsive para pantallas más chicas */
+@media (max-width: 768px) {
+    .card {
+        width: 100% !important;
+        margin: 10px 0;
+    }
+}

@@ -4,13 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.time.LocalDate;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -52,7 +48,7 @@ public class CrearExcursionController extends HttpServlet {
         try {
             // 1. Guardar excursion sin imagen para obtener el ID autogenerado
             int idGenerado = excursionService.saveAndReturnId(nombre, descripcion, fechaInicio, fechaFin, precioInt, destino, estrellasDouble);
-
+            
             // 2. Definir nombre de imagen: img<ID>.jpg
             String nombreOriginal = Paths.get(imagenPart.getSubmittedFileName()).getFileName().toString();
             String extension = nombreOriginal.substring(nombreOriginal.lastIndexOf(".") + 1);
