@@ -21,7 +21,7 @@ class Excursion {
 					  : `<button class="btn btn-warning abrir-reserva-btn" data-id="${this.numero}">Agregar Pedido</button>`;
 					  */
 		return `
-			<div class="card m-2" style="width: 18rem;">
+			<div class="card m-2" style="width: 18rem , height: 15rem; ">
 			<img src="${contextPath}/images/${this.imagen}"  class="card-img-top" alt="Imagen Excursion" style="width: 100%; height: 250px; object-fit: cover;>
 				<div class="card-body">	
 					<h5 class="card-title">Excursion N° ${this.id}</h5>
@@ -32,11 +32,15 @@ class Excursion {
 					<p class="card-text"><strong>Estado:</strong> ${this.precio}</p>
 					<p class="card-text"><strong>Estado:</strong> ${this.destino}</p>
 					<p class="card-text"><strong>Estado:</strong> ${this.estrellas}</p>
-					<button class="btn btn-danger" data-id="${this.id}%" onClick="myFunction(this)">eliminar</button>
+					<button class="btn btn-danger" data-id="${this.id}" onClick="myFunction(this)">Eliminar</button>
+					<button class="btn btn-danger boton-carrito" data-id="${this.id}" data-type='EXCURSION' ">Carrito</button>
 					   </div>
 			</div>
 		`;
 	}
+
+	
+	
 }
 
 function cargarListadoExcursion() {
@@ -53,8 +57,35 @@ function cargarListadoExcursion() {
 				const excursion = new Excursion(m.id, m.nombre, m.descripcion, m.fecha_inicio, m.fecha_fin, m.precio, m.destino, m.estrellas, m.imagen)
 				
 				$('#contenedorExcursion').append(excursion.renderizar());
+
+		
+
 			});
 		   	
+			$('.boton-carrito').click(function() {
+			              const id = $(this).data("id");
+						  const type = $(this).data("type");
+			            console.log(id);
+						console.log(type);
+            
+						$.ajax({
+							type: "get",
+							url: contextPath + '/carrito.do',
+							data: {
+								id : id,
+								type : type
+							},
+							dataType: "json",
+							success: function (response) {
+								
+							}
+						});
+
+
+			});
+	
+
+
 			/*   $('.reservar-btn').click(function() {
 							 const mesaId = $(this).data("id");
 							 reservarMesa(mesaId);
@@ -78,5 +109,11 @@ function cargarListadoExcursion() {
 
 
 $(document).ready(function() {
+
 	cargarListadoExcursion();
+
+
+
+
 });
+

@@ -2,7 +2,7 @@ package com.viajando.domain;
 
 import java.time.LocalDate;
 
-public class Excursion {
+public class Excursion implements Reservable {
 
 	private int id;
 	private String nombre;
@@ -98,6 +98,24 @@ public class Excursion {
 
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
+	}
+
+	@Override
+	public String dameTipò() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int dameId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int damePrecio() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	

@@ -3,7 +3,7 @@ package com.viajando.domain;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Vuelo extends GenericEntity{
+public class Vuelo extends GenericEntity implements Reservable{
 
 	private int id;
 	private String destino;
@@ -48,5 +48,23 @@ public class Vuelo extends GenericEntity{
 
 	public LocalTime getHoraVuelta() { return horaVuelta; }
 	public void setHoraVuelta(LocalTime horaVuelta) { this.horaVuelta = horaVuelta; }
+
+	@Override
+	public String dameTipò() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int dameId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int damePrecio() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }

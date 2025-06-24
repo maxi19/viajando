@@ -17,7 +17,6 @@
 <script src="<%=request.getContextPath()%>/assets/customjs/viajandoScripts.js"></script>
 
 
-<script src="<%=request.getContextPath()%>/scripts/excursion.js"></script>
 
 
 <script type="text/javascript">
@@ -222,13 +221,17 @@
 			<div class="row py-lg-5">
 				<div class="col-lg-6 col-md-8 mx-auto">
 					<h1 class="fw-light">Album example</h1>
+					<button type="button" class="btn btn-primary" id="btn-verCarrito">
+  						Ver carrito <span class="badge text-bg-secondary">4</span>
+					</button>
 					<p class="lead text-body-secondary">Something short and leading
 						about the collection below—its contents, the creator, etc. Make
 						it short and sweet, but not too short so folks don’t simply skip
 						over it entirely.</p>
 					<p>
-						<a href="#" class="btn btn-primary my-2">Main call to action</a> <a
-							href="#" class="btn btn-secondary my-2">Secondary action</a>
+
+						<a href="#" class="btn btn-primary my-2" id="btn-init-paquete">Arma tu paquete</a> 
+						<a href="#" class="btn btn-secondary my-2">Secondary action</a>
 					</p>
 				</div>
 				<div class="card-group homeitem mt-4" id="contenedorExcursion"></div> 
@@ -463,5 +466,7 @@
 	</footer>
 	<script src="<%=request.getContextPath()%>/assets/dist/js/bootstrap.bundle.min.js"
 		class="astro-vvvwv3sm"></script>
+		<script src="<%=request.getContextPath()%>/scripts/excursion.js"></script>
+
 </body>
 </html>

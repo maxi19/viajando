@@ -18,7 +18,7 @@ public class ExcursionDaoImp implements ExcursionDao {
 
 	private Conexion conexion = Conexion.getInstance();
 
-	private static final String queryConsultarExcursion = "SELECT id, nombre, descripcion, fecha_inicio, fecha_fin, precio, destino_id, estrellas, imagen FROM excursion where id=?";
+	private static final String queryConsultarExcursion = "SELECT id, nombre, descripcion, fecha_inicio, fecha_fin, precio, estrellas, imagen FROM excursion where id=?";
 
 	private static final String queryAddExcursion = "INSERT INTO excursion (nombre, descripcion, fecha_inicio, fecha_fin, precio, destino, estrellas) VALUES (?,?,?,?,?,?,?)";
 
@@ -64,7 +64,7 @@ public class ExcursionDaoImp implements ExcursionDao {
 			rs = st.executeQuery();
 			if (rs.next()) {
 				return new Excursion(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4).toLocalDate(),
-						rs.getDate(5).toLocalDate(), rs.getInt(6), rs.getString(7), rs.getDouble(8), rs.getString(9));
+						rs.getDate(5).toLocalDate(), rs.getInt(6), rs.getString(7), 1, "");
 			}
 
 		} catch (Exception e) {

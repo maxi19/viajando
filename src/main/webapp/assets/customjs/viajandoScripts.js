@@ -68,6 +68,27 @@ $(function() {
     $(document).ready(function () {
         login();
         validarSession();
+        
     });
+
+    $('#btn-init-paquete').click(function (e) {
+        Swal.fire({
+        title: "Sweet!",
+        text: "Seleccione los item que desea agregar a su paquete",
+        imageUrl: "https://unsplash.it/400/200",
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: "Quiero un paquete"
+        }).then((result) => {
+              if (result.isConfirmed) {
+              
+
+
+
+            }
+
+        })
+    });
+
 
 });
