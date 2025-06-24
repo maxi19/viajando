@@ -22,7 +22,7 @@ public class ExcursionServiceImp implements ExcursionService{
 
     @Override
     public int saveAndReturnId(String nombre, String descripcion, LocalDate fechaInicio, LocalDate fechaFin,
-                               int precio, String destino, double estrellas) throws Exception {
+                               int precio, int destino, double estrellas) throws Exception {
         return excursionDao.saveAndReturnId(nombre, descripcion, fechaInicio, fechaFin, precio, destino, estrellas);
     }
 
