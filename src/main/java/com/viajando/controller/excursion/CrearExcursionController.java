@@ -38,11 +38,12 @@ public class CrearExcursionController extends HttpServlet {
 		String fecha_inicioString = req.getParameter("fecha_inicio");
 		String fecha_finString = req.getParameter("fecha_fin");
 		String precioString = req.getParameter("precio");
-		String destino = req.getParameter("destino");
+		String destinoString = req.getParameter("destino");
 		String estrellasString = req.getParameter("estrellas");
 
 		LocalDate fechaInicio = LocalDate.parse(fecha_inicioString);
 		LocalDate fechaFin = LocalDate.parse(fecha_finString);
+		int destinoInt = Integer.parseInt(destinoString);
 		int precioInt = Integer.parseInt(precioString);
 		double estrellasDouble = Double.parseDouble(estrellasString);
 
@@ -51,8 +52,8 @@ public class CrearExcursionController extends HttpServlet {
         
         try {
             // 1. Guardar excursion sin imagen para obtener el ID autogenerado
-            int idGenerado = excursionService.saveAndReturnId(nombre, descripcion, fechaInicio, fechaFin, precioInt, destino, estrellasDouble);
-
+            int idGenerado = excursionService.saveAndReturnId(nombre, descripcion, fechaInicio, fechaFin, precioInt, destinoInt, estrellasDouble);
+            
             // 2. Definir nombre de imagen: img<ID>.jpg
             String nombreOriginal = Paths.get(imagenPart.getSubmittedFileName()).getFileName().toString();
             String extension = nombreOriginal.substring(nombreOriginal.lastIndexOf(".") + 1);
