@@ -19,7 +19,7 @@ public class ExcursionDaoImp implements ExcursionDao {
 
 	private Conexion conexion = Conexion.getInstance();
 
-	private static final String queryConsultarExcursion = "SELECT id, nombre, descripcion, fecha_inicio, fecha_fin, precio, destino, estrellas, imagen FROM excursion where id=?";
+	private static final String queryConsultarExcursion = "SELECT id, nombre, descripcion, fecha_inicio, fecha_fin, precio, destino_id, estrellas, imagen FROM excursion where id=?";
 
 	private static final String queryAddExcursion = "INSERT INTO excursion (nombre, descripcion, fecha_inicio, fecha_fin, precio, destino, estrellas) VALUES (?,?,?,?,?,?,?)";
 
@@ -27,7 +27,7 @@ public class ExcursionDaoImp implements ExcursionDao {
 
 	private static final String queryDeleteExcursion = "DELETE FROM excursion WHERE id=?";
 
-	private static final String queryList = "SELECT id, nombre, descripcion, fecha_inicio, fecha_fin, precio, destino, estrellas, imagen FROM excursion";
+	private static final String queryList = "SELECT id, nombre, descripcion, fecha_inicio, fecha_fin, precio, destino_id, estrellas, imagen FROM excursion";
 
 	@Override
 	public List<Excursion> list() throws Exception {
@@ -42,7 +42,7 @@ public class ExcursionDaoImp implements ExcursionDao {
 
 			while (rs.next()) {
 				excursion.add(new Excursion(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4).toLocalDate(),
-						rs.getDate(5).toLocalDate(), rs.getInt(6), rs.getString(7), rs.getDouble(8), rs.getString(9)));
+						rs.getDate(5).toLocalDate(), rs.getInt(6), rs.getInt(7), rs.getDouble(8), rs.getString(9)));
 			}
 
 		} catch (Exception e) {
@@ -65,7 +65,7 @@ public class ExcursionDaoImp implements ExcursionDao {
 			rs = st.executeQuery();
 			if (rs.next()) {
 				return new Excursion(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4).toLocalDate(),
-						rs.getDate(5).toLocalDate(), rs.getInt(6), rs.getString(7), rs.getDouble(8), rs.getString(9));
+						rs.getDate(5).toLocalDate(), rs.getInt(6), rs.getInt(7), rs.getDouble(8), rs.getString(9));
 			}
 
 		} catch (Exception e) {
@@ -86,7 +86,7 @@ public class ExcursionDaoImp implements ExcursionDao {
 	
     @Override
     public int saveAndReturnId(String nombre, String descripcion, LocalDate fecha_inicio, LocalDate fecha_fin,
-                               int precio, String destino, double estrellas) throws Exception {
+                               int precio, int destino, double estrellas) throws Exception {
         PreparedStatement st = null;
         ResultSet rs = null;
         int idGenerado = -1;
@@ -98,7 +98,7 @@ public class ExcursionDaoImp implements ExcursionDao {
             st.setDate(3, java.sql.Date.valueOf(fecha_inicio));
             st.setDate(4, java.sql.Date.valueOf(fecha_fin));
             st.setInt(5, precio);
-            st.setString(6, destino);
+            st.setInt(6, destino);
             st.setDouble(7, estrellas);
             st.executeUpdate();
 
