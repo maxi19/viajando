@@ -1,9 +1,7 @@
-DROP DATABASE IF EXISTS viajando;
 CREATE DATABASE viajando;
 USE viajando;
 
 
-select * from destinos;
 -- Tabla Destinos
 CREATE TABLE destinos (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -28,7 +26,6 @@ CREATE TABLE avion (
   capacidad INT
   ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-drop table vuelo;
 -- Tabla Vuelo
 CREATE TABLE vuelo (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -49,16 +46,12 @@ CREATE TABLE hotel (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(100),
   destino_id INT,
-  destino_value varchar(100),
   estrellas DOUBLE,
   precio INT,
   imagen VARCHAR(255)
   ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-drop table excursion;
-select * from excursion;
 
--- Tabla Excursion
 -- Tabla Excursion
 CREATE TABLE excursion (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -116,8 +109,6 @@ INSERT INTO paquete (
   'bariloche.jpg'
 );
 
-select* from reservas;
-
 -- Tabla Usuario
 CREATE TABLE usuario (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -128,7 +119,6 @@ CREATE TABLE usuario (
   correo VARCHAR(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-select * from reservas;
 
 -- Tabla Reservas
 CREATE TABLE reservas (
@@ -185,15 +175,12 @@ INSERT INTO excursion (nombre, descripcion, fecha_inicio, fecha_fin, precio, des
 ('Museo del Prado', 'Visita guiada', '2025-07-03', '2025-07-03', 60, 1, 4.5, 'prado.png'),
 ('City Tour Buenos Aires', 'City tour', '2025-08-11', '2025-08-11', 40, 2, 4.2, 'tour_baires.png');
 
-INSERT INTO paquete (nombre, descripcion, fecha_inicio, fecha_fin, precio, destino_id, estrellas, hotel_id, vuelo_id, excursion_id, personas, imagen) VALUES
-('Escapada a Madrid', 'Vuelo + Hotel + Museo', '2025-07-01', '2025-07-15', 1960, 1, 4, 1, 1, 1, 2, 'paquete_madrid.png'),
-('Buenos Aires Express', 'Vuelo + Hotel + City Tour', '2025-08-10', '2025-08-20', 1440, 2, 3, 2, 2, 2, 1, 'paquete_baires.png');
+INSERT INTO paquete (nombre, descripcion, hotel_id, vuelo_id, excursion_id, estrellas, personas, precio, imagen) VALUES
+('Escapada a Madrid', 'Vuelo + Hotel + Museo', 1, 4, 1, 4.5, 2, 1980, 'paquete_madrid.png'),
+('Buenos Aires Express', 'Vuelo + Hotel + City Tour', 2, 3.6, 2, 2, 2, 45671, 'paquete_baires.png');
 
 INSERT INTO usuario (nombre, apellido, usuario, password, correo) VALUES
 ('Miguel', 'Figueredo', 'miguel', '123456', 'miguel@gmail.com');
-
-INSERT INTO reservas (usuario_id, nombre, apellido, DNI, id_vuelo, asiento, fecha_inicio, fecha_fin, precio) VALUES
-(1, 'Miguel', 'Figueredo', 12345678, 1, 12, '2025-07-01', '2025-07-15', 1200);
 
 INSERT INTO butacas (asiento, descripcion, avion_id, estado) VALUES
 (1, 'Ventana', 1, 'disponible'),
