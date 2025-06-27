@@ -1,45 +1,59 @@
-$(function() { 
+$(function () {
+  // Cargar destinos al iniciar
+  $.ajax({
+    url: contextPath + '/destinos', // Asegurate que esta URL devuelva JSON
+    method: 'GET',
+    dataType: 'json',
+    success: function (destinos) {
+      const $select = $('#cmbDestino');
+      $.each(destinos, function (i, destino) {
+        $select.append(`<option value="${destino.id}">${destino.nombre}</option>`);
+      });
+    },
+    error: function () {
+      Swal.fire({
+        title: 'Error',
+        text: 'No se pudieron cargar los destinos',
+        icon: 'error'
+      });
+    }
+  });
 
-	$("#btn-confirmar").click(function(e) {
-		e.preventDefault();
-		var form = $('#formExcursion')[0]; // agarrás el form real
-		var data = new FormData(form); // armás el objeto FormData
+  // Enviar formulario
+  $("#btn-confirmar").click(function(e) {
+    e.preventDefault();
+    var form = $('#formExcursion')[0];
+    var data = new FormData(form);
 
+    $.ajax({
+      url: contextPath + '/crearExcursion',
+      type: 'POST',
+      enctype: 'multipart/form-data',
+      data: data,
+      processData: false,
+      contentType: false,
+      cache: false,
+      success: function(data) {
+        Swal.fire({
+          position: 'center',
+          title: 'Guardado con exito!',
+          text: 'La excursión se ha creado exitosamente',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500
+        });
 
-		$.ajax({
-			url: contextPath + '/crearExcursion',
-			type: 'POST',
-			enctype: 'multipart/form-data',
-			data: data,
-			processData: false, // NO procesar datos
-			contentType: false, // NO poner contentType automático
-			cache: false,
-			success: function(data) {
-				Swal.fire({
-					position: 'center', // este es el valor por defecto
-					title: 'Guardado con exito!',
-					text: 'La excursion se ha creado exitosamente',
-					icon: 'success',
-					showConfirmButton: false,
-					timer: 1500
-				});
-
-				// Redirigir después del mensaje (espera 1.5 segundos)
-				setTimeout(function() {
-					window.location.href = contextPath + '/LeerDatosExcursion';
-				}, 1500);
-			},
-			error: function(xhr, status, error) {
-				Swal.fire({
-					title: 'Error',
-					text: 'No se pudo crear la excursion',
-					icon: 'error'
-				});
-			}
-
-		});
-	});
+        setTimeout(function() {
+          window.location.href = contextPath + '/LeerDatosExcursion';
+        }, 1500);
+      },
+      error: function(xhr, status, error) {
+        Swal.fire({
+          title: 'Error',
+          text: 'No se pudo crear la excursión',
+          icon: 'error'
+        });
+      }
+    });
+  });
 });
-/**
- * 
- */
