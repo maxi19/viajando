@@ -1,5 +1,7 @@
 package com.viajando.service.vuelo;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -10,26 +12,25 @@ import com.viajando.domain.Vuelo;
 public class VueloServiceImp implements VueloService {
 	private VueloDao vueloDao = new VueloDaoImp();
 
-	@Override
-	public List<Vuelo> listar() throws Exception {
-		return vueloDao.listar();
+	private VueloDaoImp dao = new VueloDaoImp();
+
+	public List<Vuelo> list() throws Exception {
+		return dao.list();
 	}
 
-	@Override
-	public Vuelo buscarPorId(int id) throws Exception {
-		return vueloDao.buscarPorId(id);
+	public Vuelo findById(int id) throws Exception {
+		return dao.findById(id);
 	}
 
-
-    @Override
-	public void guardar(String destino, LocalDate ida, LocalDate vuelta, int precio, double estrellas,LocalTime horaIda, LocalTime horaVuelta) throws Exception {
-    	vueloDao.guardar(destino, ida, vuelta, precio, estrellas, horaIda, horaVuelta);
-	}
-    
-	@Override
-	public void eliminar(int id) throws Exception {
-		vueloDao.eliminar(id);
+	public int saveAndReturnId(Vuelo vuelo) throws Exception {
+		return dao.saveAndReturnId(vuelo);
 	}
 
-	
+	public void updateImage(int id, String imagen) throws Exception {
+		dao.updateImage(id, imagen);
+	}
+
+	public void delete(int id) throws Exception {
+		dao.delete(id);
+	}
 }

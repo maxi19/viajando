@@ -3,68 +3,149 @@ package com.viajando.domain;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Vuelo extends GenericEntity implements Reservable{
-
+public class Vuelo implements Reservable {
+	
 	private int id;
-	private String destino;
-	private LocalDate ida;
-	private LocalDate vuelta;
+	private String nombre;
+	private Destino destino;
+	private LocalDate fecha_inicio;
+	private LocalDate fecha_fin;
 	private int precio;
 	private double estrellas;
-	private LocalTime horaIda;
-	private LocalTime horaVuelta;
+	private LocalTime hora_ida;
+	private LocalTime hora_vuelta;
+	private int id_avion;
+	private String imagen;
+	private int cantidadPersonas = 1;
 
-	public Vuelo(int id, String destino, LocalDate ida, LocalDate vuelta, int precio, double estrellas, LocalTime horaIda, LocalTime horaVuelta) {
-		super(id);
+	public Vuelo(int id, String nombre, Destino destino, LocalDate fecha_inicio, LocalDate fecha_fin, int precio,
+	             double estrellas, LocalTime hora_ida, LocalTime hora_vuelta, int id_avion, String imagen) {
+		this.id = id;
+		this.nombre = nombre;
 		this.destino = destino;
-		this.ida = ida;
-		this.vuelta = vuelta;
+		this.fecha_inicio = fecha_inicio;
+		this.fecha_fin = fecha_fin;
 		this.precio = precio;
 		this.estrellas = estrellas;
-		this.horaIda = horaIda;
-		this.horaVuelta = horaVuelta;
+		this.hora_ida = hora_ida;
+		this.hora_vuelta = hora_vuelta;
+		this.id_avion = id_avion;
+		this.imagen = imagen;
 	}
 
-	public int getId() { return id; }
-	public void setId(int id) { this.id = id; }
+	// Getters y Setters
+	// (puedo pasártelos listos si querés)
 
-	public String getDestino() { return destino; }
-	public void setDestino(String destino) { this.destino = destino; }
+	public int getCantidadPersonas() {
+		return cantidadPersonas;
+	}
 
-	public LocalDate getIda() { return ida; }
-	public void setIda(LocalDate ida) { this.ida = ida; }
-
-	public LocalDate getVuelta() { return vuelta; }
-	public void setVuelta(LocalDate vuelta) { this.vuelta = vuelta; }
-
-	public int getPrecio() { return precio; }
-	public void setPrecio(int precio) { this.precio = precio; }
-
-	public double getEstrellas() { return estrellas; }
-	public void setEstrellas(double estrellas) { this.estrellas = estrellas; }
-
-	public LocalTime getHoraIda() { return horaIda; }
-	public void setHoraIda(LocalTime horaIda) { this.horaIda = horaIda; }
-
-	public LocalTime getHoraVuelta() { return horaVuelta; }
-	public void setHoraVuelta(LocalTime horaVuelta) { this.horaVuelta = horaVuelta; }
+	public void setCantidadPersonas(int cantidadPersonas) {
+		this.cantidadPersonas = cantidadPersonas;
+	}
 
 	@Override
 	public String dameTipò() {
-		// TODO Auto-generated method stub
-		return null;
+		return "vuelo";
 	}
 
 	@Override
 	public int dameId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return id;
 	}
 
 	@Override
 	public int damePrecio() {
-		// TODO Auto-generated method stub
-		return 0;
+		return precio;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public Destino getDestino() {
+		return destino;
+	}
+
+	public void setDestino(Destino destino) {
+		this.destino = destino;
+	}
+
+	public LocalDate getFecha_inicio() {
+		return fecha_inicio;
+	}
+
+	public void setFecha_inicio(LocalDate fecha_inicio) {
+		this.fecha_inicio = fecha_inicio;
+	}
+
+	public LocalDate getFecha_fin() {
+		return fecha_fin;
+	}
+
+	public void setFecha_fin(LocalDate fecha_fin) {
+		this.fecha_fin = fecha_fin;
+	}
+
+	public int getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(int precio) {
+		this.precio = precio;
+	}
+
+	public double getEstrellas() {
+		return estrellas;
+	}
+
+	public void setEstrellas(double estrellas) {
+		this.estrellas = estrellas;
+	}
+
+	public LocalTime getHora_ida() {
+		return hora_ida;
+	}
+
+	public void setHora_ida(LocalTime hora_ida) {
+		this.hora_ida = hora_ida;
+	}
+
+	public LocalTime getHora_vuelta() {
+		return hora_vuelta;
+	}
+
+	public void setHora_vuelta(LocalTime hora_vuelta) {
+		this.hora_vuelta = hora_vuelta;
+	}
+
+	public int getId_avion() {
+		return id_avion;
+	}
+
+	public void setId_avion(int id_avion) {
+		this.id_avion = id_avion;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+	
+	
 }

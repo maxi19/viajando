@@ -18,6 +18,7 @@
 <script src="<%=request.getContextPath()%>/assets/customjs/viajandoScripts.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/bootstrap/css/bootstrap.min.css"></script>
 <script src="<%=request.getContextPath()%>/scripts/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<%=request.getContextPath()%>/scripts/botonCarrito.js"></script>
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/style/estilosCarousel.css">
 
@@ -251,6 +252,26 @@
 				</div>
 			</div>
 		</div>
+		
+				<div class="album py-5 bg-body-tertiary">
+			<div class="container">
+				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="contenedorVuelo">
+				
+				<!--  -->
+		
+				</div>
+			</div>
+		</div>
+		
+				<div class="album py-5 bg-body-tertiary">
+			<div class="container">
+				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="contenedorHotel">
+				
+				<!--  -->
+		
+				</div>
+			</div>
+		</div>
 	</main>
 	<footer class="text-body-secondary py-5">
 		<div class="container">
@@ -268,6 +289,9 @@
 	<script src="<%=request.getContextPath()%>/assets/dist/js/bootstrap.bundle.min.js"
 		class="astro-vvvwv3sm"></script>
 		<script src="<%=request.getContextPath()%>/scripts/excursion.js"></script>
+				<script src="<%=request.getContextPath()%>/scripts/hotel.js"></script>
+				<script src="<%=request.getContextPath()%>/scripts/vuelo.js"></script>
+		
 
 
 <!-- CAROUSSEL-->

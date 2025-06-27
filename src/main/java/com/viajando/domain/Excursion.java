@@ -13,6 +13,7 @@ public class Excursion implements Reservable {
 	private Destino destino;
 	private double estrellas;
 	private String imagen;
+	private int cantidadPersonas = 1; // valor por defecto
 	
 	public Excursion(int id, String nombre, String descripcion, LocalDate fecha_inicio, LocalDate fecha_fin, int precio, Destino destino, double estrellas, String imagen) {
 		super();
@@ -115,6 +116,13 @@ public class Excursion implements Reservable {
 	public int damePrecio() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	public int getCantidadPersonas() {
+		return cantidadPersonas;
+	}
+
+	public void setCantidadPersonas(int cantidadPersonas) {
+		this.cantidadPersonas = cantidadPersonas;
 	}
 	
 	

@@ -34,13 +34,16 @@ public class CarritoListarController extends HttpServlet {
 			if (obj instanceof Vuelo) {
 				Vuelo v = (Vuelo) obj;
 				map.put("tipo", "Vuelo");
-				map.put("id", v.getId());
-				map.put("destino", v.getDestino());
+				map.put("nombre", v.getNombre());
+				map.put("fecha_inicio", v.getFecha_inicio());
+				map.put("fecha_inicio", v.getFecha_fin());
 				map.put("precio", v.getPrecio());
+				map.put("imagen", v.getImagen());
+				map.put("estrellas", v.getEstrellas());
+
 			} else if (obj instanceof Excursion) {
 				Excursion e = (Excursion) obj;
 				map.put("tipo", "Excursion");
-				map.put("id", e.getId());
 				map.put("nombre", e.getNombre());
 				map.put("descripcion", e.getDescripcion());
 				map.put("fecha_inicio", e.getFecha_inicio());

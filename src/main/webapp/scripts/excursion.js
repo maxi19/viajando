@@ -31,7 +31,7 @@ class Excursion {
 						<div class="d-flex justify-content-between align-items-center">
 							<div class="btn-group">
 								<button type="button" class="btn btn-sm btn-outline-secondary ver-mas-btn" data-id="${this.id}">Ver más</button>
-								<button class="btn btn-SM btn-outline-secondary boton-carrito" data-id="${this.id}" data-type='EXCURSION' ">Carrito</button>
+								<button class="btn btn-SM btn-outline-secondary boton-carrito-excursion" data-id="${this.id}" data-type='EXCURSION' ">Carrito</button>
 								</div>
 							<small class="text-body-secondary">9 mins</small>
 						</div>
@@ -88,7 +88,7 @@ class Excursion {
 
 				  });
 
-				$('.boton-carrito').click(function () {
+				$('.boton-carrito-excursion').click(function () {
 					const id = $(this).data("id");
 					const type = $(this).data("type");
 

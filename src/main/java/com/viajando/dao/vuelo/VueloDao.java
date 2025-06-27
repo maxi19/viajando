@@ -1,16 +1,20 @@
 package com.viajando.dao.vuelo;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 import com.viajando.domain.Vuelo;
 
 public interface VueloDao {
 	
-	List<Vuelo> listar() throws Exception;
-	Vuelo buscarPorId(int id) throws Exception;
-	void guardar(String destino, LocalDate ida, LocalDate vuelta, int precio, double estrellas, LocalTime horaIda, LocalTime horaVuelta) throws Exception;
-	void eliminar(int id) throws Exception;
-
+	List<Vuelo> list() throws Exception;
+	
+	Vuelo findById(int id) throws Exception;
+	
+	int saveAndReturnId(Vuelo vuelo) throws Exception;
+	
+	void updateImage(int id, String imagen) throws Exception;
+	
+	void delete(int id) throws Exception;
 }

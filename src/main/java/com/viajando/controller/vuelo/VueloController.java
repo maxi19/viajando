@@ -1,96 +1,56 @@
 package com.viajando.controller.vuelo;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
-
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.viajando.domain.Vuelo;
 import com.viajando.service.vuelo.VueloService;
 import com.viajando.service.vuelo.VueloServiceImp;
+import com.viajando.parser.Parser;
+import com.viajando.parser.ParserTime;
+
 /**
  * Servlet implementation class VueloController
  */
-@WebServlet(urlPatterns = {"/crearVuelo", "/eliminarVuelo", "/listarVuelos"}  )
+@WebServlet(urlPatterns = "/vueloController"  )
 public class VueloController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	
+	 private static final long serialVersionUID = 1L;
 
-    private VueloService vueloService = new VueloServiceImp();
+	    private VueloService vueloService = new VueloServiceImp();
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	    @Override
+	    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	            throws ServletException, IOException {
 
-        String path = request.getServletPath();
+			try {
+				Gson gson = new GsonBuilder()
+					.registerTypeAdapter(LocalDate.class, new Parser())
+					.registerTypeAdapter(LocalTime.class, new ParserTime())
+					.create();
 
-        try {
-            switch (path) {
-                case "/listarVuelos":
-                    List<Vuelo> vuelos = vueloService.listar();
-                    request.setAttribute("vuelos", vuelos);
-                    request.getRequestDispatcher("/Vuelo/ListarVuelos.jsp").forward(request, response);
-                    break;
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				PrintWriter out = response.getWriter();
 
-                case "/eliminarVuelo":
-                    int id = Integer.parseInt(request.getParameter("id"));
-                    vueloService.eliminar(id);
-                    response.sendRedirect("listarVuelos");
-                    break;
+				out.print(gson.toJson(vueloService.list()));
+				out.flush();
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.sendError(500, "Error al obtener vuelos");
+			}
+		}
 
-                default:
-                    response.sendError(404, "Ruta GET no encontrada");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(500, "Error interno del servidor");
-        }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        String path = request.getServletPath();
-
-        if ("/crearVuelo".equals(path)) {
-            try {
-            	request.setCharacterEncoding("UTF-8");
-            	
-                String destino = request.getParameter("destino");
-                LocalDate ida = LocalDate.parse(request.getParameter("ida"));
-                LocalDate vuelta = LocalDate.parse(request.getParameter("vuelta"));
-                int precio = Integer.parseInt(request.getParameter("precio"));
-                double estrellas = Double.parseDouble(request.getParameter("estrellas"));
-                LocalTime horaIda = LocalTime.parse(request.getParameter("horaIda"));
-                LocalTime horaVuelta = LocalTime.parse(request.getParameter("horaVuelta"));
-
-                System.out.println("Datos recibidos para crear vuelo:");
-                System.out.println("Destino: " + destino);
-                System.out.println("Fecha Ida: " + ida);
-                System.out.println("Fecha Vuelta: " + vuelta);
-                System.out.println("Precio: " + precio);
-                System.out.println("Estrellas: " + estrellas);
-                System.out.println("Hora Ida: " + horaIda);
-                System.out.println("Hora Vuelta: " + horaVuelta);
-                
-                
-                vueloService.guardar(destino, ida, vuelta, precio, estrellas, horaIda, horaVuelta);
-
-                response.sendRedirect("listarVuelos");
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                response.sendError(400, "Error al crear el vuelo");
-            }
-        } else {
-            response.sendError(404, "Ruta POST no encontrada");
-        }
-    }
 }
