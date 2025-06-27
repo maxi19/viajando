@@ -1,7 +1,7 @@
 $(function () {
   // Cargar destinos al iniciar
   $.ajax({
-    url: contextPath + '/destinos', // Asegurate que esta URL devuelva JSON
+    url: contextPath + '/listarDestinos', // Asegurate que esta URL devuelva JSON
     method: 'GET',
     dataType: 'json',
     success: function (destinos) {
