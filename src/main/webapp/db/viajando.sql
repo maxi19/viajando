@@ -2,6 +2,8 @@ DROP DATABASE IF EXISTS viajando;
 CREATE DATABASE viajando;
 USE viajando;
 
+
+select * from destinos;
 -- Tabla Destinos
 CREATE TABLE destinos (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -23,16 +25,15 @@ CREATE TABLE avion (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(35),
   empresa_id INT,
-  capacidad INT,
-  FOREIGN KEY (empresa_id) REFERENCES empresa(id)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  capacidad INT
+  ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+drop table vuelo;
 -- Tabla Vuelo
 CREATE TABLE vuelo (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(100),
   destino_id INT,
-  destino_value varchar(100),
   fecha_inicio DATE,
   fecha_fin DATE,
   precio INT,
@@ -40,9 +41,7 @@ CREATE TABLE vuelo (
   hora_ida TIME,
   hora_vuelta TIME,
   id_avion INT,
-  imagen VARCHAR(255),
-  FOREIGN KEY (destino_id) REFERENCES destinos(id),
-  FOREIGN KEY (id_avion) REFERENCES avion(id)
+  imagen VARCHAR(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Tabla Hotel
@@ -53,10 +52,13 @@ CREATE TABLE hotel (
   destino_value varchar(100),
   estrellas DOUBLE,
   precio INT,
-  imagen VARCHAR(255),
-  FOREIGN KEY (destino_id) REFERENCES destinos(id)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  imagen VARCHAR(255)
+  ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+drop table excursion;
+select * from excursion;
+
+-- Tabla Excursion
 -- Tabla Excursion
 CREATE TABLE excursion (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -66,33 +68,55 @@ CREATE TABLE excursion (
   fecha_fin DATE,
   precio INT,
   destino_id INT,
-  destino_value varchar(100),
   estrellas DOUBLE,
-  imagen VARCHAR(255),
-  FOREIGN KEY (destino_id) REFERENCES destinos(id)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  imagen VARCHAR(255)
+  ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Tabla Paquete
 CREATE TABLE paquete (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(100),
   descripcion VARCHAR(100),
-  fecha_inicio DATE,
-  fecha_fin DATE,
-  precio INT,
-  destino_id INT,
-  destino_value varchar(100),
+  hotel_id INT default null,
+  vuelo_id INT default null,
+  excursion_id INT default null,
   estrellas DOUBLE,
-  hotel_id INT,
-  vuelo_id INT,
-  excursion_id INT,
   personas INT,
-  imagen VARCHAR(255),
-  FOREIGN KEY (destino_id) REFERENCES destinos(id),
-  FOREIGN KEY (hotel_id) REFERENCES hotel(id),
-  FOREIGN KEY (vuelo_id) REFERENCES vuelo(id),
-  FOREIGN KEY (excursion_id) REFERENCES excursion(id)
+  precio INT,
+  imagen VARCHAR(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO paquete (
+  nombre, descripcion, hotel_id, vuelo_id, excursion_id, estrellas, personas, precio, imagen
+) VALUES
+(
+  'Paquete Caribe 7 días',
+  'Vacaciones en Cancún con hotel 5 estrellas, vuelo directo y excursión a Isla Mujeres.',
+  1,
+  3,
+  5,
+  5.0,
+  2,
+  350000,
+  'caribe.jpg'
+);
+
+INSERT INTO paquete (
+  nombre, descripcion, hotel_id, vuelo_id, excursion_id, estrellas, personas, precio, imagen
+) VALUES
+(
+  'Aventura en Bariloche',
+  'Incluye alojamiento, vuelo desde Buenos Aires y excursión al Cerro Catedral.',
+  2,
+  4,
+  6,
+  4.0,
+  4,
+  280000,
+  'bariloche.jpg'
+);
+
+select* from reservas;
 
 -- Tabla Usuario
 CREATE TABLE usuario (
@@ -104,20 +128,22 @@ CREATE TABLE usuario (
   correo VARCHAR(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+select * from reservas;
+
 -- Tabla Reservas
 CREATE TABLE reservas (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  usuario_id INT,
-  nombre VARCHAR(100),
+  identificador VARCHAR(50) NOT NULL, -- unica
+  nombre VARCHAR(100), -- datos de la persona ingresada
   apellido VARCHAR(100),
+  sexo varchar(100),
   DNI INT,
-  id_vuelo INT,
-  asiento INT,
-  fecha_inicio DATE,
-  fecha_fin DATE,
-  precio INT,
-  FOREIGN KEY (usuario_id) REFERENCES usuario(id),
-  FOREIGN KEY (id_vuelo) REFERENCES vuelo(id)
+  tipo_servicio VARCHAR(50) NOT NULL, -- vuelo / hotel / excursion
+  id_vuelo int default null,
+  id_hotel int default null,
+  id_excursion int default null,
+  id_paquete int  default null,
+  precio INT
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Tabla Butacas
@@ -126,8 +152,7 @@ CREATE TABLE butacas (
   asiento INT,
   descripcion VARCHAR(100),
   avion_id INT,
-  estado ENUM('disponible', 'ocupado'),
-  FOREIGN KEY (avion_id) REFERENCES avion(id)
+  estado ENUM('disponible', 'ocupado')
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ------------------------------------------------------
@@ -173,4 +198,3 @@ INSERT INTO reservas (usuario_id, nombre, apellido, DNI, id_vuelo, asiento, fech
 INSERT INTO butacas (asiento, descripcion, avion_id, estado) VALUES
 (1, 'Ventana', 1, 'disponible'),
 (2, 'Pasillo', 1, 'ocupado');
-
