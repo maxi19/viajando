@@ -387,11 +387,14 @@
         </tbody>
       </table>
     </div>
+    <div class="card-footer text-muted text-center">Viajando · Administración de destinos</div>
+    
   </div>
 
   <!-- VUELOS -->
   <div class="tab-pane fade" id="vuelo-tab-pane" role="tabpanel" aria-labelledby="vuelo-tab" tabindex="0">
     <span>
+    <br>
     <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalVuelo">Nuevo vuelo</a>
     </span>
 
@@ -415,8 +418,6 @@
           <th>Avion ID</th>
           <th>Accion</th>
           
-          
-
         </tr>
       </thead>
       <tbody id="tablaVuelo">
@@ -425,82 +426,15 @@
     </table>
   </div>
 </div>
-  </div>
-</div>
+<div class="card-footer text-muted text-center">Viajando · Administración de vuelos</div>
 
-
-
-<div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-    Home
   </div>
 
-  <!-- DESTINOS -->
-  <div class="tab-pane fade" id="destino-tab-pane" role="tabpanel" aria-labelledby="destino-tab" tabindex="0">
-    <h2>Destinos Disponibles</h2>
-    <div class="table-responsive small" id="destinos-grilla">
-      <table class="table table-striped table-sm">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Nombre</th>
-            <th>País</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="id"></td>
-            <td class="nombre"></td>
-            <td class="pais"></td>
-            <td class="operar"></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- VUELOS -->
-  <div class="tab-pane fade" id="vuelo-tab-pane" role="tabpanel" aria-labelledby="vuelo-tab" tabindex="0">
-    <span>
-    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalVuelo">Nuevo vuelo</a>
-    </span>
-
-<div class="container mt-5">
-  <h2>Vuelos Disponibles</h2>
-  <div class="row" id=""></div>
-
-  <h3 class="mt-5">Tabla de Vuelos</h3>
-  <div class="table-responsive">
-    <table class="table table-striped table-bordered">
-      <thead class="table-dark">
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Fecha y hora inicio</th>
-          <th>Fecha y hora fin</th>
-          <th>Precio</th>
-          <th>Destino ID</th>
-          <th>Destino</th>
-          <th>Estrellas</th>
-          <th>Avion ID</th>
-          <th>Accion</th>
-          
-          
-
-        </tr>
-      </thead>
-      <tbody id="tablaVuelo">
-        <!-- Filas insertadas por JS -->
-      </tbody>
-    </table>
-  </div>
-</div>
-  </div>
-</div>
 
   <!-- EXCURSION -->
   <div class="tab-pane fade" id="excursion-tab-pane" role="tabpanel" aria-labelledby="excursion-tab" tabindex="0">
     <span>
+    <br>
     <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalExcursion">Nueva Excursion</a>
     </span>
 
@@ -530,6 +464,7 @@
     </table>
   </div>
 </div>
+<div class="card-footer text-muted text-center">Viajando · Administración de excursiones</div>
   </div>
   
   <!-- HOTELES -->
@@ -562,48 +497,7 @@
       </table>
     </div>
   </div>
-</div>
-</div>
-
-
-
-<!-- MODAL NUEVA EXCURSION -->
-
-  <!-- EXCURSION -->
-  <div class="tab-pane fade" id="excursion-tab-pane" role="tabpanel" aria-labelledby="excursion-tab" tabindex="0">
-    <span>
-    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalExcursion">Nueva Excursion</a>
-    </span>
-
-<div class="container mt-5">
-  <h2>Excursiones Disponibles</h2>
-  <div class="row" id=""></div>
-
-  <h3 class="mt-5">Tabla de Excursiones</h3>
-  <div class="table-responsive">
-    <table class="table table-striped table-bordered">
-      <thead class="table-dark">
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Descripción</th>
-          <th>Fecha inicio</th>
-          <th>Fecha fin</th>
-          <th>Precio</th>
-          <th>Destino ID</th>
-          <th>Destino</th>
-          <th>Estrellas</th>
-        </tr>
-      </thead>
-      <tbody id="tablaExcursion">
-        <!-- Filas insertadas por JS -->
-      </tbody>
-    </table>
-  </div>
-  
-</div>
-  </div>
-  
+  <div class="card-footer text-muted text-center">Viajando · Administración de excursiones</div>
   
 </div>
 
