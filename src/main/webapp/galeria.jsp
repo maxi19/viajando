@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
@@ -8,25 +9,38 @@
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Astro v5.9.2">
-<title>Album example Â· Bootstrap v5.3</title>
+<title>Viajando.com</title>
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/5.3/examples/album/">
 <script src="<%=request.getContextPath()%>/assets/js/color-modes.js"></script>
-<script src="<%=request.getContextPath()%>/assets/js/sweetalert2.all.min.js"></script>
-<link href="<%=request.getContextPath()%>/assets/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="<%=request.getContextPath()%>/assets/js/jquery/jquery-3.6.4.min.js"></script>
-<script src="<%=request.getContextPath()%>/assets/customjs/viajandoScripts.js"></script>
-<script src="<%=request.getContextPath()%>/scripts/bootstrap/css/bootstrap.min.css"></script>
-<script src="<%=request.getContextPath()%>/scripts/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script
+	src="<%=request.getContextPath()%>/assets/js/sweetalert2.all.min.js"></script>
+<link
+	href="<%=request.getContextPath()%>/assets/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="<%=request.getContextPath()%>/assets/js/jquery/jquery-3.6.4.min.js"></script>
+<script
+	src="<%=request.getContextPath()%>/assets/customjs/viajandoScripts.js"></script>
+<script
+	src="<%=request.getContextPath()%>/scripts/bootstrap/css/bootstrap.min.css"></script>
+<script
+	src="<%=request.getContextPath()%>/scripts/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/botonCarrito.js"></script>
+<link rel="stylesheet" href="assets/css/estilo-img.css">
+<script src="imagen.js" defer></script>
 
-<link rel="stylesheet" href="<%=request.getContextPath()%>/style/estilosCarousel.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/style/estilosCarousel.css">
 
-
+<link
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+	rel="stylesheet">
 
 
 <script type="text/javascript">
-			var contextPath="<%=request.getContextPath()%>";
+							var contextPath="<%=request.getContextPath()%>
+	";
 </script>
 <meta name="theme-color" content="#712cf9">
 <style>
@@ -114,19 +128,10 @@
 </head>
 <body>
 
-					
 
 
-	<svg xmlns="http://www.w3.org/2000/svg" class="d-none"> <symbol
-			id="check2" viewBox="0 0 16 16"> <path
-			d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"></path> </symbol> <symbol
-			id="circle-half" viewBox="0 0 16 16"> <path
-			d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"></path> </symbol> <symbol
-			id="moon-stars-fill" viewBox="0 0 16 16"> <path
-			d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path> <path
-			d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"></path> </symbol> <symbol
-			id="sun-fill" viewBox="0 0 16 16"> <path
-			d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path> </symbol> </svg>
+
+
 	<div
 		class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
 		<button
@@ -134,7 +139,7 @@
 			id="bd-theme" type="button" aria-expanded="false"
 			data-bs-toggle="dropdown" aria-label="Toggle theme (auto)">
 			<svg class="bi my-1 theme-icon-active" aria-hidden="true">
-				<use href="#circle-half"></use></svg>
+								<use href="#circle-half"></use></svg>
 			<span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
 		</button>
 		<ul class="dropdown-menu dropdown-menu-end shadow"
@@ -144,25 +149,25 @@
 					class="dropdown-item d-flex align-items-center"
 					data-bs-theme-value="light" aria-pressed="false">
 					<svg class="bi me-2 opacity-50" aria-hidden="true">
-						<use href="#sun-fill"></use></svg>
+										<use href="#sun-fill"></use></svg>
 					Light
 					<svg class="bi ms-auto d-none" aria-hidden="true">
-						<use href="#check2"></use></svg>
+										<use href="#check2"></use></svg>
 				</button>
 			</li>
-			
-			
-			
-			
+
+
+
+
 			<li>
 				<button type="button"
 					class="dropdown-item d-flex align-items-center"
 					data-bs-theme-value="dark" aria-pressed="false">
 					<svg class="bi me-2 opacity-50" aria-hidden="true">
-						<use href="#moon-stars-fill"></use></svg>
+										<use href="#moon-stars-fill"></use></svg>
 					Dark
 					<svg class="bi ms-auto d-none" aria-hidden="true">
-						<use href="#check2"></use></svg>
+										<use href="#check2"></use></svg>
 				</button>
 			</li>
 			<li>
@@ -170,10 +175,10 @@
 					class="dropdown-item d-flex align-items-center active"
 					data-bs-theme-value="auto" aria-pressed="true">
 					<svg class="bi me-2 opacity-50" aria-hidden="true">
-						<use href="#circle-half"></use></svg>
+										<use href="#circle-half"></use></svg>
 					Auto
 					<svg class="bi ms-auto d-none" aria-hidden="true">
-						<use href="#check2"></use></svg>
+										<use href="#check2"></use></svg>
 				</button>
 			</li>
 		</ul>
@@ -183,35 +188,31 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-8 col-md-7 py-4">
-						<h4>About</h4>
-						<p class="text-body-secondary">Add some information about the
-							album below, the author, or any other background context. Make it
-							a few sentences long so folks can pick up some informative
-							tidbits. Then, link them off to some social networking sites or
-							contact information.</p>
+						<h4>Sobre nuestra pagina</h4>
+						<p class="text-body-secondary">Nuestro sistema te permite
+							solicitar vuelos contratar paquetes turísticos, agendar
+							excursiones personalizadas y elegir entre una amplia variedad de
+							hoteles, todo desde un mismo lugar.</p>
 					</div>
 					<div class="col-sm-4 offset-md-1 py-4">
 						<h4>Contact</h4>
 						<ul class="list-unstyled">
 							<li><a href="#" class="text-white">Follow on X</a></li>
-							<li><a href="#" class="text-white">Like on Facebook</a></li>
+							<li><a
+								href="https://www.instagram.com/institutofatimasoldati/?hl=es"
+								class="text-white" target="_blank">Instagram</a></li>
 							<li><a href="#" class="text-white">Email me</a></li>
 						</ul>
-						<button class="btn btn-primary" id ="btn-login">Login</button>
+						<button class="btn btn-primary" id="btn-login">Login</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="navbar navbar-dark bg-dark shadow-sm">
 			<div class="container">
-				<a href="#" class="navbar-brand d-flex align-items-center"> <svg
-						xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-						fill="none" stroke="currentColor" stroke-linecap="round"
-						stroke-linejoin="round" stroke-width="2" aria-hidden="true"
-						class="me-2" viewBox="0 0 24 24">
-						<path
-							d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-						<circle cx="12" cy="13" r="4"></circle></svg> <strong>Album</strong>
+				<a href="#" class="navbar-brand d-flex align-items-center"> <span
+					class="material-symbols-outlined me-2" style="font-size: 24px;">flight</span>
+					<strong>Viajando.com</strong>
 				</a>
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarHeader"
@@ -222,56 +223,123 @@
 			</div>
 		</div>
 	</header>
+
+
 	<main>
 		<section class="py-5 text-center container">
 			<div class="row py-lg-5">
 				<div class="col-lg-6 col-md-8 mx-auto">
-					<h1 class="fw-light">Album example</h1>
+
+					<h1 class="fw-light">BIENVENIDO</h1>
+
 					<button type="button" class="btn btn-primary" id="btn-verCarrito">
-  						Ver carrito <span class="badge text-bg-secondary">4</span>
+						Ver carrito <span class="badge text-bg-secondary">4</span>
 					</button>
-					<p class="lead text-body-secondary">Something short and leading
-						about the collection belowâits contents, the creator, etc. Make
-						it short and sweet, but not too short so folks donât simply skip
-						over it entirely.</p>
+					<p class="lead text-body-secondary">tu plataforma confiable
+						para organizar y reservar tu próxima aventura. Nos especializamos
+						en ofrecer una experiencia simple, rápida y segura para que puedas
+						planificar viajes a cualquier destino del mundo.</p>
 					<p>
 
-						<a href="#" class="btn btn-primary my-2" id="btn-init-paquete">Arma tu paquete</a> 
-						<a href="#" class="btn btn-secondary my-2">Secondary action</a>
+						<a href="#" class="btn btn-primary my-2" id="btn-init-paquete">Arma
+							tu paquete</a> <a href="#" class="btn btn-secondary my-2">Secondary
+							action</a>
 					</p>
 				</div>
-			<!--	<div class="card-group homeitem mt-4" id="contenedorExcursion"></div> -->
+				<!--	<div class="card-group homeitem mt-4" id="contenedorExcursion"></div> -->
 			</div>
+
+			<!-- CAROUSSEL-->
+			<div id="carouselExampleIndicators" class="carousel slide"
+				data-ride="carousel">
+				<ol class="carousel-indicators">
+					<li data-target="#carouselExampleIndicators" data-slide-to="0"
+						class="active"></li>
+					<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+					<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+					<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+					<li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+				</ol>
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img class="d-block w-100" src="../images/paris.png"
+							alt="First slide">
+					</div>
+					<div class="carousel-item">
+						<img class="d-block w-100" src="/images/tokyo.jpg"
+							alt="Second slide">
+					</div>
+					<div class="carousel-item">
+						<img class="d-block w-100" src="/images/misiones_argentina.png"
+							alt="Third slide">
+					</div>
+					<div class="carousel-item">
+						<img class="d-block w-100" src="/images/new_york.png"
+							alt="Third slide">
+					</div>
+				</div>
+				<a class="carousel-control-prev" href="#carouselExampleIndicators"
+					role="button" data-slide="prev"> <span
+					class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+					class="sr-only"></span>
+				</a> <a class="carousel-control-next" href="#carouselExampleIndicators"
+					role="button" data-slide="next"> <span
+					class="carousel-control-next-icon" aria-hidden="true"></span> <span
+					class="sr-only"></span>
+				</a>
+			</div>
+
+
+
+
+
+
 		</section>
+		<h1>Excursiones</h1>
 		<div class="album py-5 bg-body-tertiary">
 			<div class="container">
-				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="contenedorExcursion">
-				
-				<!--  -->
-		
+				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"
+					id="contenedorExcursion">
+					<!--  -->
+
 				</div>
 			</div>
 		</div>
-		
-				<div class="album py-5 bg-body-tertiary">
+
+		<h1>Vuelos</h1>
+		<div class="album py-5 bg-body-tertiary">
 			<div class="container">
-				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="contenedorVuelo">
-				
-				<!--  -->
-		
+				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"
+					id="contenedorVuelo">
+
+					<!--  -->
+
 				</div>
 			</div>
 		</div>
-		
-				<div class="album py-5 bg-body-tertiary">
+
+		<h1>Hoteles</h1>
+		<div class="album py-5 bg-body-tertiary">
 			<div class="container">
-				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="contenedorHotel">
-				
-				<!--  -->
-		
+				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"
+					id="contenedorHotel">
+
+
+
+
+
+					<!--  -->
+
 				</div>
 			</div>
 		</div>
+
+
+
+
+
+
+
 	</main>
 	<footer class="text-body-secondary py-5">
 		<div class="container">
@@ -286,46 +354,12 @@
 			</p>
 		</div>
 	</footer>
-	<script src="<%=request.getContextPath()%>/assets/dist/js/bootstrap.bundle.min.js"
+	<script
+		src="<%=request.getContextPath()%>/assets/dist/js/bootstrap.bundle.min.js"
 		class="astro-vvvwv3sm"></script>
-		<script src="<%=request.getContextPath()%>/scripts/excursion.js"></script>
-				<script src="<%=request.getContextPath()%>/scripts/hotel.js"></script>
-				<script src="<%=request.getContextPath()%>/scripts/vuelo.js"></script>
-		
-
-
-<!-- CAROUSSEL-->
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img class="d-block w-100" src="../images/paris.jpg" alt="First slide">
-    </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="/images/tokyo.jpg" alt="Second slide">
-    </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="/images/misiones_argentina.jpg" alt="Third slide">
-    </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="/images/new_york.jpg" alt="Third slide">
-    </div>
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only"></span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only"></span>
-  </a>
-</div>
+	<script src="<%=request.getContextPath()%>/scripts/excursion.js"></script>
+	<script src="<%=request.getContextPath()%>/scripts/hotel.js"></script>
+	<script src="<%=request.getContextPath()%>/scripts/vuelo.js"></script>
 
 
 
@@ -340,20 +374,27 @@
 
 
 
-<!-- Modal de Excursión -->
-<div class="modal fade" id="modalExcursion" tabindex="-1" aria-labelledby="modalExcursionLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalExcursionLabel">Detalle de Excursión</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body" id="modalContent">
-        <!-- Contenido dinámico se inyecta aquí -->
-      </div>
-    </div>
-  </div>
-</div>
+
+
+
+
+	<!-- Modal de Excursión -->
+	<div class="modal fade" id="modalExcursion" tabindex="-1"
+		aria-labelledby="modalExcursionLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalExcursionLabel">Detalle de
+						Excursión</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Cerrar"></button>
+				</div>
+				<div class="modal-body" id="modalContent">
+					<!-- Contenido dinámico se inyecta aquí -->
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 
