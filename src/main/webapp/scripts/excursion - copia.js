@@ -1,8 +1,8 @@
-var contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 1));
+//var contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 1));
 
 
 class Excursion {
-	constructor(id, nombre, descripcion, fecha_inicio, fecha_fin, precio, destino_id, destino_value, estrellas, imagen) {
+	constructor(id, nombre, descripcion, fecha_inicio, fecha_fin, precio, destino_id, estrellas, imagen) {
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -10,7 +10,6 @@ class Excursion {
 		this.fecha_fin = fecha_fin;
 		this.precio = precio;
 		this.destino_id = destino_id;
-		this.destino_value = destino_value;
 		this.estrellas = estrellas;
 		this.imagen = imagen;
 
@@ -26,7 +25,6 @@ class Excursion {
 						<p class="card-text"><strong>Nombre:</strong> ${this.nombre}</p>
 						<p class="card-text"><strong>Fecha inicio:</strong> ${this.fecha_inicio}</p>
 						<p class="card-text"><strong>Fecha fin:</strong> ${this.fecha_fin}</p>
-						<p class="card-text"><strong>Destino:</strong> ${this.destino_value}</p>
 						<p class="card-text"><strong>Precio:</strong> ${this.precio}</p>
 						<div class="d-flex justify-content-between align-items-center">
 							<div class="btn-group">
@@ -51,7 +49,6 @@ class Excursion {
 		            <td>${this.fecha_fin}</td>
 		            <td>$${this.precio}</td>
 		            <td>${this.destino_id}</td>
-					<td>${this.destino_value}</td>
 		            <td>${this.estrellas}</td>
 		            <td>
 		                <button class="btn btn-danger" data-id="${this.id}" onClick="myFunction(this)">Eliminar</button>
@@ -72,11 +69,10 @@ class Excursion {
 				$('#contenedorExcursion').empty();
 
 				response.forEach(m => {
-					console.log("Destino recibido:", m.destino);
 				  const excursion = new Excursion(
 				    m.id, m.nombre, m.descripcion,
 				    m.fecha_inicio, m.fecha_fin,
-				    m.precio, m.destino.id, `${m.destino.nombre}, ${m.destino.pais}`, m.estrellas,
+				    m.precio, m.destino, m.estrellas,
 				    m.imagen
 				  );
 

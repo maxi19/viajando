@@ -72,11 +72,39 @@ public class DestinoDao implements DaoBase<Integer, Destino>{
 		return destinos;
 		
 	}
-
+ ///REVISARRR
 	@Override
-	public Destino getOne(Integer i) throws ErrorException {
+	public Destino getOne(Integer id) throws ErrorException {
+	    PreparedStatement st = null;
+	    ResultSet rs = null;
+	    Destino destino = null;
 
-		return null;
+	    String query = "SELECT id, nombre, pais, precio FROM destinos WHERE id = ?";
+
+	    try {
+	        st = conexion.dameConnection().prepareStatement(query);
+	        st.setInt(1, id);
+	        rs = st.executeQuery();
+
+	        if (rs.next()) {
+	            destino = new Destino(
+	                rs.getInt("id"),
+	                rs.getString("nombre"),
+	                rs.getString("pais"),
+	                rs.getInt("precio")
+	            );
+	        }
+	    } catch (Exception e) {
+	        throw new ErrorException("Error al obtener el destino", e);
+	    } finally {
+	        if (rs != null) try { rs.close(); } catch (SQLException ignored) {}
+	        if (st != null) try { st.close(); } catch (SQLException ignored) {}
+	    }
+
+	    return destino;
 	}
+
+
+
 
 }

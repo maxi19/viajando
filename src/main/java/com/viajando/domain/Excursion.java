@@ -10,12 +10,11 @@ public class Excursion implements Reservable {
 	private LocalDate fecha_inicio;
 	private LocalDate fecha_fin;
 	private int precio;
-	private String destino;
+	private Destino destino;
 	private double estrellas;
 	private String imagen;
 	
-	public Excursion(int id, String nombre, String descripcion, LocalDate fecha_inicio, LocalDate fecha_fin, int precio,
-			String destino, double estrellas, String imagen) {
+	public Excursion(int id, String nombre, String descripcion, LocalDate fecha_inicio, LocalDate fecha_fin, int precio, Destino destino, double estrellas, String imagen) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -28,6 +27,14 @@ public class Excursion implements Reservable {
 		this.imagen = imagen;
 	}
 
+	public Destino getDestino() {
+		return destino;
+	}
+	
+	public void setDestino(Destino destino) {
+		this.destino = destino;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -74,14 +81,6 @@ public class Excursion implements Reservable {
 
 	public void setPrecio(int precio) {
 		this.precio = precio;
-	}
-
-	public String getDestino() {
-		return destino;
-	}
-
-	public void setDestino(String destino) {
-		this.destino = destino;
 	}
 
 	public double getEstrellas() {

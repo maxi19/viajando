@@ -15,7 +15,6 @@
 <meta name="theme-color" content="#712cf9">
 <link href="<%=request.getContextPath()%>/assets/dashboard.css" rel="stylesheet">
 <script src="<%=request.getContextPath()%>/assets/customjs/dashboardScript.js"></script>
-<script src="<%=request.getContextPath()%>/scripts/eliminarExcursion.js"></script>
 
 <style>
 .bd-placeholder-img {
@@ -414,8 +413,8 @@
           <th>Fecha fin</th>
           <th>Precio</th>
           <th>Destino ID</th>
-          <th>Destino</th>
           <th>Estrellas</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody id="tablaExcursion">
@@ -458,11 +457,9 @@
           <input type="text" class="form-control" id="precio" name="precio" required placeholder="Ingrese el precio">
         </div>
 
-        <div class="form-group" id="input-destino">
-          <label>Destino</label>
-          <select class="form-control" id="cmbDestino" name="destino_id" required>
-            <option selected>Seleccione un destino...</option>
-          </select>
+        <div class="form-group">
+          <label for="destino">Destino:</label>
+          <input type="text" class="form-control" id="destino_id" name="destino_id" required placeholder="Ingrese el id destino">
         </div>
 
         <div class="form-group">
@@ -504,11 +501,6 @@
 								required: true,
 								number: true
 							},
-							destino_value: {
-								required: true,
-								minlength: 2
-							},
-							
 							estrellas: {
 								required: true,
 								number: true,
@@ -540,10 +532,6 @@
 								required: "Por favor, ingrese un destino",
 								number: "Por favor, ingrese un número válido"
 							},
-							destino_value: {
-								required: "Por favor, ingrese un destino",
-								minlength: "El destino debe tener al menos 2 caracteres"
-							},
 							estrellas: {
 								required: "Por favor, ingrese una calificación de estrellas",
 								number: "Por favor, ingrese un número válido",
@@ -574,9 +562,9 @@
 
 <script src="<%=request.getContextPath()%>/assets/js/jquery/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script src="<%=request.getContextPath()%>/scripts/agregarExcursion.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/excursion.js"></script>
-
 
 
 <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> -->

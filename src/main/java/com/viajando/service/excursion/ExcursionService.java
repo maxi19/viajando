@@ -13,7 +13,7 @@ public interface ExcursionService {
 	public void delete (int id) throws Exception;
 	
    public int saveAndReturnId(String nombre, String descripcion, LocalDate fechaInicio, LocalDate fechaFin,
-            int precio, String destino, double estrellas) throws Exception;
+            int precio, int destino_id, double estrellas) throws Exception;
    
    void updateImage(int id, String nombreImagen) throws Exception;
 }

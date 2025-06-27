@@ -22,8 +22,8 @@ public class ExcursionServiceImp implements ExcursionService{
 
     @Override
     public int saveAndReturnId(String nombre, String descripcion, LocalDate fechaInicio, LocalDate fechaFin,
-                               int precio, String destino, double estrellas) throws Exception {
-        return excursionDao.saveAndReturnId(nombre, descripcion, fechaInicio, fechaFin, precio, destino, estrellas);
+                               int precio,  int destino_id, double estrellas) throws Exception {
+        return excursionDao.saveAndReturnId(nombre, descripcion, fechaInicio, fechaFin, precio, destino_id, estrellas);
     }
 
     @Override

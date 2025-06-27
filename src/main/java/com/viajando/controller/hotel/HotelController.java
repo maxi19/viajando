@@ -1,4 +1,4 @@
-package com.vijando.controller.hotel;
+package com.viajando.controller.hotel;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.viajando.parser.parser;
+import com.viajando.parser.Parser;
 import com.viajando.service.hotel.HotelService;
 import com.viajando.service.hotel.HotelServiceImp;
 
@@ -29,7 +29,7 @@ public class HotelController extends HttpServlet{
 		try {
 			
 			Gson gson = new GsonBuilder()
-			        .registerTypeAdapter(LocalDate.class, new parser())
+			        .registerTypeAdapter(LocalDate.class, new Parser())
 			        .create();
 			
 			PrintWriter out = resp.getWriter();

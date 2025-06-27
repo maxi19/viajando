@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.viajando.service.excursion.ExcursionService;
 import com.viajando.service.excursion.ExcursionServiceImp;
-import com.viajando.parser.parser;
+import com.viajando.parser.Parser;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -29,7 +29,7 @@ public class ExcursionController extends HttpServlet {
 		try {
 			
 			Gson gson = new GsonBuilder()
-			        .registerTypeAdapter(LocalDate.class, new parser())
+			        .registerTypeAdapter(LocalDate.class, new Parser())
 			        .create();
 			
 			PrintWriter out = resp.getWriter();

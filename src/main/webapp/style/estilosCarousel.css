@@ -1,0 +1,29 @@
+/* Botones */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: transparent;
+  background-size: 100% 100%;
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Flecha blanca izquierda (prev) */
+.carousel-control-prev-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ffffff' viewBox='0 0 8 8'%3E%3Cpath d='M5.5 0l-4 4 4 4V0z'/%3E%3C/svg%3E");
+}
+
+/* Flecha blanca derecha (next) */
+.carousel-control-next-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ffffff' viewBox='0 0 8 8'%3E%3Cpath d='M2.5 0l4 4-4 4V0z'/%3E%3C/svg%3E");
+}
+
+/* Opcional: fondo semitransparente y forma circular */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 4rem;
+  height: 4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+}

@@ -2,6 +2,7 @@ package com.viajando.controller.paquetes;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,9 +14,11 @@ import javax.servlet.http.HttpSession;
 import org.apache.http.HttpStatus;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.viajando.domain.Carrito;
 import com.viajando.domain.Excursion;
 import com.viajando.domain.Vuelo;
+import com.viajando.parser.Parser;
 import com.viajando.service.excursion.ExcursionService;
 import com.viajando.service.excursion.ExcursionServiceImp;
 import com.viajando.service.vuelo.VueloService;
@@ -57,29 +60,32 @@ public class CarritoController extends HttpServlet {
 		}else if(tipo.equals("HOTEL")) {
 			
 		}
-		Gson json = new Gson();
-		PrintWriter out = resp.getWriter();
+		Gson gson = new GsonBuilder()
+		        .registerTypeAdapter(LocalDate.class, new Parser())
+		        .create();		PrintWriter out = resp.getWriter();
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("utf-8");
 		resp.setStatus(HttpStatus.SC_OK);
-		out.print(json.toJson(carrito));
+		out.print(gson.toJson(carrito));
 		out.flush();
 		
 		} catch (NumberFormatException e) {
-			Gson json = new Gson();
-			PrintWriter out = resp.getWriter();
+			Gson gson = new GsonBuilder()
+			        .registerTypeAdapter(LocalDate.class, new Parser())
+			        .create();			PrintWriter out = resp.getWriter();
 			resp.setContentType("application/json");
 			resp.setCharacterEncoding("utf-8");
 			resp.setStatus(HttpStatus.SC_BAD_REQUEST);
-			out.print(json.toJson(carrito));
+			out.print(gson.toJson(carrito));
 			out.flush();
 		} catch (Exception e) {
-			Gson json = new Gson();
-			PrintWriter out = resp.getWriter();
+			Gson gson = new GsonBuilder()
+			        .registerTypeAdapter(LocalDate.class, new Parser())
+			        .create();			PrintWriter out = resp.getWriter();
 			resp.setContentType("application/json");
 			resp.setCharacterEncoding("utf-8");
 			resp.setStatus(HttpStatus.SC_BAD_REQUEST);
-			out.print(json.toJson(carrito));
+			out.print(gson.toJson(carrito));
 			out.flush();
 		}
 	

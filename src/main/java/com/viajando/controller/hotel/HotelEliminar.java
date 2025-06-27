@@ -1,4 +1,4 @@
-package com.vijando.controller.hotel;
+package com.viajando.controller.hotel;
 
 import java.io.IOException;
 import java.io.PrintWriter;

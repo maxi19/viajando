@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class parser extends TypeAdapter<LocalDate> {
+public class Parser extends TypeAdapter<LocalDate> {
 	 private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
 
      @Override
