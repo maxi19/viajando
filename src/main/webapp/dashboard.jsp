@@ -501,20 +501,18 @@
 							    min: 0
 							},
 							destino_id: {
-								required: true,
-								number: true
+								required: true
 							},
-							destino_value: {
-								required: true,
-								minlength: 2
-							},
-							
 							estrellas: {
 								required: true,
 								number: true,
 							    min: 0,
 							    max: 5
-							}
+							},
+							imagen: {
+								 required: true,
+								 extension: "jpg|jpeg|png"
+							},
 						},
 						messages: {
 							nombre: {
@@ -537,19 +535,18 @@
 								min: "El precio no puede ser negativo"
 							},
 							destino_id: {
-								required: "Por favor, ingrese un destino",
-								number: "Por favor, ingrese un número válido"
-							},
-							destino_value: {
-								required: "Por favor, ingrese un destino",
-								minlength: "El destino debe tener al menos 2 caracteres"
+								required: "Por favor, ingrese un destino"
 							},
 							estrellas: {
 								required: "Por favor, ingrese una calificación de estrellas",
 								number: "Por favor, ingrese un número válido",
 								min: "Debe ser al menos 0",
 								max: "No puede ser mayor a 5"
-							}
+							},
+							imagen: {
+								  required: "Por favor, seleccione una imagen",
+								  extension: "Solo se permiten archivos JPG, PNG"
+								}
 						},	
 						
 						errorElement: "div",
@@ -573,6 +570,7 @@
 <script src="<%=request.getContextPath()%>/assets/dashboard.js"></script>
 
 <script src="<%=request.getContextPath()%>/assets/js/jquery/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="<%=request.getContextPath()%>/scripts/agregarExcursion.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/excursion.js"></script>
