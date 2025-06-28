@@ -52,16 +52,15 @@ public class CarritoController extends HttpServlet {
 	
 	try {
 		if (tipo.equals("VUELO")) {
-		 Vuelo vuelo = this.vueloService.findById(Integer.parseInt(id));
-		  carrito.getReservables().add(vuelo);
-		  session.setAttribute("carrito", carrito);
-		}else if(tipo.equals("EXCURSION")) {
-		  Excursion excursion = this.excursionService.findById(Integer.parseInt(id));
-		  carrito.getReservables().add(excursion);
-		  session.setAttribute("carrito", carrito);
-		}else if(tipo.equals("HOTEL")) {
-			
-		}
+			  Vuelo vuelo = this.vueloService.findById(Integer.parseInt(id));
+			  carrito.getReservables().add(vuelo);
+			  session.setAttribute("carrito", carrito);
+			} else if (tipo.equals("EXCURSION")) {
+			  Excursion excursion = this.excursionService.findById(Integer.parseInt(id));
+			  carrito.getReservables().add(excursion);
+			  session.setAttribute("carrito", carrito);
+			}
+		
 		Gson gson = new GsonBuilder()
 				.registerTypeAdapter(LocalDate.class, new Parser())
 				.registerTypeAdapter(LocalTime.class, new ParserTime())

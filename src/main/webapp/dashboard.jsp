@@ -7,7 +7,7 @@
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Astro v5.9.2">
-<title>Dashboard Template ï¿½ Bootstrap v5.3</title>
+<title>Dashboard Template Ã¯Â¿Â½ Bootstrap v5.3</title>
 <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/dashboard/">
 <script src="<%=request.getContextPath()%>/assets/js/jquery/jquery-3.6.4.min.js"></script>
 <script src="<%=request.getContextPath()%>/assets/js/dashboard/color-modes.js"></script>
@@ -15,7 +15,6 @@
 <meta name="theme-color" content="#712cf9">
 <link href="<%=request.getContextPath()%>/assets/dashboard.css" rel="stylesheet">
 <script src="<%=request.getContextPath()%>/assets/customjs/dashboardScript.js"></script>
-<script src="<%=request.getContextPath()%>/scripts/eliminarExcursion.js"></script>
 
 <style>
 .bd-placeholder-img {
@@ -357,6 +356,10 @@
   <li class="nav-item" role="presentation">
   <button class="nav-link" id="hotel-tab" data-bs-toggle="tab" data-bs-target="#hotel-tab-pane" type="button" role="tab" aria-controls="hotel-tab-pane" aria-selected="false">Hoteles</button>
 </li>
+<li class="nav-item" role="presentation">
+    <button class="nav-link" id="paquete-tab" data-bs-toggle="tab" data-bs-target="#paquete-tab-pane" type="button" role="tab" aria-controls="paquete-tab-pane" aria-selected="false">Paquetes</button>
+  </li>
+
 </ul>
 
 
@@ -374,7 +377,7 @@
           <tr>
             <th>#</th>
             <th>Nombre</th>
-            <th>País</th>
+            <th>PaÃ­s</th>
           </tr>
         </thead>
         <tbody>
@@ -387,7 +390,7 @@
         </tbody>
       </table>
     </div>
-    <div class="card-footer text-muted text-center">Viajando · Administración de destinos</div>
+    <div class="card-footer text-muted text-center">Viajando Â· AdministraciÃ³n de destinos</div>
     
   </div>
 
@@ -426,7 +429,7 @@
     </table>
   </div>
 </div>
-<div class="card-footer text-muted text-center">Viajando · Administración de vuelos</div>
+<div class="card-footer text-muted text-center">Viajando Â· AdministraciÃ³n de vuelos</div>
 
   </div>
 
@@ -449,7 +452,7 @@
         <tr>
           <th>ID</th>
           <th>Nombre</th>
-          <th>Descripción</th>
+          <th>DescripciÃ³n</th>
           <th>Fecha inicio</th>
           <th>Fecha fin</th>
           <th>Precio</th>
@@ -464,18 +467,17 @@
     </table>
   </div>
 </div>
-<div class="card-footer text-muted text-center">Viajando · Administración de excursiones</div>
+<div class="card-footer text-muted text-center">Viajando Â· AdministraciÃ³n de excursiones</div>
   </div>
   
   <!-- HOTELES -->
 <div class="tab-pane fade" id="hotel-tab-pane" role="tabpanel" aria-labelledby="hotel-tab" tabindex="0">
   <span>
-    <a class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#modalHotel">Nuevo Hotel</a>
+    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalHotel">Nuevo hotel</a>
   </span>
 
   <div class="container mt-5">
     <h2>Hoteles Disponibles</h2>
-    <div class="row" id="contenedorHotel"></div>
 
     <h3 class="mt-5">Tabla de Hoteles</h3>
     <div class="table-responsive">
@@ -488,7 +490,7 @@
             <th>Destino</th>
             <th>Estrellas</th>
             <th>Precio</th>
-            <th>Acción</th>
+            <th>AcciÃ³n</th>
           </tr>
         </thead>
         <tbody id="tablaHotel">
@@ -497,7 +499,7 @@
       </table>
     </div>
   </div>
-  <div class="card-footer text-muted text-center">Viajando · Administración de excursiones</div>
+  <div class="card-footer text-muted text-center">Viajando Â· AdministraciÃ³n de excursiones</div>
   
 </div>
 
@@ -516,7 +518,7 @@
         </div>
 
         <div class="form-group">
-          <label for="descripcion">Descripción:</label>
+          <label for="descripcion">DescripciÃ³n:</label>
           <input type="text" class="form-control" id="descripcion" name="descripcion" required placeholder="Ingrese una descripcion">
         </div>
 
@@ -597,26 +599,26 @@
 								minlength: "El nombre debe tener al menos 2 caracteres"
 							},
 							descripcion: {
-								required: "Por favor, ingrese una descripción",
-								minlength: "La descripción debe tener al menos 10 caracteres"
+								required: "Por favor, ingrese una descripciÃ³n",
+								minlength: "La descripciÃ³n debe tener al menos 10 caracteres"
 							},
 							fecha_inicio: {
 								required: "Por favor, ingrese una fecha de inicio"
 							},
 							fecha_fin: {
-								required: "Por favor, ingrese una fecha de finalización"	
+								required: "Por favor, ingrese una fecha de finalizaciÃ³n"	
 								},
 							precio: {
 								required: "Por favor, ingrese un precio",
-								number: "Por favor, ingrese un número válido",
+								number: "Por favor, ingrese un nÃºmero vÃ¡lido",
 								min: "El precio no puede ser negativo"
 							},
 							destino_id: {
 								required: "Por favor, ingrese un destino"
 							},
 							estrellas: {
-								required: "Por favor, ingrese una calificación de estrellas",
-								number: "Por favor, ingrese un número válido",
+								required: "Por favor, ingrese una calificaciÃ³n de estrellas",
+								number: "Por favor, ingrese un nÃºmero vÃ¡lido",
 								min: "Debe ser al menos 0",
 								max: "No puede ser mayor a 5"
 							},
@@ -639,10 +641,357 @@
 			</script>
 			
 			
+
+			
+			
+			
     </div>
   </div>
   
 </div>
+
+
+<!-- MODAL NUEVO HOTEL -->
+<div class="modal fade" id="modalHotel" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content p-4">
+      <h1>Hotel</h1>
+      <form class="form" id="formHotel" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="nombre">Nombre:</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" required placeholder="Ingrese el nombre de la excursion">
+        </div>
+
+        <div class="form-group" id="input-destino">
+          <label>Destino</label>
+          <select class="form-control" id="cmbDestinoHotel" name="destino_id" required>
+            <option selected>Seleccione un destino...</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="estrellas">Estrellas:</label>
+          <input type="number" step="0.1" class="form-control" id="estrellas" name="estrellas" required placeholder="Ingrese las estrellas">
+        </div>
+        
+        <div class="form-group">
+          <label for="estrellas">Precio:</label>
+          <input type="number" step="0.1" class="form-control" id="precio" name="precio" required placeholder="Ingrese el precio">
+        </div>
+
+        <div class="form-group">
+          <label for="imagen">Imagen:</label>
+          <input type="file" class="form-control" id="imagen" name="imagen" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3" id="btn-confirmar-hotel">Submit</button>
+      </form>
+      <script>
+				$(document).ready(function () {
+					$("#formHotel").validate({
+						rules: {
+							nombre: {
+								required: true,
+								minlength: 2
+							},
+							descripcion: {
+								required: true,
+								minlength: 10
+							},
+							fecha_inicio: {
+								required: true,
+							},
+							fecha_fin: {
+								required: true,
+								},
+							precio: {
+								required: true,
+								number: true,
+							    min: 0
+							},
+							destino_id: {
+								required: true
+							},
+							estrellas: {
+								required: true,
+								number: true,
+							    min: 0,
+							    max: 5
+							},
+							imagen: {
+								 required: true,
+								 extension: "jpg|jpeg|png"
+							},
+						},
+						messages: {
+							nombre: {
+								required: "Por favor, ingrese un nombre",
+								minlength: "El nombre debe tener al menos 2 caracteres"
+							},
+							
+							destino_id: {
+								required: "Por favor, ingrese un destino"
+							},
+							
+							estrellas: {
+								required: "Por favor, ingrese una calificaciï¿½n de estrellas",
+								number: "Por favor, ingrese un nï¿½mero vï¿½lido",
+								min: "Debe ser al menos 0",
+								max: "No puede ser mayor a 5"
+							},
+							
+							precio: {
+								required: "Por favor, ingrese un precio",
+								number: "Por favor, ingrese un nï¿½mero vï¿½lido",
+								min: "El precio no puede ser negativo"
+							},
+							
+							
+							
+							imagen: {
+								  required: "Por favor, seleccione una imagen",
+								  extension: "Solo se permiten archivos JPG, PNG"
+								}
+						},	
+						
+						errorElement: "div",
+						errorClass: "invalid-feedback",
+						highlight: function (element) {
+							$(element).addClass("is-invalid");
+						},
+						unhighlight: function (element) {
+							$(element).removeClass("is-invalid");
+						}
+					});
+				});
+			</script>
+			
+    </div>
+  </div>
+  
+</div>
+
+
+<!-- PAQUETES -->
+   <div class="tab-pane fade" id="paquete-tab-pane" role="tabpanel" aria-labelledby="paquete-tab" tabindex="0">
+    <span>
+    <br>
+    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPaquete">Nueva Excursion</a>
+    </span>
+
+<div class="container mt-5">
+  <h2>Paquetes Disponibles</h2>
+  <div class="row" id=""></div>
+
+  <h3 class="mt-5">Tabla de Paquetes</h3>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Descripciï¿½n</th>
+          <th>Hotel ID</th>
+          <th>Hotel</th>
+          <th>Vuelo ID</th>
+          <th>Vuelo</th>         
+          <th>Destino ID</th>
+          <th>Destino</th>
+          <th>Estrellas</th>
+          <th>Personas</th>
+          <th>Precio</th>     
+        </tr>
+      </thead>
+      <tbody id="tablaPaquete">
+        <!-- Filas insertadas por JS -->
+      </tbody>
+    </table>
+  </div>
+<div class="card-footer text-muted text-center">Viajando ï¿½ Administraciï¿½n de paquetes</div>
+  </div>
+
+
+
+<!-- MODAL NUEVO PAQUETE -->
+<div class="modal fade" id="modalPaquete" tabindex="-1" role="dialog" aria-labelledby="modalPaqueteLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content p-4">
+      <h1>Nuevo Paquete</h1>
+      <form class="form" id="formPaquete" method="post" enctype="multipart/form-data">
+        
+        <div class="form-group">
+          <label for="nombre">Nombre:</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" required placeholder="Ingrese el nombre del paquete">
+        </div>
+
+        <div class="form-group">
+          <label for="descripcion">Descripciï¿½n:</label>
+          <input type="text" class="form-control" id="descripcion" name="descripcion" required placeholder="Ingrese una descripciï¿½n">
+        </div>
+
+        <div class="form-group">
+          <label for="personas">Cantidad de personas:</label>
+          <input type="number" class="form-control" id="personas" name="personas" required placeholder="Ingrese cantidad de personas">
+        </div>
+
+        <div class="form-group">
+          <label for="precio">Precio:</label>
+          <input type="number" class="form-control" id="precio" name="precio" required placeholder="Ingrese el precio">
+        </div>
+
+        <div class="form-group">
+          <label for="estrellas">Estrellas:</label>
+          <input type="number" step="0.1" class="form-control" id="estrellas" name="estrellas" required placeholder="Ingrese las estrellas">
+        </div>
+
+        <hr>
+
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="chkHotel">
+          <label class="form-check-label" for="chkHotel">
+            Incluir Hotel
+          </label>
+        </div>
+        <div class="form-group mt-2" id="input-hotel" style="display:none;">
+          <label for="hotel_id">Hotel:</label>
+          <select class="form-control" id="cmbHotel" name="hotel_id">
+            <option value="">Seleccione un hotel...</option>
+          </select>
+        </div>
+
+        <div class="form-check mt-2">
+          <input class="form-check-input" type="checkbox" value="" id="chkVuelo">
+          <label class="form-check-label" for="chkVuelo">
+            Incluir Vuelo
+          </label>
+        </div>
+        <div class="form-group mt-2" id="input-vuelo" style="display:none;">
+          <label for="vuelo_id">Vuelo:</label>
+          <select class="form-control" id="cmbVuelo" name="vuelo_id" required> 
+            <option value="">Seleccione un vuelo...</option>
+          </select>
+        </div>
+        
+        <div class="form-check mt-2">
+          <input class="form-check-input" type="checkbox" value="" id="chkExcursion">
+          <label class="form-check-label" for="chkExcursion">
+            Incluir Excursiï¿½n
+          </label>
+        </div>
+        <div class="form-group mt-2" id="input-excursion" style="display:none;">
+          <label for="excursion_id">Excursiï¿½n:</label>
+          <select class="form-control" id="cmbExcursion" name="excursion_id">
+            <option value="">Seleccione una excursiï¿½n...</option>
+          </select>
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+          <label for="imagen">Imagen (opcional):</label>
+          <input type="file" class="form-control" id="imagen" name="imagen">
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Confirmar paquete</button>
+      </form>
+    </div>
+  </div>
+
+<script>
+$(document).ready(function () {
+  $("#formPaquete").validate({
+    rules: {
+      nombre: {
+        required: true,
+        minlength: 2
+      },
+      descripcion: {
+        required: true,
+        minlength: 10
+      },
+      personas: {
+        required: true,
+        number: true,
+        min: 1
+      },
+      precio: {
+        required: true,
+        number: true,
+        min: 0
+      },
+      estrellas: {
+        required: true,
+        number: true,
+        min: 0,
+        max: 5
+      },
+      imagen: {
+        extension: "jpg|jpeg|png"
+      }
+    },
+    messages: {
+      nombre: {
+        required: "Por favor, ingrese un nombre",
+        minlength: "El nombre debe tener al menos 2 caracteres"
+      },
+      descripcion: {
+        required: "Por favor, ingrese una descripciï¿½n",
+        minlength: "La descripciï¿½n debe tener al menos 10 caracteres"
+      },
+      personas: {
+        required: "Por favor, ingrese la cantidad de personas",
+        number: "Ingrese un nï¿½mero vï¿½lido",
+        min: "Debe ser al menos 1"
+      },
+      precio: {
+        required: "Por favor, ingrese un precio",
+        number: "Ingrese un nï¿½mero vï¿½lido",
+        min: "No puede ser negativo"
+      },
+      estrellas: {
+        required: "Por favor, ingrese una calificaciï¿½n de estrellas",
+        number: "Ingrese un nï¿½mero vï¿½lido",
+        min: "Debe ser al menos 0",
+        max: "No puede ser mayor a 5"
+      },
+      imagen: {
+        extension: "Solo se permiten archivos JPG, JPEG o PNG"
+      }
+    },
+    errorElement: "div",
+    errorClass: "invalid-feedback",
+    highlight: function (element) {
+      $(element).addClass("is-invalid");
+    },
+    unhighlight: function (element) {
+      $(element).removeClass("is-invalid");
+    }
+  });
+});
+
+
+// Mostrar/ocultar selects segï¿½n los checkbox
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('chkHotel').addEventListener('change', function() {
+    document.getElementById('input-hotel').style.display = this.checked ? 'block' : 'none';
+    if (this.checked) cargarHoteles();
+  });
+
+  document.getElementById('chkVuelo').addEventListener('change', function() {
+    document.getElementById('input-vuelo').style.display = this.checked ? 'block' : 'none';
+    if (this.checked) cargarVuelos();
+  });
+
+  document.getElementById('chkExcursion').addEventListener('change', function() {
+    document.getElementById('input-excursion').style.display = this.checked ? 'block' : 'none';
+    if (this.checked) cargarExcursiones();
+  });
+});			
+			</script>
+			
+			
+    </div>
+
 
 
 
@@ -659,8 +1008,13 @@
 <script src="<%=request.getContextPath()%>/scripts/excursion.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/vuelo.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/hotel.js"></script>
+<script src="<%=request.getContextPath()%>/scripts/agregarHotel.js"></script>
+<script src="<%=request.getContextPath()%>/scripts/eliminarExcursion.js"></script>
+<script src="<%=request.getContextPath()%>/scripts/eliminarHotel.js"></script>
 
 
+
+</body>
 
 
 

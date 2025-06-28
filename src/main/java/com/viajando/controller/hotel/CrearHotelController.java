@@ -28,7 +28,6 @@ public class CrearHotelController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String nombre = req.getParameter("nombre");
-        String destinoValue = req.getParameter("destino_value");
         String estrellasString = req.getParameter("estrellas");
         String precioString = req.getParameter("precio");
         String destinoIdString = req.getParameter("destino_id");
@@ -42,7 +41,7 @@ public class CrearHotelController extends HttpServlet {
         try {
             // Guardar hotel sin imagen primero para obtener ID
         	
-        	 int idGenerado = hotelService.saveAndReturnId(nombre, destino_id, destinoValue, estrellas, precio);
+        	 int idGenerado = hotelService.saveAndReturnId(nombre, destino_id, estrellas, precio);
             // Validar imagen y generar nombre de archivo
             String nombreOriginal = Paths.get(imagenPart.getSubmittedFileName()).getFileName().toString();
             String extension = nombreOriginal.substring(nombreOriginal.lastIndexOf('.') + 1);

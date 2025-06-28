@@ -31,7 +31,7 @@ class Excursion {
 						<div class="d-flex justify-content-between align-items-center">
 							<div class="btn-group">
 								<button type="button" class="btn btn-sm btn-outline-secondary ver-mas-btn" data-id="${this.id}">Ver más</button>
-								<button class="btn btn-SM btn-outline-secondary boton-carrito-excursion" data-id="${this.id}" data-type='EXCURSION' ">Carrito</button>
+								<button class="btn btn-sm btn-outline-secondary boton-carrito-excursion" data-id="${this.id}" data-type="EXCURSION">Carrito</button>
 								</div>
 							<small class="text-body-secondary">9 mins</small>
 						</div>
@@ -88,20 +88,47 @@ class Excursion {
 
 				  });
 
-				$('.boton-carrito-excursion').click(function () {
-					const id = $(this).data("id");
-					const type = $(this).data("type");
+				  $('.boton-carrito-excursion').click(function () {
+				      const id = $(this).data("id");
+				      const type = $(this).data("type");
 
-					$.ajax({
-						type: "GET",
-						url: contextPath + '/carrito.do',
-						data: { id: id, type: type },
-						dataType: "json",
-						success: function(response) {
-							console.log("Agregado al carrito:", response);
-						}
-					});
-				});
+				      Swal.fire({
+				          title: '¿Agregar al carrito?',
+				          text: "¿Deseás agregar esta excursión al carrito?",
+				          icon: 'question',
+				          showCancelButton: true,
+				          confirmButtonText: 'Sí, agregar',
+				          cancelButtonText: 'Cancelar'
+				      }).then((result) => {
+				          if (result.isConfirmed) {
+				              // Hacer la llamada AJAX para agregar
+				              $.ajax({
+				                  type: "GET",
+				                  url: contextPath + '/carrito.do',
+				                  data: { id: id, type: type },
+				                  dataType: "json",
+				                  success: function(response) {
+				                      Swal.fire({
+				                          title: 'Agregado al carrito',
+				                          icon: 'success',
+				                          showCancelButton: true,
+				                          confirmButtonText: 'Ver carrito',
+				                          cancelButtonText: 'Seguir navegando',
+				                      }).then((choice) => {
+				                          if (choice.isConfirmed) {
+				                              // Redirigir a la página del carrito
+				                              window.location.href = contextPath + '/carrito/carritoPage.jsp'; // ajustá esta URL si es otra
+				                          }
+				                          // Sino no hace nada y el usuario sigue en la página actual
+				                      });
+				                  },
+				                  error: function() {
+				                      Swal.fire('Error', 'No se pudo agregar al carrito.', 'error');
+				                  }
+				              });
+				          }
+				      });
+				  });
 			},
 			error: function(xhr) {
 				console.error("Error al obtener la excursión:", xhr);

@@ -15,6 +15,7 @@ public class Reserva {
 	private int idPaquete;
 	private int precio;
 	private int servicio_id;
+	private String butaca;
 
 	// Constructor completo
 	public Reserva(int id, String identificador, String nombre, String apellido, String sexo, int dni, String tipoServicio,
@@ -31,6 +32,14 @@ public class Reserva {
 		this.idExcursion = idExcursion;
 		this.idPaquete = idPaquete;
 		this.precio = precio;
+	}
+	
+	public String getButaca() {
+	    return butaca;
+	}
+
+	public void setButaca(String butaca) {
+	    this.butaca = butaca;
 	}
 
 	// Constructor vacío

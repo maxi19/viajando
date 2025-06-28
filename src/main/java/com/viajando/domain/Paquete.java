@@ -104,7 +104,7 @@ public class Paquete implements Reservable {
     // Métodos de la interfaz Reservable
 
     @Override
-    public String dameTipò() {
+    public String dameTipo() {
         return "Paquete";
     }
 
@@ -117,4 +117,16 @@ public class Paquete implements Reservable {
     public int damePrecio() {
         return precio;
     }
+
+	@Override
+	public int getCantidadPersonas() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setCantidadPersonas(int cantidad) {
+		// TODO Auto-generated method stub
+		
+	}
 }

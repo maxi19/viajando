@@ -102,9 +102,25 @@ public class PaqueteDaoImp implements PaqueteDao {
             st = conexion.dameConnection().prepareStatement(queryAddPaquete, Statement.RETURN_GENERATED_KEYS);
             st.setString(1, nombre);
             st.setString(2, descripcion);
-            st.setInt(3, hotel_id);
-            st.setInt(4, vuelo_id);
-            st.setInt(5, excursion_id);
+            
+            if (hotel_id == 0) {
+                st.setNull(3, java.sql.Types.INTEGER);
+            } else {
+                st.setInt(3, hotel_id);
+            }
+
+            if (vuelo_id == 0) {
+                st.setNull(4, java.sql.Types.INTEGER);
+            } else {
+                st.setInt(4, vuelo_id);
+            }
+
+            if (excursion_id == 0) {
+                st.setNull(5, java.sql.Types.INTEGER);
+            } else {
+                st.setInt(5, excursion_id);
+            }
+            
             st.setDouble(6, estrellas);
             st.setInt(7, personas);
             st.setInt(8, precio);
@@ -116,8 +132,8 @@ public class PaqueteDaoImp implements PaqueteDao {
                 idGenerado = rs.getInt(1);
             }
         } finally {
+        	if (rs != null) rs.close();
             if (st != null) st.close();
-            if (rs != null) rs.close();
         }
 
         return idGenerado;

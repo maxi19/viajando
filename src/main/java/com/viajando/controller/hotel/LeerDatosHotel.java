@@ -7,12 +7,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javax.servlet.http.HttpServlet;
+
 
 import com.viajando.service.hotel.HotelService;
 import com.viajando.service.hotel.HotelServiceImp;
 
+
 @WebServlet(urlPatterns = "/LeerDatosHotel")
-public class LeerDatosHotel {
+public class LeerDatosHotel extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	HotelService hotelService = new HotelServiceImp();
@@ -22,7 +25,7 @@ public class LeerDatosHotel {
 		try {
 
 			req.setAttribute("hotel", hotelService.list());
-			req.getRequestDispatcher("hotel/hotelPage.jsp").forward(req, resp);
+			req.getRequestDispatcher("dashboard.jsp").forward(req, resp);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

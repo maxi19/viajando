@@ -45,12 +45,13 @@ class Hotel {
 				<td>${this.estrellas}</td>
 				<td>$${this.precio}</td>
 				<td>
-					<button class="btn btn-danger" data-id="${this.id}" onClick="myFunction(this)">Eliminar</button>
+					<button class="btn btn-danger" data-id="${this.id}" onClick="eliminarHotel(this)">Eliminar</button>
 				</td>
 			</tr>
 		`;
 	}
 }
+
 
 function cargarListadoHotel() {
 	$.ajax({
@@ -60,20 +61,20 @@ function cargarListadoHotel() {
 		success: function(response) {
 			console.log("Hoteles recibidos:", response);
 			$('#contenedorHotel').empty();
+console.log
 
-			response.forEach(m => {
-				const destinoId = m.destino?.id ?? 0;
-				const destinoValue = m.destino ? `${m.destino.nombre}, ${m.destino.pais}` : "Sin destino";
-				
-				const hotel = new Hotel(
-					m.id,
-					m.nombre,
-					m.destino.id,
-					`${m.destino.nombre}, ${m.destino.pais}`,
-					m.estrellas,
-					m.precio,
-					m.imagen
-				);
+response.forEach(m => {
+  console.log("Destino recibido:", m.destino);
+
+  const hotel = new Hotel(
+    m.id,
+    m.nombre,
+    m.destino.id,
+    `${m.destino.nombre}, ${m.destino.pais}`,
+    m.estrellas,
+    m.precio,
+    m.imagen
+  );
 
 				// Renderizado en galería
 				$('#contenedorHotel').append(hotel.renderizar());
@@ -83,6 +84,7 @@ function cargarListadoHotel() {
 					$('#tablaHotel').append(hotel.renderizarTabla());
 				}
 			});
+
 
 			// Carrito
 			$('.boton-carrito').click(function () {

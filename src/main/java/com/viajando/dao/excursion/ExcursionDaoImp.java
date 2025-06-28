@@ -164,7 +164,7 @@ public class ExcursionDaoImp implements ExcursionDao {
 		} finally {
 			try {
 				st.close();
-				rs.close();
+//				rs.close();            no va esto
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

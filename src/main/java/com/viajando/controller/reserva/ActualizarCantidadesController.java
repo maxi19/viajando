@@ -25,35 +25,60 @@ import com.viajando.parser.Parser;
 @WebServlet("/actualizarCantidades")
 public class ActualizarCantidadesController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session = req.getSession();
-		Carrito carrito = (Carrito) session.getAttribute("carrito");
-		if (carrito == null) return;
+	    HttpSession session = req.getSession();
+	    Carrito carrito = (Carrito) session.getAttribute("carrito");
+	    if (carrito == null) return;
 
-		// Parsear JSON recibido
-		StringBuilder sb = new StringBuilder();
-		String line;
-		BufferedReader reader = req.getReader();
-		while ((line = reader.readLine()) != null) {
-			sb.append(line);
-		}
+	    StringBuilder sb = new StringBuilder();
+	    String line;
+	    BufferedReader reader = req.getReader();
+	    while ((line = reader.readLine()) != null) {
+	        sb.append(line);
+	    }
 
-		Gson gson = new GsonBuilder()
-		        .registerTypeAdapter(LocalDate.class, new Parser())
-		        .create();		List<Map<String, Object>> lista = gson.fromJson(sb.toString(), List.class);
+	    Gson gson = new GsonBuilder()
+	            .registerTypeAdapter(LocalDate.class, new Parser())
+	            .create();
 
-		for (Map<String, Object> item : lista) {
-			Double idDouble = (Double) item.get("id");
-			Integer id = idDouble.intValue();
-			Double cantidadDouble = (Double) item.get("cantidad");
-			Integer cantidad = cantidadDouble.intValue();
+	    List<Map<String, Object>> lista = gson.fromJson(sb.toString(), List.class);
 
-			for (Object obj : carrito.getReservables()) {
-				if (obj instanceof Excursion e && e.getId() == id) {
-					e.setCantidadPersonas(cantidad);
-				}
-			}
-		}
+	    for (Map<String, Object> item : lista) {
+	        int id = 0;
+	        Object idObj = item.get("id");
+
+	        if (idObj instanceof Number) {
+	            id = ((Number) idObj).intValue();
+	        } else if (idObj instanceof String) {
+	            try {
+	                if (!((String) idObj).equalsIgnoreCase("undefined")) {
+	                    id = Integer.parseInt((String) idObj);
+	                }
+	            } catch (NumberFormatException e) {
+	                continue;
+	            }
+	        }
+
+	        int cantidad = 1;
+	        Object cantidadObj = item.get("cantidad");
+
+	        if (cantidadObj instanceof Number) {
+	            cantidad = ((Number) cantidadObj).intValue();
+	        } else if (cantidadObj instanceof String) {
+	            try {
+	                if (!((String) cantidadObj).equalsIgnoreCase("undefined")) {
+	                    cantidad = Integer.parseInt((String) cantidadObj);
+	                }
+	            } catch (NumberFormatException e) {
+	                // mantener valor por defecto
+	            }
+	        }
+
+	        for (Object obj : carrito.getReservables()) {
+	            if (obj instanceof Reservable r && r.dameId() == id) {
+	                r.setCantidadPersonas(cantidad);
+	            }
+	        }
+	    }
 	}
 }

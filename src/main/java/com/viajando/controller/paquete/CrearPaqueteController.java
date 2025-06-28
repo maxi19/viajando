@@ -38,16 +38,13 @@ public class CrearPaqueteController extends HttpServlet  {
 		String personasString = req.getParameter("personas");
 		String precioString = req.getParameter("precio");
 		
-		
-
-
-		
 		int precioInt = Integer.parseInt(precioString);
 		int personasInt = Integer.parseInt(personasString);
 		double estrellasDouble = Double.parseDouble(estrellasString);
-		int hotel_idInt = Integer.parseInt(hotel_idString);
-		int vuelo_idInt = Integer.parseInt(vuelo_idString);
-		int excursion_idInt = Integer.parseInt(excursion_idString);
+		
+		int hotel_idInt = (hotel_idString != null && !hotel_idString.isEmpty()) ? Integer.parseInt(hotel_idString) : 0;
+		int vuelo_idInt = (vuelo_idString != null && !vuelo_idString.isEmpty()) ? Integer.parseInt(vuelo_idString) : 0;
+		int excursion_idInt = (excursion_idString != null && !excursion_idString.isEmpty()) ? Integer.parseInt(excursion_idString) : 0;
 		
 		
 

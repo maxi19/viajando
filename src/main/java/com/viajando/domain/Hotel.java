@@ -7,19 +7,17 @@ public class Hotel {
 	
 	private int id;
 	private String nombre;
-	private int destino_id;
-	private String destino_value;
+	private Destino destino;
 	private double estrellas;
 	private int precio;
 	private String imagen;
 	
-	public Hotel(int id, String nombre, int destino_id, String destino_value, double estrellas, int precio,
+	public Hotel(int id, String nombre, Destino destino, double estrellas, int precio,
 			String imagen) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
-		this.destino_id = destino_id;
-		this.destino_value = destino_value;
+		this.destino = destino;
 		this.estrellas = estrellas;
 		this.precio = precio;
 		this.imagen = imagen;
@@ -41,21 +39,14 @@ public class Hotel {
 		this.nombre = nombre;
 	}
 
-	public int getDestino_id() {
-		return destino_id;
+	public Destino getDestino_id() {
+		return destino;
 	}
 
-	public void setDestino_id(int destino_id) {
-		this.destino_id = destino_id;
+	public void setDestino_id(Destino destino) {
+		this.destino = destino;
 	}
 
-	public String getDestino_value() {
-		return destino_value;
-	}
-
-	public void setDestino_value(String destino_value) {
-		this.destino_value = destino_value;
-	}
 
 	public double getEstrellas() {
 		return estrellas;

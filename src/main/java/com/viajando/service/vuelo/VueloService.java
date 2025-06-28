@@ -13,11 +13,11 @@ public interface VueloService {
 	
 	List<Vuelo> list() throws Exception;
 	
-	Vuelo findById(int id) throws Exception;
+	public Vuelo findById(int id) throws Exception;
 	
-	int saveAndReturnId(Vuelo vuelo) throws Exception;
+	public int saveAndReturnId(Vuelo vuelo) throws Exception;
 	
-	void updateImage(int id, String imagen) throws Exception;
+	public void updateImage(int id, String imagen) throws Exception;
 	
-	void delete(int id) throws Exception;
+	public void delete(int id) throws Exception;
 }

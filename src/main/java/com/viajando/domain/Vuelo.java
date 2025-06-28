@@ -33,31 +33,7 @@ public class Vuelo implements Reservable {
 		this.imagen = imagen;
 	}
 
-	// Getters y Setters
-	// (puedo pasártelos listos si querés)
 
-	public int getCantidadPersonas() {
-		return cantidadPersonas;
-	}
-
-	public void setCantidadPersonas(int cantidadPersonas) {
-		this.cantidadPersonas = cantidadPersonas;
-	}
-
-	@Override
-	public String dameTipò() {
-		return "vuelo";
-	}
-
-	@Override
-	public int dameId() {
-		return id;
-	}
-
-	@Override
-	public int damePrecio() {
-		return precio;
-	}
 
 	public int getId() {
 		return id;
@@ -147,5 +123,31 @@ public class Vuelo implements Reservable {
 		this.imagen = imagen;
 	}
 	
+
+    // Métodos de la interfaz Reservable
+    @Override
+    public int dameId() {
+        return id;
+    }
+
+    @Override
+    public int damePrecio() {
+        return precio;
+    }
+
+    @Override
+    public String dameTipo() {
+        return "Vuelo";
+    }
+
+    @Override
+    public int getCantidadPersonas() {
+        return this.cantidadPersonas;
+    }
+
+    @Override
+    public void setCantidadPersonas(int cantidad) {
+        this.cantidadPersonas = cantidad;
+    }
 	
 }

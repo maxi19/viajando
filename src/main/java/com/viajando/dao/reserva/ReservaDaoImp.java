@@ -17,11 +17,11 @@ public class ReservaDaoImp implements ReservaDao {
     private static final String queryList = "SELECT id, identificador, nombre, apellido, sexo, DNI, tipo_servicio, id_vuelo, id_hotel, id_excursion, id_paquete, precio FROM reservas";
 
     private static final String queryAddReserva = """
-        INSERT INTO reservas (
-            identificador, nombre, apellido, sexo, DNI,
-            tipo_servicio, id_vuelo, id_hotel, id_excursion, id_paquete, precio
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """;
+    	    INSERT INTO reservas (
+    	        identificador, nombre, apellido, sexo, DNI,
+    	        tipo_servicio, id_vuelo, id_hotel, id_excursion, id_paquete, precio, butaca
+    	    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    	    """;
 
     @Override
     public List<Reserva> list() throws Exception {
@@ -60,11 +60,12 @@ public class ReservaDaoImp implements ReservaDao {
             st.setString(4, r.getSexo());
             st.setInt(5, r.getDni());
             st.setString(6, r.getTipoServicio());
-            st.setObject(7, r.getId() != 0 ? r.getId() : null);
+            st.setObject(7, r.getIdVuelo() != 0 ? r.getIdVuelo() : null);
             st.setObject(8, r.getIdHotel() != 0 ? r.getIdHotel() : null);
             st.setObject(9, r.getIdExcursion() != 0 ? r.getIdExcursion() : null);
             st.setObject(10, r.getIdPaquete() != 0 ? r.getIdPaquete() : null);
             st.setInt(11, r.getPrecio());
+            st.setString(12, r.getButaca()); 
 
             int result = st.executeUpdate();
             if (result == 0) {

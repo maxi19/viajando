@@ -26,7 +26,6 @@
 	src="<%=request.getContextPath()%>/scripts/bootstrap/css/bootstrap.min.css"></script>
 <script
 	src="<%=request.getContextPath()%>/scripts/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="<%=request.getContextPath()%>/scripts/botonCarrito.js"></script>
 <link rel="stylesheet" href="assets/css/estilo-img.css">
 <script src="imagen.js" defer></script>
 
@@ -224,78 +223,97 @@
 		</div>
 	</header>
 
+<style>
+  /* Contenedor del mensaje que queda sobre el carrusel */
+  #mensajeBienvenida {
+    position: absolute;
+    top: 20px;       /* ajustá la posición vertical */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;     /* encima del carrusel */
+    background-color: rgba(0, 0, 0, 0.05); /* fondo blanco semitransparente */
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    text-align: center;
+  }
 
-	<main>
-		<section class="py-5 text-center container">
-			<div class="row py-lg-5">
-				<div class="col-lg-6 col-md-8 mx-auto">
+#carouselExampleIndicators .carousel-inner {
+  height: 400px;
+}
 
-					<h1 class="fw-light">BIENVENIDO</h1>
+#carouselExampleIndicators .carousel-item img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  filter: brightness(50%) blur(3px);
+  margin: 0;
+  padding: 0;
+  display: block;
+  
 
-					<button type="button" class="btn btn-primary" id="btn-verCarrito">
-						Ver carrito <span class="badge text-bg-secondary">4</span>
-					</button>
-					<p class="lead text-body-secondary">tu plataforma confiable
-						para organizar y reservar tu próxima aventura. Nos especializamos
-						en ofrecer una experiencia simple, rápida y segura para que puedas
-						planificar viajes a cualquier destino del mundo.</p>
-					<p>
+}
 
-						<a href="#" class="btn btn-primary my-2" id="btn-init-paquete">Arma
-							tu paquete</a> <a href="#" class="btn btn-secondary my-2">Secondary
-							action</a>
-					</p>
-				</div>
-				<!--	<div class="card-group homeitem mt-4" id="contenedorExcursion"></div> -->
-			</div>
+  .NombreServicio {
+  padding: 35px
+  }
 
-			<!-- CAROUSSEL-->
-			<div id="carouselExampleIndicators" class="carousel slide"
-				data-ride="carousel">
-				<ol class="carousel-indicators">
-					<li data-target="#carouselExampleIndicators" data-slide-to="0"
-						class="active"></li>
-					<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-					<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-					<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-					<li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
-				</ol>
-				<div class="carousel-inner">
-					<div class="carousel-item active">
-						<img class="d-block w-100" src="../images/paris.png"
-							alt="First slide">
-					</div>
-					<div class="carousel-item">
-						<img class="d-block w-100" src="/images/tokyo.jpg"
-							alt="Second slide">
-					</div>
-					<div class="carousel-item">
-						<img class="d-block w-100" src="/images/misiones_argentina.png"
-							alt="Third slide">
-					</div>
-					<div class="carousel-item">
-						<img class="d-block w-100" src="/images/new_york.png"
-							alt="Third slide">
-					</div>
-				</div>
-				<a class="carousel-control-prev" href="#carouselExampleIndicators"
-					role="button" data-slide="prev"> <span
-					class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-					class="sr-only"></span>
-				</a> <a class="carousel-control-next" href="#carouselExampleIndicators"
-					role="button" data-slide="next"> <span
-					class="carousel-control-next-icon" aria-hidden="true"></span> <span
-					class="sr-only"></span>
-				</a>
-			</div>
+</style>
 
+<main>
 
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <div id="mensajeBienvenida">
+      <h1>BIENVENIDO</h1>
+      <button type="button" class="btn btn-primary" id="btn-verCarrito">
+        Ver carrito <span class="badge text-bg-secondary">4</span>
+      </button>
+      <p >tu plataforma confiable
+        para organizar y reservar tu próxima aventura. Nos especializamos
+        en ofrecer una experiencia simple, rápida y segura para que puedas
+        planificar viajes a cualquier destino del mundo.</p>
+      <p>
+        <a href="#" class="btn btn-primary my-2" id="btn-init-paquete">Arma
+          tu paquete</a> <a href="#" class="btn btn-secondary my-2">Secondary
+          action</a>
+      </p>
+    </div>
+
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0"
+        class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img class="d-block w-100" src="../images/paris.png" alt="First slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="/images/tokyo.jpg" alt="Second slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="/images/misiones_argentina.png" alt="Third slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="/images/new_york.png" alt="Third slide">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only"></span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only"></span>
+    </a>
+  </div>
 
 
 
 
 		</section>
-		<h1>Excursiones</h1>
+		<h1 class="NombreServicio">Excursiones</h1>
 		<div class="album py-5 bg-body-tertiary">
 			<div class="container">
 				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"
@@ -306,7 +324,7 @@
 			</div>
 		</div>
 
-		<h1>Vuelos</h1>
+		<h1 class="NombreServicio">Vuelos</h1>
 		<div class="album py-5 bg-body-tertiary">
 			<div class="container">
 				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"
@@ -318,7 +336,7 @@
 			</div>
 		</div>
 
-		<h1>Hoteles</h1>
+		<h1 class="NombreServicio">Hoteles</h1>
 		<div class="album py-5 bg-body-tertiary">
 			<div class="container">
 				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"

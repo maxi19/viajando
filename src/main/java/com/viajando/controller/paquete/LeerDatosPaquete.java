@@ -24,7 +24,7 @@ public class LeerDatosPaquete extends HttpServlet {
 		try {
 
 			req.setAttribute("paquete", paqueteService.list());
-			req.getRequestDispatcher("paquete/paquetePage.jsp").forward(req, resp);
+			req.getRequestDispatcher("dashboard.jsp").forward(req, resp);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -35,17 +35,17 @@ public class VueloDaoImp implements VueloDao {
 			while (rs.next()) {
 				Destino destino = destinoDao.getOne(rs.getInt("destino_id"));
 				Vuelo vuelo = new Vuelo(
-						rs.getInt("id"),
-						rs.getString("nombre"),
-						destino,
-						rs.getDate("fecha_inicio").toLocalDate(),
-						rs.getDate("fecha_fin").toLocalDate(),
-						rs.getInt("precio"),
-						rs.getDouble("estrellas"),
-						rs.getTime("hora_ida").toLocalTime(),
-						rs.getTime("hora_vuelta").toLocalTime(),
-						rs.getInt("id_avion"),
-						rs.getString("imagen")
+					rs.getInt("id"),
+					rs.getString("nombre"),
+					destino,
+					rs.getDate("fecha_inicio").toLocalDate(),
+					rs.getDate("fecha_fin").toLocalDate(),
+					rs.getInt("precio"),
+					rs.getDouble("estrellas"),
+					rs.getTime("hora_ida").toLocalTime(),
+					rs.getTime("hora_vuelta").toLocalTime(),
+					rs.getInt("id_avion"),
+					rs.getString("imagen")
 				);
 				vuelos.add(vuelo);
 			}
@@ -61,17 +61,17 @@ public class VueloDaoImp implements VueloDao {
 				if (rs.next()) {
 					Destino destino = destinoDao.getOne(rs.getInt("destino_id"));
 					return new Vuelo(
-							rs.getInt("id"),
-							rs.getString("nombre"),
-							destino,
-							rs.getDate("fecha_inicio").toLocalDate(),
-							rs.getDate("fecha_fin").toLocalDate(),
-							rs.getInt("precio"),
-							rs.getDouble("estrellas"),
-							rs.getTime("hora_ida").toLocalTime(),
-							rs.getTime("hora_vuelta").toLocalTime(),
-							rs.getInt("id_avion"),
-							rs.getString("imagen")
+						rs.getInt("id"),
+						rs.getString("nombre"),
+						destino,
+						rs.getDate("fecha_inicio").toLocalDate(),
+						rs.getDate("fecha_fin").toLocalDate(),
+						rs.getInt("precio"),
+						rs.getDouble("estrellas"),
+						rs.getTime("hora_ida").toLocalTime(),
+						rs.getTime("hora_vuelta").toLocalTime(),
+						rs.getInt("id_avion"),
+						rs.getString("imagen")
 					);
 				}
 			}
@@ -81,6 +81,8 @@ public class VueloDaoImp implements VueloDao {
 
 	@Override
 	public int saveAndReturnId(Vuelo vuelo) throws Exception {
+		int vueloId = -1;
+
 		try (PreparedStatement st = conexion.dameConnection().prepareStatement(QUERY_INSERT, Statement.RETURN_GENERATED_KEYS)) {
 			st.setString(1, vuelo.getNombre());
 			st.setInt(2, vuelo.getDestino().getId());
@@ -94,11 +96,41 @@ public class VueloDaoImp implements VueloDao {
 			st.setString(10, vuelo.getImagen());
 
 			st.executeUpdate();
+
 			try (ResultSet rs = st.getGeneratedKeys()) {
-				if (rs.next()) return rs.getInt(1);
+				if (rs.next()) {
+					vueloId = rs.getInt(1);
+					generarButacasParaVuelo(vueloId, vuelo.getId_avion());
+				}
 			}
 		}
-		return -1;
+
+		return vueloId;
+	}
+
+	private void generarButacasParaVuelo(int idVuelo, int idAvion) throws Exception {
+		String queryCapacidad = "SELECT capacidad FROM avion WHERE id = ?";
+		String queryInsertButaca = "INSERT INTO butaca_vuelo (vuelo_id, asiento, estado) VALUES (?, ?, 'disponible')";
+
+		try (PreparedStatement stCapacidad = conexion.dameConnection().prepareStatement(queryCapacidad)) {
+			stCapacidad.setInt(1, idAvion);
+			try (ResultSet rs = stCapacidad.executeQuery()) {
+				if (rs.next()) {
+					int capacidad = rs.getInt("capacidad");
+
+					try (PreparedStatement stInsert = conexion.dameConnection().prepareStatement(queryInsertButaca)) {
+						for (int i = 1; i <= capacidad; i++) {
+							stInsert.setInt(1, idVuelo);
+							stInsert.setInt(2, i);
+							stInsert.addBatch();
+						}
+						stInsert.executeBatch();
+					}
+				} else {
+					throw new Exception("Avión no encontrado con id=" + idAvion);
+				}
+			}
+		}
 	}
 
 	@Override

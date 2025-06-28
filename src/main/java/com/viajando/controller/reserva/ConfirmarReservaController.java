@@ -41,11 +41,11 @@ public class ConfirmarReservaController extends HttpServlet {
                 int idServicio = reserva.getServicio_id(); 
 
                 switch (reserva.getTipoServicio()) {
-                    case "excursion" -> reserva.setIdExcursion(idServicio);
-                    case "vuelo" -> reserva.setIdVuelo(idServicio);
-                    case "hotel" -> reserva.setIdHotel(idServicio);
-                    case "paquete" -> reserva.setIdPaquete(idServicio);
-                }
+                case "vuelo" -> reserva.setIdVuelo(reserva.getServicio_id());
+                case "excursion" -> reserva.setIdExcursion(reserva.getServicio_id());
+                case "hotel" -> reserva.setIdHotel(reserva.getServicio_id());
+                case "paquete" -> reserva.setIdPaquete(reserva.getServicio_id());
+            }
 
                 reserva.setPrecio(1000); // Placeholder, podés reemplazar por precio real
                 dao.save(reserva);

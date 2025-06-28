@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.viajando.domain.Carrito;
 import com.viajando.domain.Excursion;
+import com.viajando.domain.Vuelo;
 import com.viajando.parser.Parser;
 
 @WebServlet("/formularioReservaData")
@@ -39,17 +40,25 @@ public class FormularioReservaDataController extends HttpServlet {
 						persona.put("nombre_servicio", e.getNombre());
 						personas.add(persona);
 					}
+				} else if (obj instanceof Vuelo v) {
+					int cantidad = v.getCantidadPersonas();
+					for (int i = 0; i < cantidad; i++) {
+						Map<String, Object> persona = new HashMap<>();
+						persona.put("tipo", "vuelo");
+						persona.put("servicio_id", v.getId());
+						persona.put("nombre_servicio", v.getNombre());
+						personas.add(persona);
+					}
 				}
-				// A futuro: vuelos, hoteles...
+				// A futuro: hoteles, paquetes...
 			}
 		}
 
-		
 		Gson gson = new GsonBuilder()
 		        .registerTypeAdapter(LocalDate.class, new Parser())
 		        .create();
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");
-		new Gson().toJson(personas, resp.getWriter());
+		gson.toJson(personas, resp.getWriter());
 	}
 }

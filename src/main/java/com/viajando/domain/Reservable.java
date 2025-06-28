@@ -2,13 +2,16 @@ package com.viajando.domain;
 
 public interface Reservable {
 
-	public String dameTipò();
+	public String dameTipo();
 	
-	public int dameId();
-	
-	public int damePrecio();
-	
-	
+
+    public int dameId();
+
+    public int damePrecio();
+
+    int getCantidadPersonas();
+
+    void setCantidadPersonas(int cantidad);
 	
 	
 }

@@ -29,6 +29,8 @@ public class Carrito {
 		this.total = total;
 	}
 	
-	
+	public void eliminar(int id, String tipo) {
+	    reservables.removeIf(r -> r.dameId() == id && r.dameTipo().equalsIgnoreCase(tipo));
+	}
 	
 }
