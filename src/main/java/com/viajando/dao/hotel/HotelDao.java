@@ -12,7 +12,7 @@ public interface HotelDao {
 	
 	public Hotel findById(int id) throws Exception;
 	
-    public int saveAndReturnId( String nombre, int destino_id, double estrellas, int precio) throws Exception;
+    public int saveAndReturnId( String nombre, int destino_id, double estrellas, int precio, int stock) throws Exception;
     
     public void updateImage(int id, String nombreImagen) throws Exception;
 

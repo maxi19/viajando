@@ -5,35 +5,36 @@ public class Paquete implements Reservable {
     private int id;
     private String nombre;
     private String descripcion;
-    private int precio;
+    private Hotel hotel;
+    private Vuelo vuelo;
+    private Excursion excursion;
     private double estrellas;
-    private int hotel_id;
-    private int vuelo_id;
-    private int excursion_id;
     private int personas; // si usás el campo `personas` en la tabla
-
+    private int precio;
+    
     // Constructor con todos los campos
-    public Paquete(int id, String nombre, String descripcion,
-                   int hotel_id, int vuelo_id, int excursion_id,
-                   double estrellas, int personas, int precio) {
-        this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.hotel_id = hotel_id;
-        this.vuelo_id = vuelo_id;
-        this.excursion_id = excursion_id;
-        this.estrellas = estrellas;
-        this.personas = personas;
-        this.precio = precio;
-    }
+    public Paquete(int id, String nombre, String descripcion, Hotel hotel, Vuelo vuelo, Excursion excursion,
+			double estrellas, int personas, int precio) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.hotel = hotel;
+		this.vuelo = vuelo;
+		this.excursion = excursion;
+		this.estrellas = estrellas;
+		this.personas = personas;
+		this.precio = precio;
+	}
 
+    
     // Getters y setters
 
     public int getId() {
         return id;
     }
-
-    public void setId(int id) {
+    
+	public void setId(int id) {
         this.id = id;
     }
 
@@ -69,31 +70,31 @@ public class Paquete implements Reservable {
         this.estrellas = estrellas;
     }
 
-    public int getHotel_id() {
-        return hotel_id;
-    }
+    public Hotel getHotel() {
+		return hotel;
+	}
 
-    public void setHotel_id(int hotel_id) {
-        this.hotel_id = hotel_id;
-    }
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
 
-    public int getVuelo_id() {
-        return vuelo_id;
-    }
+	public Vuelo getVuelo() {
+		return vuelo;
+	}
 
-    public void setVuelo_id(int vuelo_id) {
-        this.vuelo_id = vuelo_id;
-    }
+	public void setVuelo(Vuelo vuelo) {
+		this.vuelo = vuelo;
+	}
 
-    public int getExcursion_id() {
-        return excursion_id;
-    }
+	public Excursion getExcursion() {
+		return excursion;
+	}
 
-    public void setExcursion_id(int excursion_id) {
-        this.excursion_id = excursion_id;
-    }
+	public void setExcursion(Excursion excursion) {
+		this.excursion = excursion;
+	}
 
-    public int getPersonas() {
+	public int getPersonas() {
         return personas;
     }
 

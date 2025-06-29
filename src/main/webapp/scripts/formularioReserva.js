@@ -8,60 +8,67 @@ $(document).ready(function () {
 			const contenedor = $("#contenedorFormularios");
 
 			console.log("Data recibida:", data);
-			data.forEach((p, i) => {
+			
+			let indexGlobal = 0;
+
+			data.forEach((p) => {
 				console.log("Item recibido:", p);
 
-				let selectButacaHtml = "";
+				const tipo = p.tipo.toLowerCase();
+				const cantidad = tipo === "vuelo" || tipo === "excursion" ? (p.cantidad || 1) : 1;
 
-				// Normalizamos tipo (por si viene "vuelo", "Vuelo", "VUELO", etc.)
-				const tipoNormalizado = p.tipo.toLowerCase();
+				for (let i = 0; i < cantidad; i++) {
+					let selectButacaHtml = "";
 
-				if (tipoNormalizado === "vuelo") {
-					selectButacaHtml = `
-						<div class="col-md-12">
-							<label>Seleccionar Butaca</label>
-							<div id="contenedorButacasPersona${i}" class="d-flex flex-wrap mb-2"></div>
-							<input type="hidden" name="butaca[]" id="butacaSeleccionada${i}" required>
+					if (tipo === "vuelo") {
+						selectButacaHtml = `
+							<div class="col-md-12">
+								<label>Seleccionar Butaca</label>
+								<div id="contenedorButacasPersona${indexGlobal}" class="d-flex flex-wrap mb-2"></div>
+								<input type="hidden" name="butaca[]" id="butacaSeleccionada${indexGlobal}" required>
+							</div>
+						`;
+					}
+
+					const formHtml = `
+						<div class="card mb-3 p-3 bg-light">
+							<h5 class="card-title">Persona ${indexGlobal + 1} para ${p.nombre_servicio}</h5>
+							<div class="row">
+								<div class="col-md-3">
+									<label>Nombre</label>
+									<input type="text" name="nombre[]" class="form-control" required>
+								</div>
+								<div class="col-md-3">
+									<label>Apellido</label>
+									<input type="text" name="apellido[]" class="form-control" required>
+								</div>
+								<div class="col-md-3">
+									<label>DNI</label>
+									<input type="number" name="dni[]" class="form-control" required>
+								</div>
+								<div class="col-md-3">
+									<label>Sexo</label>
+									<select name="sexo[]" class="form-control" required>
+										<option value="">Seleccionar</option>
+										<option value="Masculino">Masculino</option>
+										<option value="Femenino">Femenino</option>
+										<option value="Otro">Otro</option>
+									</select>
+								</div>
+								${selectButacaHtml}
+							</div>
+							<input type="hidden" name="tipo_servicio[]" value="${p.tipo}">
+							<input type="hidden" name="servicio_id[]" value="${p.servicio_id}">
 						</div>
 					`;
-				}
 
-				const formHtml = `
-					<div class="card mb-3 p-3 bg-light">
-						<h5 class="card-title">Persona ${i + 1} para ${p.nombre_servicio}</h5>
-						<div class="row">
-							<div class="col-md-3">
-								<label>Nombre</label>
-								<input type="text" name="nombre[]" class="form-control" required>
-							</div>
-							<div class="col-md-3">
-								<label>Apellido</label>
-								<input type="text" name="apellido[]" class="form-control" required>
-							</div>
-							<div class="col-md-3">
-								<label>DNI</label>
-								<input type="number" name="dni[]" class="form-control" required>
-							</div>
-							<div class="col-md-3">
-								<label>Sexo</label>
-								<select name="sexo[]" class="form-control" required>
-									<option value="">Seleccionar</option>
-									<option value="Masculino">Masculino</option>
-									<option value="Femenino">Femenino</option>
-									<option value="Otro">Otro</option>
-								</select>
-							</div>
-							${selectButacaHtml}
-						</div>
-						<input type="hidden" name="tipo_servicio[]" value="${p.tipo}">
-						<input type="hidden" name="servicio_id[]" value="${p.servicio_id}">
-					</div>
-				`;
-				contenedor.append(formHtml);
+					contenedor.append(formHtml);
 
-				// Si es vuelo, cargar butacas
-				if (tipoNormalizado === "vuelo") {
-					cargarButacas(p.servicio_id, i);
+					if (tipo === "vuelo") {
+						cargarButacas(p.servicio_id, indexGlobal);
+					}
+
+					indexGlobal++;
 				}
 			});
 		},

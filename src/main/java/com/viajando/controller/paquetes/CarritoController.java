@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.viajando.domain.Carrito;
 import com.viajando.domain.Excursion;
+import com.viajando.domain.Hotel;
 import com.viajando.domain.Vuelo;
 import com.viajando.parser.Parser;
 import com.viajando.parser.ParserTime;
@@ -25,12 +26,16 @@ import com.viajando.service.excursion.ExcursionService;
 import com.viajando.service.excursion.ExcursionServiceImp;
 import com.viajando.service.vuelo.VueloService;
 import com.viajando.service.vuelo.VueloServiceImp;
+import com.viajando.service.hotel.HotelService;
+import com.viajando.service.hotel.HotelServiceImp;
 
 @WebServlet( urlPatterns =  "/carrito.do")
 public class CarritoController extends HttpServlet {
 
 	VueloService vueloService = new VueloServiceImp();
 	ExcursionService excursionService = new ExcursionServiceImp();
+	HotelService hotelService = new HotelServiceImp();
+
 
 	/**
 	 * 
@@ -59,6 +64,10 @@ public class CarritoController extends HttpServlet {
 			  Excursion excursion = this.excursionService.findById(Integer.parseInt(id));
 			  carrito.getReservables().add(excursion);
 			  session.setAttribute("carrito", carrito);
+			} else if (tipo.equals("HOTEL")) {
+				  Hotel hotel = this.hotelService.findById(Integer.parseInt(id));
+				  carrito.getReservables().add(hotel);
+				  session.setAttribute("carrito", carrito);
 			}
 		
 		Gson gson = new GsonBuilder()

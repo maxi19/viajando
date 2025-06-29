@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.viajando.domain.Carrito;
 import com.viajando.domain.Excursion;
+import com.viajando.domain.Hotel;
 import com.viajando.domain.Vuelo;
 import com.viajando.parser.Parser;
 
@@ -49,6 +50,17 @@ public class FormularioReservaDataController extends HttpServlet {
 						persona.put("nombre_servicio", v.getNombre());
 						personas.add(persona);
 					}
+				} else if (obj instanceof Hotel h) {
+					int cantidad = h.getCantidadPersonas();
+					for (int i = 0; i < cantidad; i++) {
+						Map<String, Object> persona = new HashMap<>();
+						persona.put("tipo", "hotel");
+						persona.put("servicio_id", h.getId());
+						persona.put("nombre_servicio", h.getNombre());
+						personas.add(persona);
+					}
+					
+					
 				}
 				// A futuro: hoteles, paquetes...
 			}

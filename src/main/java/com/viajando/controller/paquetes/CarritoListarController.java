@@ -30,9 +30,12 @@ public class CarritoListarController extends HttpServlet {
 	        for (Reservable r : reservables) {
 	            JsonObject json = new JsonObject();
 	            json.addProperty("id", r.dameId());
-	            json.addProperty("cantidad", r.getCantidadPersonas());
 	            json.addProperty("tipo", r.dameTipo());
 	            json.addProperty("precio", r.damePrecio());
+	            
+	            if (!(r instanceof Hotel)) {
+	                json.addProperty("cantidad", r.getCantidadPersonas());
+	            }
 
 	            if (r instanceof Excursion e) {
 	                json.addProperty("nombre", e.getNombre());
@@ -41,6 +44,9 @@ public class CarritoListarController extends HttpServlet {
 	                json.addProperty("fecha_fin", e.getFecha_fin().toString());
 	                json.addProperty("imagen", e.getImagen());
 	                json.addProperty("destino", e.getDestino().getNombre());
+	                json.addProperty("estrellas", e.getEstrellas());
+	                json.addProperty("precio", e.getPrecio());
+
 	            }
 
 	            if (r instanceof Vuelo v) {
@@ -51,6 +57,18 @@ public class CarritoListarController extends HttpServlet {
 	                json.addProperty("hora_vuelta", v.getHora_vuelta().toString());
 	                json.addProperty("imagen", v.getImagen());
 	                json.addProperty("destino", v.getDestino().getNombre());
+	                json.addProperty("estrellas", v.getEstrellas());
+	                json.addProperty("precio", v.getPrecio());
+
+	            }
+	            
+	            if (r instanceof Hotel h) {
+	                json.addProperty("nombre", h.getNombre());
+	                json.addProperty("destino", h.getDestino().getNombre());
+	                json.addProperty("imagen", h.getImagen());
+	                json.addProperty("estrellas", h.getEstrellas());
+	                json.addProperty("precio", h.getPrecio());
+
 	            }
 
 	            jsonArray.add(json);

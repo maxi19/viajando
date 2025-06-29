@@ -231,7 +231,7 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;     /* encima del carrusel */
-    background-color: rgba(0, 0, 0, 0.05); /* fondo blanco semitransparente */
+    background-color: rgba(0, 0, 0, 0.05);
     padding: 20px;
     border-radius: 8px;
     max-width: 600px;
@@ -240,6 +240,8 @@
 
 #carouselExampleIndicators .carousel-inner {
   height: 400px;
+      background-color: rgba(0, 0, 0, 0.55); 
+  
 }
 
 #carouselExampleIndicators .carousel-item img {
@@ -278,36 +280,38 @@
           action</a>
       </p>
     </div>
-
-    <ol class="carousel-indicators">
-      <li data-target="#carouselExampleIndicators" data-slide-to="0"
-        class="active"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
-    </ol>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img class="d-block w-100" src="../images/paris.png" alt="First slide">
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="/images/tokyo.jpg" alt="Second slide">
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="/images/misiones_argentina.png" alt="Third slide">
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="/images/new_york.png" alt="Third slide">
-      </div>
-    </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only"></span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only"></span>
-    </a>
+    
+    
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
   </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="../images/paris.png" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/images/tokyo.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/images/misiones_argentina.png" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/images/new_york.png" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Siguiente</span>
+  </button>
+</div>
 
 
 

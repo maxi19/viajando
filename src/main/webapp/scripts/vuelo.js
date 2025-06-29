@@ -96,19 +96,40 @@
 	
 	// Evento para el botón "Carrito" de vuelos
 	$(document).on("click", ".boton-carrito-vuelo", function () { 
-		console.log("CLICK DETECTADO EN:", this.outerHTML); // <- esto te dice si realmente dice data-type="VUELO"
-		const id = $(this).data("id");	
+		const id = $(this).data("id");
 		const type = $(this).data("type");
-	
-		console.log("Agregando vuelo al carrito. ID:", id, "Tipo:", type);
-	
-		$.ajax({
-			type: "GET",
-			url: contextPath + "/carrito.do",
-			data: { id: id, type: type },
-			dataType: "json",
-			success: function (response) {
-				console.log("Agregado al carrito:", response);
+
+		Swal.fire({
+			title: '¿Agregar al carrito?',
+			text: "¿Deseás agregar este vuelo al carrito?",
+			icon: 'question',
+			showCancelButton: true,
+			confirmButtonText: 'Sí, agregar',
+			cancelButtonText: 'Cancelar'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$.ajax({
+					type: "GET",
+					url: contextPath + "/carrito.do",
+					data: { id: id, type: type },
+					dataType: "json",
+					success: function (response) {
+						Swal.fire({
+							title: 'Vuelo agregado',
+							icon: 'success',
+							showCancelButton: true,
+							confirmButtonText: 'Ver carrito',
+							cancelButtonText: 'Seguir navegando'
+						}).then(choice => {
+							if (choice.isConfirmed) {
+								window.location.href = contextPath + '/carrito/carritoPage.jsp';
+							}
+						});
+					},
+					error: function () {
+						Swal.fire('Error', 'No se pudo agregar el vuelo al carrito.', 'error');
+					}
+				});
 			}
 		});
 	});

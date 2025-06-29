@@ -1008,6 +1008,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="<%=request.getContextPath()%>/scripts/excursion.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/vuelo.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/hotel.js"></script>
+<script src="<%=request.getContextPath()%>/scripts/paquete.js"></script>
+<script src="<%=request.getContextPath()%>/scripts/agregarPaquete.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/agregarHotel.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/eliminarExcursion.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/eliminarHotel.js"></script>

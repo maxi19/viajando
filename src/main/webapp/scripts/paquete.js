@@ -1,13 +1,16 @@
 var contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 1));
 
 class Paquete {
-	constructor(id, nombre, descripcion, hotel_id, vuelo_id, excursion_id, estrellas, personas, precio, imagen) {
+	constructor(id, nombre, descripcion, hotel_id, hotel_value, vuelo_id, vuelo_value, excursion_id, excursion_value, estrellas, personas, precio, imagen) {
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.hotel_id = hotel_id;
+		this.hotel_value = hotel_value;
 		this.vuelo_id = vuelo_id;
+		this.vuelo_value = vuelo_value;
 		this.excursion_id = excursion_id;
+		this.excursion_value = excursion_value;
 		this.estrellas = estrellas;
 		this.personas = personas;
 		this.precio = precio;
@@ -23,9 +26,9 @@ class Paquete {
 						<h5 class="card-title">Paquete N° ${this.id}</h5>
 						<p class="card-text"><strong>Nombre:</strong> ${this.nombre}</p>
 						<p class="card-text"><strong>Descripción:</strong> ${this.descripcion}</p>
-						<p class="card-text"><strong>Hotel ID:</strong> ${this.hotel_id}</p>
-						<p class="card-text"><strong>Vuelo ID:</strong> ${this.vuelo_id}</p>
-						<p class="card-text"><strong>Excursión ID:</strong> ${this.excursion_id}</p>
+						<p class="card-text"><strong>Hotel:</strong> ${this.hotel_value}</p>
+						<p class="card-text"><strong>Vuelo:</strong> ${this.vuelo_value}</p>
+						<p class="card-text"><strong>Excursión:</strong> ${this.excursion_value}</p>
 						<p class="card-text"><strong>Estrellas:</strong> ${this.estrellas}</p>
 						<p class="card-text"><strong>Personas:</strong> ${this.personas}</p>
 						<p class="card-text"><strong>Precio:</strong> $${this.precio}</p>
@@ -49,8 +52,11 @@ class Paquete {
 				<td>${this.nombre}</td>
 				<td>${this.descripcion}</td>
 				<td>${this.hotel_id}</td>
+				<td>${this.hotel_value}</td>
 				<td>${this.vuelo_id}</td>
+				<td>${this.vuelo_value}</td>
 				<td>${this.excursion_id}</td>
+				<td>${this.excursion_value}</td>
 				<td>${this.estrellas}</td>
 				<td>${this.personas}</td>
 				<td>$${this.precio}</td>
@@ -67,8 +73,9 @@ function cargarListadoPaquete() {
 		url: contextPath + "/paqueteController",
 		method: "GET",
 		cache: false,
-		success: function (response) {
-			console.log(response);
+		success: function(response) {
+			console.log("Entró al success");
+			console.log("Paquetes cargados:", response);
 
 			if ($('#contenedorPaquete').length) {
 				$('#contenedorPaquete').empty();
@@ -78,11 +85,69 @@ function cargarListadoPaquete() {
 			}
 
 			response.forEach(m => {
+				const hotelNombre = (m.hotel && m.hotel.nombre) ? m.hotel.nombre : "No incluye hotel";
+				const vueloNombre = (m.vuelo && m.vuelo.nombre) ? m.vuelo.nombre : "No incluye vuelo";
+				const excursionNombre = (m.excursion && m.excursion.nombre) ? m.excursion.nombre : "No incluye excursión";
+
 				const paquete = new Paquete(
-					m.id, m.nombre, m.descripcion,
-					m.hotel_id, m.vuelo_id, m.excursion_id,
-					m.estrellas, m.personas, m.precio,
+					m.id,
+					m.nombre,
+					m.descripcion,
+					m.hotel ? m.hotel.id : "-",
+					m.hotel ? m.hotel.nombre : "No incluye hotel",
+					m.vuelo ? m.vuelo.id : "-",
+					m.vuelo ? m.vuelo.nombre : "No incluye vuelo",
+					m.excursion ? m.excursion.id : "-",
+					m.excursion ? m.excursion.nombre : "No incluye excursión",
+					m.estrellas,
+					m.personas,
+					m.precio,
 					m.imagen
 				);
 
-				if ($('#contenedorPaquete').len
+				console.log("HOTEL", m.hotel);
+				console.log("VUELO", m.vuelo);
+				console.log("EXCURSION", m.excursion);
+
+				if ($('#contenedorPaquete').length) {
+					$('#contenedorPaquete').append(paquete.renderizar());
+				}
+
+				if ($('#tablaPaquete').length) {
+					$('#tablaPaquete').append(paquete.renderizarTabla());
+				}
+			});
+
+			// Carrito
+			$('.boton-carrito').click(function() {
+				const id = $(this).data("id");
+				const type = $(this).data("type");
+
+				$.ajax({
+					type: "GET",
+					url: contextPath + '/carrito.do',
+					data: { id: id, type: type },
+					dataType: "json",
+					success: function(response) {
+						console.log("Paquete agregado al carrito:", response);
+					},
+					error: function(xhr) {
+						console.error("Error al agregar el paquete al carrito:", xhr);
+					}
+				});
+			});
+		},
+		error: function(xhr) {
+			console.error("Error al obtener los paquetes:", xhr);
+			alert("Error al cargar los paquetes");
+
+			if ($('#contenedorPaquete').length) {
+				$('#contenedorPaquete').html('<p>Error al cargar los paquetes.</p>');
+			}
+		}
+	});
+}
+
+$(document).ready(function() {
+	cargarListadoPaquete();
+});

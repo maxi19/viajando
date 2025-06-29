@@ -23,13 +23,13 @@ private Conexion conexion = Conexion.getInstance();
 private DestinoDao destinoDao = new DestinoDao();
 
 	
-	private static final String queryList = "SELECT id, nombre, destino_id,  estrellas, precio, imagen FROM hotel";
+	private static final String queryList = "SELECT id, nombre, destino_id,  estrellas, precio, imagen, stock FROM hotel";
 	
-	private static final String queryConsultarHotel = "SELECT id, nombre, destino_id, estrellas, precio, imagen   FROM hotel where id=?";
+	private static final String queryConsultarHotel = "SELECT id, nombre, destino_id, estrellas, precio, imagen, stock   FROM hotel where id=?";
 	
 	private static final String queryUpdateImage = "UPDATE hotel SET imagen=? WHERE id=?";
 	
-	private static final String queryAddHotel = "INSERT INTO hotel (nombre, destino_id, estrellas, precio) VALUES (?,?,?,?)";
+	private static final String queryAddHotel = "INSERT INTO hotel (nombre, destino_id, estrellas, precio, stock) VALUES (?,?,?,?,?)";
 
 	private static final String queryDeleteExcursion = "DELETE FROM hotel WHERE id=?";
 
@@ -52,7 +52,9 @@ private DestinoDao destinoDao = new DestinoDao();
 		                    destino,
 		                    rs.getDouble("estrellas"),
 		                    rs.getInt("precio"),
-		                    rs.getString("imagen")
+		                    rs.getString("imagen"),
+		                    rs.getInt("stock")
+
 		                ));
 			 }	
 			 }	
@@ -72,7 +74,6 @@ private DestinoDao destinoDao = new DestinoDao();
 		return hotel;
 	}
 
-	
 	public Hotel findById(int id) throws Exception {
 		 ResultSet rs = null;
 		 PreparedStatement st = null;
@@ -89,7 +90,9 @@ private DestinoDao destinoDao = new DestinoDao();
 						destino,
 					    rs.getDouble("estrellas"),
 					    rs.getInt("precio"),
-					    rs.getString("imagen")); 
+					    rs.getString("imagen"),
+			            rs.getInt("stock"));
+
 			}
 
 		 }catch (Exception e) {
@@ -109,7 +112,7 @@ private DestinoDao destinoDao = new DestinoDao();
 
 
 	 @Override
-	    public int saveAndReturnId( String nombre, int destino_id, double estrellas, int precio) throws Exception {
+	    public int saveAndReturnId( String nombre, int destino_id, double estrellas, int precio, int stock) throws Exception {
 	        PreparedStatement st = null;
 	        ResultSet rs = null;
 	        int idGenerado = -1;
@@ -120,6 +123,7 @@ private DestinoDao destinoDao = new DestinoDao();
 				st.setInt(2, destino_id);
 				st.setDouble(3, estrellas);
 				st.setInt(4, precio);
+				st.setInt(5, stock);
 	            st.executeUpdate();
 
 	            rs = st.getGeneratedKeys(); // pide la llave generada automaticamente, osea la primary key

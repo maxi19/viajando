@@ -25,7 +25,7 @@ class Hotel {
 						<div class="d-flex justify-content-between align-items-center">
 							<div class="btn-group">
 								<button type="button" class="btn btn-sm btn-outline-secondary ver-mas-btn" data-id="${this.id}">Ver más</button>
-								<button class="btn btn-sm btn-outline-secondary boton-carrito" data-id="${this.id}" data-type="HOTEL">Carrito</button>
+								<button class="btn btn-sm btn-outline-secondary boton-carrito-hotel" data-id="${this.id}" data-type="HOTEL">Carrito</button>
 							</div>
 							<small class="text-body-secondary">hotel</small>
 						</div>
@@ -61,46 +61,63 @@ function cargarListadoHotel() {
 		success: function(response) {
 			console.log("Hoteles recibidos:", response);
 			$('#contenedorHotel').empty();
-console.log
 
-response.forEach(m => {
-  console.log("Destino recibido:", m.destino);
+			response.forEach(m => {
+				console.log("Destino recibido:", m.destino);
 
-  const hotel = new Hotel(
-    m.id,
-    m.nombre,
-    m.destino.id,
-    `${m.destino.nombre}, ${m.destino.pais}`,
-    m.estrellas,
-    m.precio,
-    m.imagen
-  );
+				const hotel = new Hotel(
+					m.id,
+					m.nombre,
+					m.destino.id,
+					`${m.destino.nombre}, ${m.destino.pais}`,
+					m.estrellas,
+					m.precio,
+					m.imagen
+				);
 
-				// Renderizado en galería
 				$('#contenedorHotel').append(hotel.renderizar());
 
-				// Renderizado en tabla (dashboard)
 				if ($('#tablaHotel').length) {
 					$('#tablaHotel').append(hotel.renderizarTabla());
 				}
 			});
 
-
-			// Carrito
-			$('.boton-carrito').click(function () {
+			// Botón carrito con SweetAlert
+			$('.boton-carrito-hotel').click(function () {
 				const id = $(this).data("id");
 				const type = $(this).data("type");
 
-				$.ajax({
-					type: "GET",
-					url: contextPath + '/carrito.do',
-					data: { id: id, type: type },
-					dataType: "json",
-					success: function(response) {
-						console.log("Hotel agregado al carrito:", response);
-					},
-					error: function(xhr) {
-						console.error("Error al agregar hotel al carrito:", xhr);
+				Swal.fire({
+					title: '¿Agregar al carrito?',
+					text: "¿Deseás agregar este hotel al carrito?",
+					icon: 'question',
+					showCancelButton: true,
+					confirmButtonText: 'Sí, agregar',
+					cancelButtonText: 'Cancelar'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						$.ajax({
+							type: "GET",
+							url: contextPath + '/carrito.do',
+							data: { id: id, type: type },
+							dataType: "json",
+							success: function(response) {
+								Swal.fire({
+									title: 'Hotel agregado',
+									icon: 'success',
+									showCancelButton: true,
+									confirmButtonText: 'Ver carrito',
+									cancelButtonText: 'Seguir navegando'
+								}).then(choice => {
+									if (choice.isConfirmed) {
+										window.location.href = contextPath + '/carrito/carritoPage.jsp';
+									}
+								});
+							},
+							error: function(xhr) {
+								Swal.fire('Error', 'No se pudo agregar el hotel al carrito.', 'error');
+							}
+						});
 					}
 				});
 			});
@@ -115,3 +132,4 @@ response.forEach(m => {
 $(document).ready(function () {
 	cargarListadoHotel();
 });
+

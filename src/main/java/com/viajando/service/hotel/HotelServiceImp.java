@@ -24,10 +24,10 @@
 		}
 	
 		@Override
-		public int saveAndReturnId(  String nombre, int destino_id, double estrellas, int precio)
+		public int saveAndReturnId(String nombre, int destino_id, double estrellas, int precio, int stock)
 				throws Exception {
 			// TODO Auto-generated method stub
-			return hotelDao.saveAndReturnId(nombre, destino_id, estrellas, precio);
+			return hotelDao.saveAndReturnId(nombre, destino_id, estrellas, precio, stock);
 		}
 	
 		@Override
