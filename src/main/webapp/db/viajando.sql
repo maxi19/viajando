@@ -20,6 +20,7 @@ CREATE TABLE empresa (
   pais VARCHAR(35),
   imagen VARCHAR(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ 
 
 -- Tabla Avion
 CREATE TABLE avion (
