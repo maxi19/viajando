@@ -27,7 +27,7 @@ class Excursion {
 						<p class="card-text"><strong>Fecha inicio:</strong> ${this.fecha_inicio}</p>
 						<p class="card-text"><strong>Fecha fin:</strong> ${this.fecha_fin}</p>
 						<p class="card-text"><strong>Destino:</strong> ${this.destino_value}</p>
-						<p class="card-text"><strong>Precio:</strong> ${this.precio}</p>
+						<p class="card-text"><strong>Precio</strong> ${this.precio}</p>
 						<div class="d-flex justify-content-between align-items-center">
 							<div class="btn-group">
 								<button type="button" class="btn btn-sm btn-outline-secondary ver-mas-btn" data-id="${this.id}">Ver más</button>

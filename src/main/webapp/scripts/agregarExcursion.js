@@ -7,7 +7,7 @@ $(function () {
     success: function (destinos) {
       const $select = $('#cmbDestino');
       $.each(destinos, function (i, destino) {
-        $select.append(`<option value="${destino.id}">${destino.nombre}</option>`);
+        $select.append(`<option value="${destino.id}">${destino.nombre}, ${destino.pais}</option>`);
       });
     },
     error: function () {

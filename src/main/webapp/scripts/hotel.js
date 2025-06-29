@@ -61,7 +61,7 @@ function cargarListadoHotel() {
 		success: function(response) {
 			console.log("Hoteles recibidos:", response);
 			$('#contenedorHotel').empty();
-console.log
+
 
 response.forEach(m => {
   console.log("Destino recibido:", m.destino);
