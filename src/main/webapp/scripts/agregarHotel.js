@@ -1,7 +1,7 @@
 $(function () {
   const contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 1));
 
-  // 🔄 Cargar destinos al abrir el modal del hotel
+  // Cargar destinos al abrir el modal del hotel
   $('#modalHotel').on('show.bs.modal', function () {
     console.log("Abriendo modal hotel");
 

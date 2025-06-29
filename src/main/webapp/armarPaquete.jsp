@@ -7,8 +7,17 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet">
+	<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/style/estiloPaquete.css">
 </head>
 <body class="container py-4">
+
+<header>
+  <div class="titulo">
+    <img class="icono" src="<%=request.getContextPath()%>/images/flight.svg" alt="Vuelo" style="font-size: 24px;">
+    <strong class="texto">Viajando.com</strong>
+  </div>
+</header>
 
 	<%
 	// Recibo el parámetro opciones desde la URL
@@ -17,6 +26,8 @@
 	%>
 
 	<h1>Armar tu paquete</h1>
+	
+	
 
 	<form action="confirmar_paquete.jsp" method="post">
 

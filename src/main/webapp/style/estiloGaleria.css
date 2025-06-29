@@ -1,0 +1,79 @@
+@charset "UTF-8";
+.boton-paquete {
+  background: linear-gradient(45deg, #007BFF, #00CFFF); /* Degradado azul-celeste */
+  color: white;
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 50px; /* Botón tipo cápsula */
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Sweet Alert paquete*/
+.boton-paquete:hover {
+  background: linear-gradient(45deg, #0056b3, #009ecf);
+  box-shadow: 0 6px 14px rgba(0, 123, 255, 0.5);
+}
+
+.boton-paquete:active {
+  transform: scale(0.98);
+}
+.swal2-html-container .opcion-paquete {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+.opcion-paquete {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1em;
+  margin: 10px 0;
+  cursor: pointer;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+/* Estilo del checkbox */
+.opcion-paquete input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #007BFF;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.opcion-paquete input[type="checkbox"]:checked {
+  background-color: #007BFF;
+}
+
+.opcion-paquete input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.opcion-paquete input[type="checkbox"]:checked::before {
+  opacity: 1;
+}
+
+/* Ajustes opcionales para el popup */
+.swal2-popup {
+  font-size: 1.1rem;
+}
