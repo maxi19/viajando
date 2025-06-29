@@ -31,6 +31,8 @@
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/style/estilosCarousel.css">
+	<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/style/estiloGaleria.css">
 
 <link
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
@@ -38,9 +40,9 @@
 
 
 <script type="text/javascript">
-							var contextPath="<%=request.getContextPath()%>
-	";
+							var contextPath="<%=request.getContextPath()%>";
 </script>
+
 <meta name="theme-color" content="#712cf9">
 <style>
 .bd-placeholder-img {
@@ -273,42 +275,42 @@
         en ofrecer una experiencia simple, rápida y segura para que puedas
         planificar viajes a cualquier destino del mundo.</p>
       <p>
-        <a href="#" class="btn btn-primary my-2" id="btn-init-paquete">Arma
-          tu paquete</a> <a href="#" class="btn btn-secondary my-2">Secondary
-          action</a>
+        <button class="boton-paquete" onclick="mostrarOpciones()">Armar tu paquete</button>
+		 <!--  <a href="#" class="btn btn-secondary my-2">Secondary	action</a>-->
       </p>
     </div>
-
-    <ol class="carousel-indicators">
-      <li data-target="#carouselExampleIndicators" data-slide-to="0"
-        class="active"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
-    </ol>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img class="d-block w-100" src="../images/paris.png" alt="First slide">
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="/images/tokyo.jpg" alt="Second slide">
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="/images/misiones_argentina.png" alt="Third slide">
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="/images/new_york.png" alt="Third slide">
-      </div>
-    </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only"></span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only"></span>
-    </a>
+    
+    <!-- CAROUSEL -->
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
   </div>
-
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="../images/paris.png" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/images/tokyo.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/images/misiones_argentina.png" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/images/new_york.png" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Siguiente</span>
+  </button>
+</div>
 
 
 
@@ -351,6 +353,22 @@
 				</div>
 			</div>
 		</div>
+		
+		<h1 class="NombreServicio">Paquetes</h1>
+		<div class="album py-5 bg-body-tertiary">
+			<div class="container">
+				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"
+					id="contenedorPaquete">
+
+
+
+
+
+					<!--  -->
+
+				</div>
+			</div>
+		</div>
 
 
 
@@ -378,6 +396,8 @@
 	<script src="<%=request.getContextPath()%>/scripts/excursion.js"></script>
 	<script src="<%=request.getContextPath()%>/scripts/hotel.js"></script>
 	<script src="<%=request.getContextPath()%>/scripts/vuelo.js"></script>
+	<script src="<%=request.getContextPath()%>/scripts/paquete.js"></script>
+	
 
 
 
@@ -415,7 +435,41 @@
 	</div>
 
 
+<script>
+function mostrarOpciones() {
+  Swal.fire({
+    title: '¿Qué querés incluir en tu paquete?',
+    html:
+      '<label class="opcion-paquete"><input type="checkbox" id="hotel"> Hotel</label><br>' +
+      '<label class="opcion-paquete"><input type="checkbox" id="excursion"> Excursión</label><br>' +
+      '<label class="opcion-paquete"><input type="checkbox" id="vuelo"> Vuelos</label>',
+    showCancelButton: true,
+    confirmButtonText: 'Continuar',
+    cancelButtonText: 'Cancelar',
+    preConfirm: () => {
+      // Obtenemos las opciones seleccionadas
+      const opciones = [];
+      if (document.getElementById('hotel').checked) opciones.push('hotel');
+      if (document.getElementById('excursion').checked) opciones.push('excursion');
+      if (document.getElementById('vuelo').checked) opciones.push('vuelo');
 
+      if (opciones.length === 0) {
+        Swal.showValidationMessage('Seleccioná al menos una opción');
+        return false; // Evita que se cierre
+      }
+
+      return opciones; 
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Redirigimos a otra página pasando las opciones por query string
+      const params = new URLSearchParams();
+      params.set('opciones', result.value.join(','));
+      window.location.href = 'armarPaquete.jsp?' + params.toString();
+    }
+  });
+}
+</script>
 
 </body>
 </html>

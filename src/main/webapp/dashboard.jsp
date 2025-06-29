@@ -1,13 +1,14 @@
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Astro v5.9.2">
-<title>Dashboard Template ï¿½ Bootstrap v5.3</title>
+<title>Dashboard</title>
 <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/dashboard/">
 <script src="<%=request.getContextPath()%>/assets/js/jquery/jquery-3.6.4.min.js"></script>
 <script src="<%=request.getContextPath()%>/assets/js/dashboard/color-modes.js"></script>
@@ -418,8 +419,8 @@
           <th>Destino ID</th>
           <th>Destino</th>
           <th>Estrellas</th>
-          <th>Avion ID</th>
-          <th>Accion</th>
+          <th>Avión ID</th>
+          <th>Acción</th>
           
         </tr>
       </thead>
@@ -734,15 +735,15 @@
 							},
 							
 							estrellas: {
-								required: "Por favor, ingrese una calificaci�n de estrellas",
-								number: "Por favor, ingrese un n�mero v�lido",
+								required: "Por favor, ingrese una calificación de estrellas",
+								number: "Por favor, ingrese un número válido",
 								min: "Debe ser al menos 0",
 								max: "No puede ser mayor a 5"
 							},
 							
 							precio: {
 								required: "Por favor, ingrese un precio",
-								number: "Por favor, ingrese un n�mero v�lido",
+								number: "Por favor, ingrese un número válido",
 								min: "El precio no puede ser negativo"
 							},
 							
@@ -776,7 +777,7 @@
    <div class="tab-pane fade" id="paquete-tab-pane" role="tabpanel" aria-labelledby="paquete-tab" tabindex="0">
     <span>
     <br>
-    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPaquete">Nueva Excursion</a>
+    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPaquete">Nuevo Paquete</a>
     </span>
 
 <div class="container mt-5">
@@ -790,13 +791,13 @@
         <tr>
           <th>ID</th>
           <th>Nombre</th>
-          <th>Descripci�n</th>
+          <th>Descripción</th>
           <th>Hotel ID</th>
           <th>Hotel</th>
           <th>Vuelo ID</th>
           <th>Vuelo</th>         
-          <th>Destino ID</th>
-          <th>Destino</th>
+          <th>Excursion ID</th>
+          <th>Excursion</th>
           <th>Estrellas</th>
           <th>Personas</th>
           <th>Precio</th>     
@@ -807,7 +808,7 @@
       </tbody>
     </table>
   </div>
-<div class="card-footer text-muted text-center">Viajando � Administraci�n de paquetes</div>
+<div class="card-footer text-muted text-center">Viajando · Administración de paquetes</div>
   </div>
 
 
@@ -825,8 +826,8 @@
         </div>
 
         <div class="form-group">
-          <label for="descripcion">Descripci�n:</label>
-          <input type="text" class="form-control" id="descripcion" name="descripcion" required placeholder="Ingrese una descripci�n">
+          <label for="descripcion">Descripción:</label>
+          <input type="text" class="form-control" id="descripcion" name="descripcion" required placeholder="Ingrese una descripciï¿½n">
         </div>
 
         <div class="form-group">
@@ -875,13 +876,13 @@
         <div class="form-check mt-2">
           <input class="form-check-input" type="checkbox" value="" id="chkExcursion">
           <label class="form-check-label" for="chkExcursion">
-            Incluir Excursi�n
+            Incluir Excursión
           </label>
         </div>
         <div class="form-group mt-2" id="input-excursion" style="display:none;">
-          <label for="excursion_id">Excursi�n:</label>
+          <label for="excursion_id">Excursión:</label>
           <select class="form-control" id="cmbExcursion" name="excursion_id">
-            <option value="">Seleccione una excursi�n...</option>
+            <option value="">Seleccione una excursión...</option>
           </select>
         </div>
 
@@ -891,8 +892,9 @@
           <label for="imagen">Imagen (opcional):</label>
           <input type="file" class="form-control" id="imagen" name="imagen">
         </div>
-
-        <button type="submit" class="btn btn-primary mt-3">Confirmar paquete</button>
+        
+        <button type="submit" class="btn btn-primary mt-3" id="btn-confirmar-paquete">Confirmar paquete</button>
+        
       </form>
     </div>
   </div>
@@ -935,22 +937,22 @@ $(document).ready(function () {
         minlength: "El nombre debe tener al menos 2 caracteres"
       },
       descripcion: {
-        required: "Por favor, ingrese una descripci�n",
-        minlength: "La descripci�n debe tener al menos 10 caracteres"
+        required: "Por favor, ingrese una descripción",
+        minlength: "La descripción debe tener al menos 10 caracteres"
       },
       personas: {
         required: "Por favor, ingrese la cantidad de personas",
-        number: "Ingrese un n�mero v�lido",
+        number: "Ingrese un número válido",
         min: "Debe ser al menos 1"
       },
       precio: {
         required: "Por favor, ingrese un precio",
-        number: "Ingrese un n�mero v�lido",
+        number: "Ingrese un número válido",
         min: "No puede ser negativo"
       },
       estrellas: {
-        required: "Por favor, ingrese una calificaci�n de estrellas",
-        number: "Ingrese un n�mero v�lido",
+        required: "Por favor, ingrese una calificaciï¿½n de estrellas",
+        number: "Ingrese un número válido",
         min: "Debe ser al menos 0",
         max: "No puede ser mayor a 5"
       },
@@ -968,25 +970,7 @@ $(document).ready(function () {
     }
   });
 });
-
-
-// Mostrar/ocultar selects seg�n los checkbox
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('chkHotel').addEventListener('change', function() {
-    document.getElementById('input-hotel').style.display = this.checked ? 'block' : 'none';
-    if (this.checked) cargarHoteles();
-  });
-
-  document.getElementById('chkVuelo').addEventListener('change', function() {
-    document.getElementById('input-vuelo').style.display = this.checked ? 'block' : 'none';
-    if (this.checked) cargarVuelos();
-  });
-
-  document.getElementById('chkExcursion').addEventListener('change', function() {
-    document.getElementById('input-excursion').style.display = this.checked ? 'block' : 'none';
-    if (this.checked) cargarExcursiones();
-  });
-});			
+		
 			</script>
 			
 			
@@ -1005,10 +989,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="<%=request.getContextPath()%>/scripts/agregarExcursion.js"></script>
+<script src="<%=request.getContextPath()%>/scripts/agregarHotel.js"></script>
+<script src="<%=request.getContextPath()%>/scripts/agregarPaquete.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/excursion.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/vuelo.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/hotel.js"></script>
-<script src="<%=request.getContextPath()%>/scripts/agregarHotel.js"></script>
+<script src="<%=request.getContextPath()%>/scripts/paquete.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/eliminarExcursion.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/eliminarHotel.js"></script>
 
