@@ -32,31 +32,36 @@ public class FormularioReservaDataController extends HttpServlet {
 
 		if (carrito != null) {
 			for (Object obj : carrito.getReservables()) {
-				if (obj instanceof Excursion e) {
-					int cantidad = e.getCantidadPersonas();
+				if (obj instanceof Excursion) {
+					Excursion excursion = (Excursion) obj;
+
+					int cantidad = excursion.getCantidadPersonas();
 					for (int i = 0; i < cantidad; i++) {
 						Map<String, Object> persona = new HashMap<>();
 						persona.put("tipo", "excursion");
-						persona.put("servicio_id", e.getId());
-						persona.put("nombre_servicio", e.getNombre());
+						persona.put("servicio_id", excursion.getId());
+						persona.put("nombre_servicio", excursion.getNombre());
 						personas.add(persona);
 					}
-				} else if (obj instanceof Vuelo v) {
-					int cantidad = v.getCantidadPersonas();
+				} else if (obj instanceof Vuelo) {
+					Vuelo vuelo = (Vuelo) obj;
+
+					int cantidad = vuelo.getCantidadPersonas();
 					for (int i = 0; i < cantidad; i++) {
 						Map<String, Object> persona = new HashMap<>();
 						persona.put("tipo", "vuelo");
-						persona.put("servicio_id", v.getId());
-						persona.put("nombre_servicio", v.getNombre());
+						persona.put("servicio_id", vuelo.getId());
+						persona.put("nombre_servicio", vuelo.getNombre());
 						personas.add(persona);
 					}
-				} else if (obj instanceof Hotel h) {
-					int cantidad = h.getCantidadPersonas();
+				} else if (obj instanceof Hotel) {
+					 Hotel hotel = (Hotel) obj;
+					int cantidad = hotel.getCantidadPersonas();
 					for (int i = 0; i < cantidad; i++) {
 						Map<String, Object> persona = new HashMap<>();
 						persona.put("tipo", "hotel");
-						persona.put("servicio_id", h.getId());
-						persona.put("nombre_servicio", h.getNombre());
+						persona.put("servicio_id", hotel.getId());
+						persona.put("nombre_servicio", hotel.getNombre());
 						personas.add(persona);
 					}
 					

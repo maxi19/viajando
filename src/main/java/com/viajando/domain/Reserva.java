@@ -7,18 +7,18 @@ public class Reserva {
 	private String nombre;
 	private String apellido;
 	private String sexo;
-	private int dni;
+	private String dni;
 	private String tipoServicio;
-	private int idVuelo;
-	private int idHotel;
-	private int idExcursion;
-	private int idPaquete;
+	private Integer idVuelo;
+	private Integer idHotel;
+	private Integer idExcursion;
+	private Integer idPaquete;
 	private int precio;
 	private int servicio_id;
 	private String butaca;
 
 	// Constructor completo
-	public Reserva(int id, String identificador, String nombre, String apellido, String sexo, int dni, String tipoServicio,
+	public Reserva(int id, String identificador, String nombre, String apellido, String sexo, String dni, String tipoServicio,
 			int idVuelo, int idHotel, int idExcursion, int idPaquete, int precio) {
 		this.id = id;
 		this.identificador = identificador;
@@ -81,10 +81,10 @@ public class Reserva {
 		this.sexo = sexo;
 	}
 
-	public int getDni() {
+	public String getDni() {
 		return dni;
 	}
-	public void setDni(int dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 
@@ -95,28 +95,28 @@ public class Reserva {
 		this.tipoServicio = tipoServicio;
 	}
 
-	public int getIdVuelo() {
+	public Integer getIdVuelo() {
 		return idVuelo;
 	}
 	public void setIdVuelo(int idVuelo) {
 		this.idVuelo = idVuelo;
 	}
 
-	public int getIdHotel() {
+	public Integer getIdHotel() {
 		return idHotel;
 	}
 	public void setIdHotel(int idHotel) {
 		this.idHotel = idHotel;
 	}
 
-	public int getIdExcursion() {
+	public Integer getIdExcursion() {
 		return idExcursion;
 	}
 	public void setIdExcursion(int idExcursion) {
 		this.idExcursion = idExcursion;
 	}
 
-	public int getIdPaquete() {
+	public Integer getIdPaquete() {
 		return idPaquete;
 	}
 	public void setIdPaquete(int idPaquete) {

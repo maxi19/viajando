@@ -8,7 +8,6 @@ import java.util.List;
 
 import com.viajando.config.Conexion;
 import com.viajando.domain.Reserva;
-import com.viajando.service.reserva.ReservaService;
 
 public class ReservaDaoImp implements ReservaDao {
 
@@ -16,12 +15,7 @@ public class ReservaDaoImp implements ReservaDao {
 
     private static final String queryList = "SELECT id, identificador, nombre, apellido, sexo, DNI, tipo_servicio, id_vuelo, id_hotel, id_excursion, id_paquete, precio FROM reservas";
 
-    private static final String queryAddReserva = """
-    	    INSERT INTO reservas (
-    	        identificador, nombre, apellido, sexo, DNI,
-    	        tipo_servicio, id_vuelo, id_hotel, id_excursion, id_paquete, precio, butaca
-    	    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    	    """;
+    private static final String queryAddReserva = "INSERT INTO reservas ( identificador, nombre, apellido, sexo, DNI, tipo_servicio, id_vuelo, id_hotel, id_excursion, id_paquete, precio, butaca) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     @Override
     public List<Reserva> list() throws Exception {
@@ -35,7 +29,7 @@ public class ReservaDaoImp implements ReservaDao {
                     rs.getString("nombre"),
                     rs.getString("apellido"),
                     rs.getString("sexo"),
-                    rs.getInt("DNI"),
+                    rs.getString("DNI"),
                     rs.getString("tipo_servicio"),
                     rs.getInt("id_vuelo"),
                     rs.getInt("id_hotel"),
@@ -58,12 +52,13 @@ public class ReservaDaoImp implements ReservaDao {
             st.setString(2, r.getNombre());
             st.setString(3, r.getApellido());
             st.setString(4, r.getSexo());
-            st.setInt(5, r.getDni());
+            st.setString(5, r.getDni());
             st.setString(6, r.getTipoServicio());
-            st.setObject(7, r.getIdVuelo() != 0 ? r.getIdVuelo() : null);
-            st.setObject(8, r.getIdHotel() != 0 ? r.getIdHotel() : null);
-            st.setObject(9, r.getIdExcursion() != 0 ? r.getIdExcursion() : null);
-            st.setObject(10, r.getIdPaquete() != 0 ? r.getIdPaquete() : null);
+            st.setInt(7, r.getIdVuelo() != null ? r.getIdVuelo() : 0);
+            st.setInt(8,  r.getIdHotel() != null ? r.getIdHotel() : 0); 
+            st.setInt(9, r.getIdExcursion() != null ? r.getIdExcursion() : 0);
+            st.setInt(10, r.getIdPaquete() != null ? r.getIdPaquete() : 0);
+           
             st.setInt(11, r.getPrecio());
             st.setString(12, r.getButaca()); 
 

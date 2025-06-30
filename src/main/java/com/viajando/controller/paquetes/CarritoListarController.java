@@ -37,37 +37,40 @@ public class CarritoListarController extends HttpServlet {
 	                json.addProperty("cantidad", r.getCantidadPersonas());
 	            }
 
-	            if (r instanceof Excursion e) {
-	                json.addProperty("nombre", e.getNombre());
-	                json.addProperty("descripcion", e.getDescripcion());
-	                json.addProperty("fecha_inicio", e.getFecha_inicio().toString());
-	                json.addProperty("fecha_fin", e.getFecha_fin().toString());
-	                json.addProperty("imagen", e.getImagen());
-	                json.addProperty("destino", e.getDestino().getNombre());
-	                json.addProperty("estrellas", e.getEstrellas());
-	                json.addProperty("precio", e.getPrecio());
+	            if (r instanceof Excursion) {
+					 Excursion excursion = (Excursion) r;
+	                json.addProperty("nombre", excursion.getNombre());
+	                json.addProperty("descripcion", excursion.getDescripcion());
+	                json.addProperty("fecha_inicio", excursion.getFecha_inicio().toString());
+	                json.addProperty("fecha_fin", excursion.getFecha_fin().toString());
+	                json.addProperty("imagen", excursion.getImagen());
+	                json.addProperty("destino", excursion.getDestino().getNombre());
+	                json.addProperty("estrellas", excursion.getEstrellas());
+	                json.addProperty("precio", excursion.getPrecio());
 
 	            }
 
-	            if (r instanceof Vuelo v) {
-	                json.addProperty("nombre", v.getNombre());
-	                json.addProperty("fecha_inicio", v.getFecha_inicio().toString());
-	                json.addProperty("fecha_fin", v.getFecha_fin().toString());
-	                json.addProperty("hora_ida", v.getHora_ida().toString());
-	                json.addProperty("hora_vuelta", v.getHora_vuelta().toString());
-	                json.addProperty("imagen", v.getImagen());
-	                json.addProperty("destino", v.getDestino().getNombre());
-	                json.addProperty("estrellas", v.getEstrellas());
-	                json.addProperty("precio", v.getPrecio());
+	            if (r instanceof Vuelo) {
+					 Vuelo vuelo = (Vuelo) r;
+	                json.addProperty("nombre", vuelo.getNombre());
+	                json.addProperty("fecha_inicio", vuelo.getFecha_inicio().toString());
+	                json.addProperty("fecha_fin", vuelo.getFecha_fin().toString());
+	                json.addProperty("hora_ida", vuelo.getHora_ida().toString());
+	                json.addProperty("hora_vuelta", vuelo.getHora_vuelta().toString());
+	                json.addProperty("imagen", vuelo.getImagen());
+	                json.addProperty("destino", vuelo.getDestino().getNombre());
+	                json.addProperty("estrellas", vuelo.getEstrellas());
+	                json.addProperty("precio", vuelo.getPrecio());
 
 	            }
 	            
-	            if (r instanceof Hotel h) {
-	                json.addProperty("nombre", h.getNombre());
-	                json.addProperty("destino", h.getDestino().getNombre());
-	                json.addProperty("imagen", h.getImagen());
-	                json.addProperty("estrellas", h.getEstrellas());
-	                json.addProperty("precio", h.getPrecio());
+	            if (r instanceof Hotel) {
+					 Hotel hotel = (Hotel) r;
+	                json.addProperty("nombre", hotel.getNombre());
+	                json.addProperty("destino", hotel.getDestino().getNombre());
+	                json.addProperty("imagen", hotel.getImagen());
+	                json.addProperty("estrellas", hotel.getEstrellas());
+	                json.addProperty("precio", hotel.getPrecio());
 
 	            }
 

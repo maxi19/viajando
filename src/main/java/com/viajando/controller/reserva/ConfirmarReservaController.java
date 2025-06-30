@@ -38,13 +38,20 @@ public class ConfirmarReservaController extends HttpServlet {
             for (Reserva reserva : reservas) {
                 reserva.setIdentificador(identificador);
 
+                System.out.println(reserva);
                 int idServicio = reserva.getServicio_id(); 
+                System.out.println(idServicio);
 
                 switch (reserva.getTipoServicio()) {
-                case "vuelo" -> reserva.setIdVuelo(reserva.getServicio_id());
-                case "excursion" -> reserva.setIdExcursion(reserva.getServicio_id());
-                case "hotel" -> reserva.setIdHotel(reserva.getServicio_id());
-                case "paquete" -> reserva.setIdPaquete(reserva.getServicio_id());
+
+                case "vuelo" : reserva.setIdVuelo(reserva.getServicio_id());
+                			break;
+                case "excursion" : reserva.setIdExcursion(reserva.getServicio_id());
+                break;
+                case "hotel" : reserva.setIdHotel(reserva.getServicio_id());
+                break;
+                case "paquete" : reserva.setIdPaquete(reserva.getServicio_id());
+                break;
             }
 
                 reserva.setPrecio(1000); // Placeholder, podés reemplazar por precio real

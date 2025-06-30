@@ -75,8 +75,14 @@ public class ActualizarCantidadesController extends HttpServlet {
 	        }
 
 	        for (Object obj : carrito.getReservables()) {
-	            if (obj instanceof Reservable r && r.dameId() == id) {
-	                r.setCantidadPersonas(cantidad);
+	            if (obj instanceof Reservable) {
+	            	Reservable reservable = (Reservable) obj ;
+	            
+	            	if (reservable.dameId() == id) {
+    	                reservable.setCantidadPersonas(cantidad);
+
+	            	}
+	            
 	            }
 	        }
 	    }

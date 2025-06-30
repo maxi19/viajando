@@ -1,7 +1,5 @@
 package com.viajando.domain;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class Hotel implements Reservable{
 	
