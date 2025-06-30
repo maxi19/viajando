@@ -207,22 +207,31 @@
 				</div>
 			</div>
 		</div>
-		<div class="navbar navbar-dark bg-dark shadow-sm">
-			<div class="container">
-				<a href="#" class="navbar-brand d-flex align-items-center"> <span
-					class="material-symbols-outlined me-2" style="font-size: 24px;">flight</span>
-					<strong>Viajando.com</strong>
-				</a>
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarHeader"
-					aria-controls="navbarHeader" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-			</div>
-		</div>
+<div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container d-flex justify-content-between align-items-center">
+        <!-- IZQUIERDA: Marca -->
+        <a href="#" class="navbar-brand d-flex align-items-center">
+            <span class="material-symbols-outlined me-2" style="font-size: 24px;">flight</span>
+            <strong>Viajando.com</strong>
+        </a>
+
+        <!-- DERECHA: Links + botón toggle -->
+        <div class="d-flex align-items-center gap-3">
+            <a href="#" class="nav-link text-white">FAQ</a>
+            <a href="#" class="nav-link text-white">Acerca de</a>
+            <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarHeader"
+                aria-controls="navbarHeader" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+</div>
 	</header>
 
+
+			
 <style>
   /* Contenedor del mensaje que queda sobre el carrusel */
   #mensajeBienvenida {
@@ -263,6 +272,8 @@
 </style>
 
 <main>
+
+
 
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <div id="mensajeBienvenida">

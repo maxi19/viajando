@@ -3,11 +3,6 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
-
-<script>
-  const contextPath = "<%=request.getContextPath()%>";
-</script>
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
@@ -262,132 +257,64 @@
 }
 
   .NombreServicio {
-  padding: 35px;
-  background-color: #1b1e21;
+  padding: 35px
   }
 
 </style>
 
 <main>
 
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <div id="mensajeBienvenida">
+      <h1>BIENVENIDO</h1>
+      <button type="button" class="btn btn-primary" id="btn-verCarrito">
+        Ver carrito <span class="badge text-bg-secondary">4</span>
+      </button>
+      <p >tu plataforma confiable
+        para organizar y reservar tu próxima aventura. Nos especializamos
+        en ofrecer una experiencia simple, rápida y segura para que puedas
+        planificar viajes a cualquier destino del mundo.</p>
+      <p>
+        <a href="#" class="btn btn-primary my-2" id="btn-init-paquete">Arma
+          tu paquete</a> <a href="#" class="btn btn-secondary my-2">Secondary
+          action</a>
+      </p>
+    </div>
     
+    
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="../images/paris.png" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/images/tokyo.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/images/misiones_argentina.png" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/images/new_york.png" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Siguiente</span>
+  </button>
+</div>
+
 
 	
-    <script src="<%=request.getContextPath()%>/scripts/carrito.js"></script>
-
-
-<!-- Contenido del carrito -->
-    <h1 class="NombreServicio">Carrito de Compras</h1>
-<div class="album py-5 bg-body-tertiary">
-<div class="container">
-
-<div id="contenedorCarrito"></div>
-<div id="contenedorBotonReservar"></div>
-</div>
-</div>
-
-
-<style>
-
-#contenedorCarrito {
-  margin-bottom: 0 !important;
-  padding-bottom: 0 !important;
-}
-
-#contenedorBotonReservar {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-  #contenedorBotonReservar > div {
-  margin-top: 0 !important;
-}
-
-/* Título del carrito */
-
-
-/* Contenedor del carrito */
-#contenedorCarrito {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-
-
-  /* Tema claro */
-  :root[data-bs-theme='light'] .card {
-    background-color: #ffffff;
-    color: #212529;
-  }
-
-  /* Tema oscuro */
-  :root[data-bs-theme='dark'] .card {
-    background-color: #252d35;
-    color: #f8f9fa;
-  }
-
-
-
-/* Imagen de la tarjeta */
-.card-img-top {
-    height: 200px;
-    object-fit: cover;
-
-}
-
-/* Contenido de la tarjeta */
-.card-body {
-    padding: 15px;
-}
-
-/* Título del producto */
-
-
-/* Precio */
-.precio {
-    font-size: 1.2rem;
-    color: #198754;
-    font-weight: bold;
-}
-
-/* Botones del carrito */
-.btn-carrito {
-    margin-top: 10px;
-    width: 100%;
-    font-weight: 500;
-    transition: all 0.2s ease-in-out;
-}
-
-.btn-carrito:hover {
-    opacity: 0.9;
-}
-
-
-
-/* Responsive para pantallas pequeñas */
-@media (max-width: 768px) {
-    .card {
-        width: 90%;
-    }
-}
-
-  .NombreServicio {
-  padding: 35px
-  }
-  
-  .centrar {
-
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-
-}
-
-</style>
-
-
-
 
 
 
@@ -408,6 +335,9 @@
 	<script
 		src="<%=request.getContextPath()%>/assets/dist/js/bootstrap.bundle.min.js"
 		class="astro-vvvwv3sm"></script>
+	<script src="<%=request.getContextPath()%>/scripts/excursion.js"></script>
+	<script src="<%=request.getContextPath()%>/scripts/hotel.js"></script>
+	<script src="<%=request.getContextPath()%>/scripts/vuelo.js"></script>
 
 
 
@@ -423,6 +353,26 @@
 
 
 
+
+
+
+	<!-- Modal de Excursión -->
+	<div class="modal fade" id="modalExcursion" tabindex="-1"
+		aria-labelledby="modalExcursionLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalExcursionLabel">Detalle de
+						Excursión</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Cerrar"></button>
+				</div>
+				<div class="modal-body" id="modalContent">
+					<!-- Contenido dinámico se inyecta aquí -->
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 

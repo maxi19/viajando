@@ -27,6 +27,12 @@ $(function () {
         });
       }
     });
+
+    // ✅ Disparar regeneración de habitaciones si ya hay valor
+    const stockVal = $('#stock').val();
+    if (stockVal) {
+      $('#stock').trigger('input');
+    }
   });
 
   // ✅ Enviar formulario de hotel

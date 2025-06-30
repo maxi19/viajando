@@ -678,6 +678,25 @@
           <label for="estrellas">Precio:</label>
           <input type="number" step="0.1" class="form-control" id="precio" name="precio" required placeholder="Ingrese el precio">
         </div>
+        
+<div class="form-group mb-3">
+    <label for="cantidadHabitaciones">Cantidad de habitaciones:</label>
+    <select id="cantidadHabitaciones" name="stock" class="form-control">
+        <option value="0">Seleccionar</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+    </select>
+</div>
+
+<div id="habitacionesContainer"></div>
 
         <div class="form-group">
           <label for="imagen">Imagen:</label>
@@ -686,86 +705,98 @@
 
         <button type="submit" class="btn btn-primary mt-3" id="btn-confirmar-hotel">Submit</button>
       </form>
+
       <script>
-				$(document).ready(function () {
-					$("#formHotel").validate({
-						rules: {
-							nombre: {
-								required: true,
-								minlength: 2
-							},
-							descripcion: {
-								required: true,
-								minlength: 10
-							},
-							fecha_inicio: {
-								required: true,
-							},
-							fecha_fin: {
-								required: true,
-								},
-							precio: {
-								required: true,
-								number: true,
-							    min: 0
-							},
-							destino_id: {
-								required: true
-							},
-							estrellas: {
-								required: true,
-								number: true,
-							    min: 0,
-							    max: 5
-							},
-							imagen: {
-								 required: true,
-								 extension: "jpg|jpeg|png"
-							},
-						},
-						messages: {
-							nombre: {
-								required: "Por favor, ingrese un nombre",
-								minlength: "El nombre debe tener al menos 2 caracteres"
-							},
-							
-							destino_id: {
-								required: "Por favor, ingrese un destino"
-							},
-							
-							estrellas: {
-								required: "Por favor, ingrese una calificaci�n de estrellas",
-								number: "Por favor, ingrese un n�mero v�lido",
-								min: "Debe ser al menos 0",
-								max: "No puede ser mayor a 5"
-							},
-							
-							precio: {
-								required: "Por favor, ingrese un precio",
-								number: "Por favor, ingrese un n�mero v�lido",
-								min: "El precio no puede ser negativo"
-							},
-							
-							
-							
-							imagen: {
-								  required: "Por favor, seleccione una imagen",
-								  extension: "Solo se permiten archivos JPG, PNG"
-								}
-						},	
-						
-						errorElement: "div",
-						errorClass: "invalid-feedback",
-						highlight: function (element) {
-							$(element).addClass("is-invalid");
-						},
-						unhighlight: function (element) {
-							$(element).removeClass("is-invalid");
-						}
-					});
-				});
+      $(document).ready(function () {
+        // ✅ Validaciones existentes
+        $("#formHotel").validate({
+          rules: {
+            nombre: { required: true, minlength: 2 },
+            precio: { required: true, number: true, min: 0 },
+            estrellas: { required: true, number: true, min: 0, max: 5 },
+            imagen: { required: true, extension: "jpg|jpeg|png" },
+            destino_id: { required: true }
+          },
+          messages: {
+            nombre: { required: "Por favor, ingrese un nombre" },
+            precio: { required: "Ingrese un precio válido" },
+            estrellas: { required: "Ingrese estrellas válidas" },
+            imagen: { required: "Seleccione una imagen", extension: "Solo JPG o PNG" },
+            destino_id: { required: "Seleccione un destino" }
+          },
+          errorElement: "div",
+          errorClass: "invalid-feedback",
+          highlight: function (element) {
+            $(element).addClass("is-invalid");
+          },
+          unhighlight: function (element) {
+            $(element).removeClass("is-invalid");
+          }
+        });
+
+        // ✅ NUEVO: Generar campos de habitaciones dinámicamente
+        $("#stock").on("input", function () {
+          const cantidad = parseInt($(this).val());
+          const contenedor = $("#contenedorHabitaciones");
+          contenedor.empty();
+
+          if (!isNaN(cantidad) && cantidad > 0) {
+            for (let i = 1; i <= cantidad; i++) {
+              contenedor.append(`
+                <div class="form-group">
+                  <label for="habitacion_${i}">Capacidad para la habitación ${i}:</label>
+                  <input type="number" class="form-control capacidad-habitacion" 
+                         name="capacidad_habitacion_${i}" 
+                         id="habitacion_${i}" min="1" required>
+                </div>
+              `);
+            }
+
+            // Si estás usando jQuery Validate, actualizá reglas dinámicas:
+            $(".capacidad-habitacion").each(function () {
+              $(this).rules("add", {
+                required: true,
+                number: true,
+                min: 1,
+                messages: {
+                  required: "Ingrese la capacidad",
+                  number: "Debe ser un número",
+                  min: "Mínimo 1 persona"
+                }
+              });
+            });
+          }
+        });
 			</script>
 			
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+	const selectCantidad = document.getElementById("cantidadHabitaciones");
+	const contenedor = document.getElementById("habitacionesContainer");
+
+	selectCantidad.addEventListener("change", function () {
+		const cantidad = parseInt(this.value);
+		contenedor.innerHTML = ""; // Limpiar lo anterior
+
+		if (cantidad > 0) {
+			for (let i = 1; i <= cantidad; i++) {
+				const div = document.createElement("div");
+				div.classList.add("form-group", "mb-2");
+				div.innerHTML = `
+					<label for="habitacion${i}">Habitación ${i}:</label>
+					<select id="habitacion${i}" name="habitacion${i}" class="form-control">
+						<option value="individual">Individual</option>
+						<option value="doble">Doble</option>
+						<option value="suite">Suite</option>
+					</select>
+				`;
+				contenedor.appendChild(div);
+			}
+		}
+	});
+});			
+</script>
+	
     </div>
   </div>
   

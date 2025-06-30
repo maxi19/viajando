@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import com.google.gson.JsonObject;
+import com.viajando.service.habitacion.HabitacionService;
+import com.viajando.service.habitacion.HabitacionServiceImp;
 import com.viajando.service.hotel.HotelService;
 import com.viajando.service.hotel.HotelServiceImp;
 
@@ -23,6 +25,7 @@ public class CrearHotelController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     HotelService hotelService = new HotelServiceImp();
+    HabitacionService habitacionService = new HabitacionServiceImp();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -44,6 +47,21 @@ public class CrearHotelController extends HttpServlet {
             // Guardar hotel sin imagen primero para obtener ID
         	
         	 int idGenerado = hotelService.saveAndReturnId(nombre, destino_id, estrellas, precio, stock);
+        	 
+        	 for (int i = 1; i <= stock; i++) {
+        		    // Capacidad enviada desde formulario (input tipo número)
+        		    String capacidadParam = req.getParameter("capacidad_habitacion_" + i);
+        		    int capacidad = (capacidadParam != null && !capacidadParam.isEmpty()) ? Integer.parseInt(capacidadParam) : 2;
+
+        		    // Tipo/nombre de habitación desde select o input
+        		    String tipoHabitacion = req.getParameter("habitacion" + i); // Ejemplo: "doble", "suite"
+        		    if (tipoHabitacion == null || tipoHabitacion.isEmpty()) {
+        		        tipoHabitacion = "Habitación " + i; // fallback
+        		    }
+
+        		    habitacionService.crearHabitacion(idGenerado, tipoHabitacion, capacidad);
+        		}
+        	 
             // Validar imagen y generar nombre de archivo
             String nombreOriginal = Paths.get(imagenPart.getSubmittedFileName()).getFileName().toString();
             String extension = nombreOriginal.substring(nombreOriginal.lastIndexOf('.') + 1);
