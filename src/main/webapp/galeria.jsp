@@ -31,6 +31,9 @@
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/style/estilosCarousel.css">
+		<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/style/estiloGaleria.css">
+	
 
 <link
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
@@ -38,8 +41,7 @@
 
 
 <script type="text/javascript">
-							var contextPath="<%=request.getContextPath()%>
-	";
+							var contextPath="<%=request.getContextPath()%>";
 </script>
 <meta name="theme-color" content="#712cf9">
 <style>
@@ -219,6 +221,7 @@
         <div class="d-flex align-items-center gap-3">
             <a href="#" class="nav-link text-white">FAQ</a>
             <a href="#" class="nav-link text-white">Acerca de</a>
+            <a href="paquetes.jsp" class="nav-link text-white">Mis paquetes</a>
             <button class="navbar-toggler" type="button"
                 data-bs-toggle="collapse" data-bs-target="#navbarHeader"
                 aria-controls="navbarHeader" aria-expanded="false"
@@ -286,8 +289,8 @@
         en ofrecer una experiencia simple, rápida y segura para que puedas
         planificar viajes a cualquier destino del mundo.</p>
       <p>
-        <a href="#" class="btn btn-primary my-2" id="btn-init-paquete">Arma
-          tu paquete</a> <a href="#" class="btn btn-secondary my-2">Secondary
+       <button class="boton-paquete" onclick="mostrarOpciones()">Armar tu paquete</button>
+       <a href="#" class="btn btn-secondary my-2">Secondary
           action</a>
       </p>
     </div>
@@ -429,6 +432,42 @@
 		</div>
 	</div>
 
+
+<script>
+function mostrarOpciones() {
+  Swal.fire({
+    title: '¿Qué querés incluir en tu paquete?',
+    html:
+      '<label class="opcion-paquete"><input type="checkbox" id="hotel"> Hotel</label><br>' +
+      '<label class="opcion-paquete"><input type="checkbox" id="excursion"> Excursión</label><br>' +
+      '<label class="opcion-paquete"><input type="checkbox" id="vuelo"> Vuelos</label>',
+    showCancelButton: true,
+    confirmButtonText: 'Continuar',
+    cancelButtonText: 'Cancelar',
+    preConfirm: () => {
+      // Obtenemos las opciones seleccionadas
+      const opciones = [];
+      if (document.getElementById('hotel').checked) opciones.push('hotel');
+      if (document.getElementById('excursion').checked) opciones.push('excursion');
+      if (document.getElementById('vuelo').checked) opciones.push('vuelo');
+
+      if (opciones.length === 0) {
+        Swal.showValidationMessage('Seleccioná al menos una opción');
+        return false; // Evita que se cierre
+      }
+
+      return opciones; 
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Redirigimos a otra página pasando las opciones por query string
+      const params = new URLSearchParams();
+      params.set('opciones', result.value.join(','));
+      window.location.href = 'armarPaquete.jsp?' + params.toString();
+    }
+  });
+}
+</script>
 
 
 
