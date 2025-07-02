@@ -67,7 +67,7 @@ CREATE TABLE hotel (
   estado enum ('disponible', 'ocupado') default ('disponible')
 );
   
-
+ 
 drop table excursion;
 select * from excursion;
 
