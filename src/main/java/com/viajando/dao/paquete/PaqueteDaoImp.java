@@ -208,4 +208,97 @@ public class PaqueteDaoImp implements PaqueteDao {
 				st.close();
 		}
 	}
+
+	
+	@Override
+	public int calcularPrecio(int hotel_id, int vuelo_id, int excursion_id, int personas) throws Exception {
+		    int precioHotel = 0;
+		    int precioVuelo = 0;
+		    int precioExcursion = 0;
+		    
+		    if (hotel_id != 0) {
+		        Hotel hotel = hotelDao.findById(hotel_id);
+		        if (hotel != null) {
+		            precioHotel = hotel.getPrecio();
+		        }
+		    }
+
+		    if (vuelo_id != 0) {
+		        Vuelo vuelo = vueloDao.findById(vuelo_id);
+		        if (vuelo != null) {
+		            precioVuelo = vuelo.getPrecio();
+		        }
+		    }
+
+		    if (excursion_id != 0) {
+		        Excursion excursion = excursionDao.findById(excursion_id);
+		        if (excursion != null) {
+		            precioExcursion = excursion.getPrecio();
+		        }
+		    }
+
+		    int precioPorPersona = precioHotel + precioVuelo + precioExcursion;
+		    return precioPorPersona * personas;
+		}
+	
+	@Override
+	public int saveAndReturnIdSimple(String nombre, String descripcion, int hotel_id, int vuelo_id, int excursion_id, int precio, int personas)
+			throws Exception {
+		    PreparedStatement st = null;
+		    ResultSet rs = null;
+		    int idGenerado = -1;
+
+		    try {
+		        // Calcula el precio del paquete
+		        int precioPaquete = calcularPrecio(hotel_id, vuelo_id, excursion_id, personas);
+
+		        // Prepara el insert
+		        st = conexion.dameConnection().prepareStatement(queryAddPaquete, Statement.RETURN_GENERATED_KEYS);
+		        
+		       
+		        st.setString(1, "nombre");
+		        st.setString(2, "descripcion");
+
+		        // Hotel
+		        if (hotel_id == 0) {
+		            st.setNull(3, java.sql.Types.INTEGER);
+		        } else {
+		            st.setInt(3, hotel_id);
+		        }
+
+		        // Vuelo
+		        if (vuelo_id == 0) {
+		            st.setNull(4, java.sql.Types.INTEGER);
+		        } else {
+		            st.setInt(4, vuelo_id);
+		        }
+
+		        // Excursión
+		        if (excursion_id == 0) {
+		            st.setNull(5, java.sql.Types.INTEGER);
+		        } else {
+		            st.setInt(5, excursion_id);
+		        }
+
+		        // Estrellas (0 por defecto)
+		        st.setDouble(6, 0.0);
+		        st.setInt(7, personas);
+
+		        // Precio calculado
+		        st.setInt(8, precio);
+
+		        st.executeUpdate();
+
+		        rs = st.getGeneratedKeys();
+		        if (rs.next()) {
+		            idGenerado = rs.getInt(1);
+		        }
+
+		    } finally {
+		        if (rs != null) rs.close();
+		        if (st != null) st.close();
+		    }
+
+		    return idGenerado;
+		}
 }
