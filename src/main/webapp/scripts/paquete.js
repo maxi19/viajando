@@ -66,7 +66,32 @@ class Paquete {
 			</tr>
 		`;
 	}
+	
+	renderizarLista() {
+	    return `
+	        <li class="list-group-item d-flex justify-content-between align-items-center">
+	            <div>
+	                <h5>${this.nombre}</h5>
+	                <p class="mb-1">${this.descripcion}</p>
+	                <p class="mb-1">
+	                    <strong>Hotel:</strong> ${this.hotel_value} |
+	                    <strong>Vuelo:</strong> ${this.vuelo_value} |
+	                    <strong>Excursión:</strong> ${this.excursion_value}
+	                </p>
+	                <p class="mb-1"><strong>Precio:</strong> $${this.precio}</p>
+	            </div>
+	            <div>
+	                <button class="btn btn-sm btn-outline-success boton-carrito" data-id="${this.id}" data-type="PAQUETE">Comprar</button>
+	                <button class="btn btn-sm btn-outline-danger eliminar-paquete" data-id="${this.id}">Eliminar</button>
+	            </div>
+	        </li>
+	    `;
+	}	
+	
+	
 }
+
+
 
 function cargarListadoPaquete() {
 	$.ajax({
@@ -84,6 +109,10 @@ function cargarListadoPaquete() {
 				$('#tablaPaquete').empty();
 			}
 
+			if ($('#listaPaquetes').length) {
+			    $('#listaPaquetes').empty();
+			}
+			
 			response.forEach(m => {
 				const hotelNombre = (m.hotel && m.hotel.nombre) ? m.hotel.nombre : "No incluye hotel";
 				const vueloNombre = (m.vuelo && m.vuelo.nombre) ? m.vuelo.nombre : "No incluye vuelo";
@@ -116,6 +145,11 @@ function cargarListadoPaquete() {
 				if ($('#tablaPaquete').length) {
 					$('#tablaPaquete').append(paquete.renderizarTabla());
 				}
+				
+				if ($('#listaPaquetes').length) {
+				$('#listaPaquetes').append(paquete.renderizarLista());
+				}
+
 			});
 
 			// Carrito
