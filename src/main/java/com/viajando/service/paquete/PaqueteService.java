@@ -17,4 +17,10 @@ public interface PaqueteService {
              double estrellas, int personas, int precio   ) throws Exception;
    
    void updateImage(int id, String nombreImagen) throws Exception;
+   
+   public int saveAndReturnIdSimple(String nombre, String descripcion, int hotel_id, int vuelo_id, int excursion_id, int precio, int personas) throws Exception;
+   
+   public int calcularPrecio(int hotel_id, int vuelo_id, int excursion_id, int personas) throws Exception;
+   
+   
 }

@@ -39,6 +39,19 @@ public class PaqueteServiceImp implements PaqueteService {
 		paqueteDao.delete(id);
 	}
 
+	@Override
+	public int saveAndReturnIdSimple(String nombre, String descripcion, int hotel_id, int vuelo_id, int excursion_idI, int precio, int personas)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int calcularPrecio(int hotel_id, int vuelo_id, int excursion_id, int personas) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 
 
