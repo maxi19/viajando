@@ -389,7 +389,9 @@
           </tr>
         </tbody>
       </table>
+         <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDestino">Nuevo Destino</a>
     </div>
+   
     <div class="card-footer text-muted text-center">Viajando · Administración de destinos</div>
     
   </div>
@@ -540,9 +542,10 @@
         <div class="form-group" id="input-destino">
           <label>Destino</label>
           <select class="form-control" id="cmbDestino" name="destino_id" required>
-            <option selected>Seleccione un destino...</option>
+            <option value="" selected disabled>Seleccione un destino...</option>
           </select>
         </div>
+
 
         <div class="form-group">
           <label for="estrellas">Estrellas:</label>
@@ -665,7 +668,7 @@
         <div class="form-group" id="input-destino">
           <label>Destino</label>
           <select class="form-control" id="cmbDestinoHotel" name="destino_id" required>
-            <option selected>Seleccione un destino...</option>
+            <option value="" selected disabled>Seleccione un destino...</option>
           </select>
         </div>
 
@@ -923,7 +926,7 @@ document.addEventListener("DOMContentLoaded", function () {
           <input type="file" class="form-control" id="imagen" name="imagen">
         </div>
 
-        <button type="submit" class="btn btn-primary mt-3">Confirmar paquete</button>
+        <button type="submit" class="btn btn-primary mt-3" id="btn-confirmar-paquete">Confirmar paquete</button>
       </form>
     </div>
   </div>
