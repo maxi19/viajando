@@ -9,6 +9,19 @@
 	rel="stylesheet">
 	<link rel="stylesheet"
 	href="<%=request.getContextPath()%>/style/estiloPaquete.css">
+	
+	<script type="text/javascript">
+	var contextPath = '<%=request.getContextPath()%>';
+</script>
+	<script src="<%=request.getContextPath()%>/assets/js/jquery/jquery-3.6.4.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/jquery/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	
+	
+	<script src="<%=request.getContextPath()%>/scripts/agregarPaquete.js"></script>
+	
 </head>
 <body class="container py-4">
 
@@ -28,8 +41,23 @@
 	<h1>Armar tu paquete</h1>
 	
 	
+	<form class="form" id="formPaquete" method="post" enctype="multipart/form-data">
+	
+	 <div class="mb-4">
+        <label for="nombre" class="form-label">Nombre del paquete</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" required placeholder="Ingrese un nombre para su paquete">
+    </div>
 
-	<form action="confirmar_paquete.jsp" method="post">
+    <div class="mb-4">
+        <label for="descripcion" class="form-label">Descripción</label>
+        <input type="text" class="form-control" id="descripcion" name="descripcion" required placeholder="Ingrese una  descripcion para su paquete">
+    </div>
+    
+    <div class="mb-4">
+          <label for="personas"  class="form-label">Cantidad de personas:</label>
+          <input type="number" class="form-control" id="personas" name="personas" required placeholder="Ingrese cantidad de personas">
+        </div>
+
 
 		<%
 		for (String opcion : opcionesSeleccionadas) {
@@ -80,7 +108,7 @@
 		}
 		%>
 
-		<button type="submit" class="btn btn-primary">Confirmar
+		<button type="submit" class="btn btn-primary" id="btn-armar-paquete">Confirmar
 			paquete</button>
 
 	</form>
@@ -159,6 +187,52 @@
                 });
             });
     }
+</script>
+<script>
+    $(document).ready(function () {
+      $("#formPaquete").validate({
+        rules: {
+          nombre: {
+            required: true,
+            minlength: 2
+          },
+          descripcion: {
+            required: true,
+            minlength: 10
+          },
+          personas: {
+            required: true,
+            number: true,
+            min: 1
+          },
+        },
+        messages: {
+          nombre: {
+            required: "Por favor, ingrese un nombre",
+            minlength: "El nombre debe tener al menos 2 caracteres"
+          },
+          descripcion: {
+            required: "Por favor, ingrese una descripciï¿½n",
+            minlength: "La descripciï¿½n debe tener al menos 10 caracteres"
+          },
+          personas: {
+            required: "Por favor, ingrese la cantidad de personas",
+            number: "Ingrese un nï¿½mero vï¿½lido",
+            min: "Debe ser al menos 1"
+          },
+
+        },
+        errorElement: "div",
+        errorClass: "invalid-feedback",
+        highlight: function (element) {
+          $(element).addClass("is-invalid");
+        },
+        unhighlight: function (element) {
+          $(element).removeClass("is-invalid");
+        }
+      });
+    });
+    
 </script>
 
 </body>
