@@ -6,6 +6,12 @@ public class Destino extends GenericEntity {
     private String pais;
     private int precio;
     
+    
+    // Constructor vacío para poder hacer new Destino()
+    public Destino() {
+        super(0);  // Obligatorio llamar al constructor padre
+    }
+    
 	public Destino(int id) {
 		super(id);
 	}
