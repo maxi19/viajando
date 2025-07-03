@@ -14,7 +14,6 @@ import com.viajando.config.Conexion;
 import com.viajando.domain.Destino;
 import com.viajando.domain.Vuelo;
 import com.viajando.dao.DestinoDao;
-import com.viajando.exception.ErrorException;
 
 public class VueloDaoImp implements VueloDao {
 
@@ -26,6 +25,7 @@ public class VueloDaoImp implements VueloDao {
 	private static final String QUERY_INSERT = "INSERT INTO vuelo (nombre, destino_id, fecha_inicio, fecha_fin, precio, estrellas, hora_ida, hora_vuelta, id_avion, imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String QUERY_UPDATE_IMG = "UPDATE vuelo SET imagen = ? WHERE id = ?";
 	private static final String QUERY_DELETE = "DELETE FROM vuelo WHERE id = ?";
+	private static final String QUERY_LIST_BETWEEN_DATES = "SELECT * FROM vuelo WHERE fecha_inicio BETWEEN ? AND ? ";
 
 	@Override
 	public List<Vuelo> list() throws Exception {
@@ -148,5 +148,36 @@ public class VueloDaoImp implements VueloDao {
 			st.setInt(1, id);
 			st.executeUpdate();
 		}
+	}
+
+	@Override
+	public List<Vuelo> findByDate(LocalDate begin, LocalDate end) throws Exception {
+		List<Vuelo> vuelos = new ArrayList<>();
+		try {
+				PreparedStatement st = conexion.dameConnection().prepareStatement(QUERY_LIST_BETWEEN_DATES);
+				st.setDate(1,Date.valueOf(begin));
+				st.setDate(2,Date.valueOf(end));
+				ResultSet rs = st.executeQuery();	  
+			while (rs.next()) {
+				Destino destino = destinoDao.getOne(rs.getInt("destino_id"));
+				Vuelo vuelo = new Vuelo(
+					rs.getInt("id"),
+					rs.getString("nombre"),
+					destino,
+					rs.getDate("fecha_inicio").toLocalDate(),
+					rs.getDate("fecha_fin").toLocalDate(),
+					rs.getInt("precio"),
+					rs.getDouble("estrellas"),
+					rs.getTime("hora_ida").toLocalTime(),
+					rs.getTime("hora_vuelta").toLocalTime(),
+					rs.getInt("id_avion"),
+					rs.getString("imagen")
+				);
+				vuelos.add(vuelo);
+			}
+			}catch (Exception e) {
+			
+			}
+		return vuelos;
 	}
 }
