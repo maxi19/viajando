@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
@@ -7,7 +8,7 @@
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Astro v5.9.2">
-<title>Dashboard Template ï¿½ Bootstrap v5.3</title>
+<title>Dashboard</title>
 <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/dashboard/">
 <script src="<%=request.getContextPath()%>/assets/js/jquery/jquery-3.6.4.min.js"></script>
 <script src="<%=request.getContextPath()%>/assets/js/dashboard/color-modes.js"></script>
@@ -370,6 +371,11 @@
 
   <!-- DESTINOS -->
   <div class="tab-pane fade" id="destino-tab-pane" role="tabpanel" aria-labelledby="destino-tab" tabindex="0">
+  <span>
+     <br>
+    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDestino">Nuevo Destino</a>
+     </span>
+     <div class="container mt-5">
     <h2>Destinos Disponibles</h2>
     <div class="table-responsive small" id="destinos-grilla">
       <table class="table table-striped table-sm">
@@ -389,11 +395,38 @@
           </tr>
         </tbody>
       </table>
-         <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDestino">Nuevo Destino</a>
     </div>
-   
+   </div>
     <div class="card-footer text-muted text-center">Viajando · Administración de destinos</div>
     
+  </div>
+  
+  
+  <!-- MODAL NUEVA DESTINO -->
+<div class="modal fade" id="modalDestino" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content p-4">
+      <h1>Destino</h1>
+      <form class="form" id="formDestino" method="post" enctype="multipart/form-data">        
+      <div class="form-group">
+          <label for="nombre">Nombre:</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" required placeholder="Ingrese el nombre del destino">
+        </div>
+
+        <div class="form-group">
+          <label for="descripcion">País:</label>
+          <input type="text" class="form-control" id="pais" name="pais" required placeholder="Ingrese el país del destino">
+        </div>
+
+        <div class="form-group">
+          <label for="precio">Precio:</label>
+          <input type="text" class="form-control" id="precio" name="precio" required placeholder="Ingrese el precio">
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3" id="btn-confirmar-destinos">Submit</button>
+      </form>
+  </div>
+  </div>
   </div>
 
   <!-- VUELOS -->
@@ -469,7 +502,7 @@
     </table>
   </div>
 </div>
-<div class="card-footer text-muted text-center">Viajando · Administración de excursiones</div>
+<div class="card-footer text-muted text-center">Viajando · AdministraciÓn de excursiones</div>
   </div>
   
   <!-- HOTELES -->
@@ -492,7 +525,7 @@
             <th>Destino</th>
             <th>Estrellas</th>
             <th>Precio</th>
-            <th>Acción</th>
+            <th>AcciÃ³n</th>
           </tr>
         </thead>
         <tbody id="tablaHotel">
@@ -520,7 +553,7 @@
         </div>
 
         <div class="form-group">
-          <label for="descripcion">Descripción:</label>
+          <label for="descripcion">DescripciÃ³n:</label>
           <input type="text" class="form-control" id="descripcion" name="descripcion" required placeholder="Ingrese una descripcion">
         </div>
 
@@ -602,26 +635,26 @@
 								minlength: "El nombre debe tener al menos 2 caracteres"
 							},
 							descripcion: {
-								required: "Por favor, ingrese una descripción",
-								minlength: "La descripción debe tener al menos 10 caracteres"
+								required: "Por favor, ingrese una descripciÃ³n",
+								minlength: "La descripciÃ³n debe tener al menos 10 caracteres"
 							},
 							fecha_inicio: {
 								required: "Por favor, ingrese una fecha de inicio"
 							},
 							fecha_fin: {
-								required: "Por favor, ingrese una fecha de finalización"	
+								required: "Por favor, ingrese una fecha de finalizaciÃ³n"	
 								},
 							precio: {
 								required: "Por favor, ingrese un precio",
-								number: "Por favor, ingrese un número válido",
+								number: "Por favor, ingrese un nÃºmero vÃ¡lido",
 								min: "El precio no puede ser negativo"
 							},
 							destino_id: {
 								required: "Por favor, ingrese un destino"
 							},
 							estrellas: {
-								required: "Por favor, ingrese una calificación de estrellas",
-								number: "Por favor, ingrese un número válido",
+								required: "Por favor, ingrese una calificaciÃ³n de estrellas",
+								number: "Por favor, ingrese un nÃºmero vÃ¡lido",
 								min: "Debe ser al menos 0",
 								max: "No puede ser mayor a 5"
 							},
@@ -638,10 +671,13 @@
 						},
 						unhighlight: function (element) {
 							$(element).removeClass("is-invalid");
-						}
-					});
-				});
-			</script>
+						  } 
+
+			        }); 
+
+			    }); 
+
+			</script> ```
 			
 			
 
@@ -711,7 +747,7 @@
 
       <script>
       $(document).ready(function () {
-        // ✅ Validaciones existentes
+        // â Validaciones existentes
         $("#formHotel").validate({
           rules: {
             nombre: { required: true, minlength: 2 },
@@ -722,8 +758,8 @@
           },
           messages: {
             nombre: { required: "Por favor, ingrese un nombre" },
-            precio: { required: "Ingrese un precio válido" },
-            estrellas: { required: "Ingrese estrellas válidas" },
+            precio: { required: "Ingrese un precio vÃ¡lido" },
+            estrellas: { required: "Ingrese estrellas vÃ¡lidas" },
             imagen: { required: "Seleccione una imagen", extension: "Solo JPG o PNG" },
             destino_id: { required: "Seleccione un destino" }
           },
@@ -737,7 +773,7 @@
           }
         });
 
-        // ✅ NUEVO: Generar campos de habitaciones dinámicamente
+        // â NUEVO: Generar campos de habitaciones dinÃ¡micamente
         $("#stock").on("input", function () {
           const cantidad = parseInt($(this).val());
           const contenedor = $("#contenedorHabitaciones");
@@ -747,7 +783,7 @@
             for (let i = 1; i <= cantidad; i++) {
               contenedor.append(`
                 <div class="form-group">
-                  <label for="habitacion_${i}">Capacidad para la habitación ${i}:</label>
+                  <label for="habitacion_${i}">Capacidad para la habitaciÃ³n ${i}:</label>
                   <input type="number" class="form-control capacidad-habitacion" 
                          name="capacidad_habitacion_${i}" 
                          id="habitacion_${i}" min="1" required>
@@ -755,7 +791,7 @@
               `);
             }
 
-            // Si estás usando jQuery Validate, actualizá reglas dinámicas:
+            // Si estÃ¡s usando jQuery Validate, actualizÃ¡ reglas dinÃ¡micas:
             $(".capacidad-habitacion").each(function () {
               $(this).rules("add", {
                 required: true,
@@ -770,6 +806,7 @@
             });
           }
         });
+      });
 			</script>
 			
 <script>
@@ -786,7 +823,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				const div = document.createElement("div");
 				div.classList.add("form-group", "mb-2");
 				div.innerHTML = `
-					<label for="habitacion${i}">Habitación ${i}:</label>
+					<label for="habitacion${i}">HabitaciÃ³n ${i}:</label>
 					<select id="habitacion${i}" name="habitacion${i}" class="form-control">
 						<option value="individual">Individual</option>
 						<option value="doble">Doble</option>
@@ -810,7 +847,7 @@ document.addEventListener("DOMContentLoaded", function () {
    <div class="tab-pane fade" id="paquete-tab-pane" role="tabpanel" aria-labelledby="paquete-tab" tabindex="0">
     <span>
     <br>
-    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPaquete">Nueva Excursion</a>
+    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPaquete">Nuevo Paquete</a>
     </span>
 
 <div class="container mt-5">
@@ -824,7 +861,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <tr>
           <th>ID</th>
           <th>Nombre</th>
-          <th>Descripci�n</th>
+          <th>Descripción</th>
           <th>Hotel ID</th>
           <th>Hotel</th>
           <th>Vuelo ID</th>
@@ -841,7 +878,7 @@ document.addEventListener("DOMContentLoaded", function () {
       </tbody>
     </table>
   </div>
-<div class="card-footer text-muted text-center">Viajando � Administraci�n de paquetes</div>
+<div class="card-footer text-muted text-center">Viajando · Administración de paquetes</div>
   </div>
 
 
@@ -859,8 +896,8 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
 
         <div class="form-group">
-          <label for="descripcion">Descripci�n:</label>
-          <input type="text" class="form-control" id="descripcion" name="descripcion" required placeholder="Ingrese una descripci�n">
+          <label for="descripcion">Descripción:</label>
+          <input type="text" class="form-control" id="descripcion" name="descripcion" required placeholder="Ingrese una descripciï¿½n">
         </div>
 
         <div class="form-group">
@@ -909,13 +946,13 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="form-check mt-2">
           <input class="form-check-input" type="checkbox" value="" id="chkExcursion">
           <label class="form-check-label" for="chkExcursion">
-            Incluir Excursi�n
+            Incluir Excursión
           </label>
         </div>
         <div class="form-group mt-2" id="input-excursion" style="display:none;">
-          <label for="excursion_id">Excursi�n:</label>
+          <label for="excursion_id">Excursión:</label>
           <select class="form-control" id="cmbExcursion" name="excursion_id">
-            <option value="">Seleccione una excursi�n...</option>
+            <option value="">Seleccione una excursión...</option>
           </select>
         </div>
 
@@ -969,22 +1006,22 @@ $(document).ready(function () {
         minlength: "El nombre debe tener al menos 2 caracteres"
       },
       descripcion: {
-        required: "Por favor, ingrese una descripci�n",
-        minlength: "La descripci�n debe tener al menos 10 caracteres"
+        required: "Por favor, ingrese una descripción",
+        minlength: "La descripción debe tener al menos 10 caracteres"
       },
       personas: {
         required: "Por favor, ingrese la cantidad de personas",
-        number: "Ingrese un n�mero v�lido",
+        number: "Ingrese un número válido",
         min: "Debe ser al menos 1"
       },
       precio: {
         required: "Por favor, ingrese un precio",
-        number: "Ingrese un n�mero v�lido",
+        number: "Ingrese un número válido",
         min: "No puede ser negativo"
       },
       estrellas: {
-        required: "Por favor, ingrese una calificaci�n de estrellas",
-        number: "Ingrese un n�mero v�lido",
+        required: "Por favor, ingrese una calificación de estrellas",
+        number: "Ingrese un número válido",
         min: "Debe ser al menos 0",
         max: "No puede ser mayor a 5"
       },
@@ -1004,7 +1041,7 @@ $(document).ready(function () {
 });
 
 
-// Mostrar/ocultar selects seg�n los checkbox
+// Mostrar/ocultar selects segun los checkbox
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('chkHotel').addEventListener('change', function() {
     document.getElementById('input-hotel').style.display = this.checked ? 'block' : 'none';
@@ -1027,10 +1064,6 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 
 
-
-
-
-
 <script src="<%=request.getContextPath()%>/assets/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" crossorigin="anonymous"></script>
 <script src="<%=request.getContextPath()%>/assets/dashboard.js"></script>
@@ -1045,8 +1078,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="<%=request.getContextPath()%>/scripts/paquete.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/agregarPaquete.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/agregarHotel.js"></script>
+<script src="<%=request.getContextPath()%>/scripts/agregarDestino.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/eliminarExcursion.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/eliminarHotel.js"></script>
+<script src="<%=request.getContextPath()%>/scripts/eliminarPaquete.js"></script>
+
+
 
 
 
