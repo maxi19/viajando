@@ -12,6 +12,9 @@
 <title>Viajando.com</title>
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/5.3/examples/album/">
+	
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+	
 <script src="<%=request.getContextPath()%>/assets/js/color-modes.js"></script>
 <script
 	src="<%=request.getContextPath()%>/assets/js/sweetalert2.all.min.js"></script>
@@ -209,19 +212,20 @@
 				</div>
 			</div>
 		</div>
+		
 <div class="navbar navbar-dark bg-dark shadow-sm">
     <div class="container d-flex justify-content-between align-items-center">
         <!-- IZQUIERDA: Marca -->
-        <a href="#" class="navbar-brand d-flex align-items-center">
+        <a href="<%=request.getContextPath()%>/" class="navbar-brand d-flex align-items-center">
             <span class="material-symbols-outlined me-2" style="font-size: 24px;">flight</span>
             <strong>Viajando.com</strong>
         </a>
 
         <!-- DERECHA: Links + botón toggle -->
         <div class="d-flex align-items-center gap-3">
-            <a href="#" class="nav-link text-white">FAQ</a>
-            <a href="#" class="nav-link text-white">Acerca de</a>
-            <a href="paquetes.jsp" class="nav-link text-white">Mis paquetes</a>
+            <a href="<%=request.getContextPath()%>/FAQ.jsp" class="nav-link text-white">FAQ</a>
+            <a href="<%=request.getContextPath()%>/about.jsp" class="nav-link text-white">Acerca de</a>
+            <a href="<%=request.getContextPath()%>/paquetes.jsp" class="nav-link text-white">Mis paquetes</a>
             <button class="navbar-toggler" type="button"
                 data-bs-toggle="collapse" data-bs-target="#navbarHeader"
                 aria-controls="navbarHeader" aria-expanded="false"
@@ -231,6 +235,7 @@
         </div>
     </div>
 </div>
+
 	</header>
 
 
@@ -305,16 +310,16 @@
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="../images/paris.png" class="d-block w-100" alt="...">
+      <img src="<%=request.getContextPath()%>/images/paris.png" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="/images/tokyo.jpg" class="d-block w-100" alt="...">
+      <img src="<%=request.getContextPath()%>/images/tokyo.jpg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="/images/misiones_argentina.png" class="d-block w-100" alt="...">
+      <img src="<%=request.getContextPath()%>/images/misiones_argentina.png" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="/images/new_york.png" class="d-block w-100" alt="...">
+      <img src="<%=request.getContextPath()%>/images/new_york.png" class="d-block w-100" alt="...">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">

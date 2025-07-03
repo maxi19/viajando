@@ -1,5 +1,7 @@
 var contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 1));
 
+var contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 1));
+
 class Hotel {
 	constructor(id, nombre, destino_id, destino_value, estrellas, precio, imagen) {
 		this.id = id;
@@ -11,7 +13,28 @@ class Hotel {
 		this.imagen = imagen;
 	}
 
+	generarEstrellas() {
+		const rating = parseFloat(this.estrellas);
+		let html = '';
+		const fullStars = Math.floor(rating);
+		const halfStar = rating - fullStars >= 0.5;
+		const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
+		for (let i = 0; i < fullStars; i++) {
+			html += '<i class="fas fa-star" style="color: gold; text-shadow: 0 0 1px white, 0 0 2px white;"></i>';
+		}
+		if (halfStar) {
+			html += '<i class="fas fa-star-half-alt" style="color: gold; text-shadow: 0 0 1px white, 0 0 2px white;"></i>';
+		}
+		for (let i = 0; i < emptyStars; i++) {
+			html += '<i class="far fa-star" style="color: gold;"></i>';
+		}
+		return html;
+	}
+
 	renderizar() {
+		const estrellasHTML = this.generarEstrellas();
+
 		return `
 			<div class="col">
 				<div class="card shadow-sm">
@@ -20,7 +43,7 @@ class Hotel {
 						<h5 class="card-title">Hotel N° ${this.id}</h5>
 						<p class="card-text"><strong>Nombre:</strong> ${this.nombre}</p>
 						<p class="card-text"><strong>Destino:</strong> ${this.destino_value}</p>
-						<p class="card-text"><strong>Estrellas:</strong> ${this.estrellas}</p>
+						<p class="card-text estrellas">${estrellasHTML}</p>
 						<p class="card-text"><strong>Precio:</strong> $${this.precio}</p>
 						<div class="d-flex justify-content-between align-items-center">
 							<div class="btn-group">
@@ -51,6 +74,89 @@ class Hotel {
 		`;
 	}
 }
+
+
+function cargarListadoHotel() {
+	$.ajax({
+		url: contextPath + "/hotelController",
+		method: "GET",
+		cache: false,
+		success: function(response) {
+			console.log("Hoteles recibidos:", response);
+			$('#contenedorHotel').empty();
+
+			response.forEach(m => {
+				console.log("Destino recibido:", m.destino);
+
+				const hotel = new Hotel(
+					m.id,
+					m.nombre,
+					m.destino.id,
+					`${m.destino.nombre}, ${m.destino.pais}`,
+					m.estrellas,
+					m.precio,
+					m.imagen
+				);
+
+				$('#contenedorHotel').append(hotel.renderizar());
+
+				if ($('#tablaHotel').length) {
+					$('#tablaHotel').append(hotel.renderizarTabla());
+				}
+			});
+
+			// Botón carrito con SweetAlert
+			$('.boton-carrito-hotel').click(function () {
+				const id = $(this).data("id");
+				const type = $(this).data("type");
+
+				Swal.fire({
+					title: '¿Agregar al carrito?',
+					text: "¿Deseás agregar este hotel al carrito?",
+					icon: 'question',
+					showCancelButton: true,
+					confirmButtonText: 'Sí, agregar',
+					cancelButtonText: 'Cancelar'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						$.ajax({
+							type: "GET",
+							url: contextPath + '/carrito.do',
+							data: { id: id, type: type },
+							dataType: "json",
+							success: function(response) {
+								Swal.fire({
+									title: 'Hotel agregado',
+									icon: 'success',
+									showCancelButton: true,
+									confirmButtonText: 'Ver carrito',
+									cancelButtonText: 'Seguir navegando'
+								}).then(choice => {
+									if (choice.isConfirmed) {
+										window.location.href = contextPath + '/carrito/carritoPage.jsp';
+									}
+								});
+							},
+							error: function(xhr) {
+								Swal.fire('Error', 'No se pudo agregar el hotel al carrito.', 'error');
+							}
+						});
+					}
+				});
+			});
+		},
+		error: function(xhr) {
+			console.error("Error al obtener los hoteles:", xhr);
+			$('#contenedorHotel').html('<p>Error al cargar los hoteles.</p>');
+		}
+	});
+}
+
+$(document).ready(function () {
+	cargarListadoHotel();
+});
+
+
 
 
 function cargarListadoHotel() {

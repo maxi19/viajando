@@ -1,5 +1,6 @@
 package com.viajando.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.viajando.exception.ErrorException;
@@ -14,5 +15,5 @@ public interface DaoBase<I,T> {
 
 	public List<T> list() throws ErrorException;
 	
-	public T getOne(I i) throws ErrorException;
+	public T getOne(I i) throws ErrorException, SQLException;
 }

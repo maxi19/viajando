@@ -1,79 +1,68 @@
 package com.viajando.dao.hotel;
-import com.viajando.domain.Hotel;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.viajando.config.Conexion;
-import com.viajando.exception.ErrorException;
-import com.viajando.domain.Destino;
 import com.viajando.dao.DestinoDao;
+import com.viajando.domain.Destino;
+import com.viajando.domain.Hotel;
+import com.viajando.exception.ErrorException;
+
+public class HotelDaoImp implements HotelDao {
+
+	private Conexion conexion = Conexion.getInstance();
+	private DestinoDao destinoDao = new DestinoDao();
 
 
-public class HotelDaoImp  implements HotelDao  {
+	private static final String queryList = 
+	    "SELECT h.id, h.nombre, h.estrellas, h.precio, h.imagen, h.stock, " +
+	    "d.id AS destino_id, d.nombre AS destino_nombre, d.pais AS destino_pais, d.precio AS destino_precio " +
+	    "FROM hotel h JOIN destinos d ON h.destino_id = d.id";
 
-
-private Conexion conexion = Conexion.getInstance();
-private DestinoDao destinoDao = new DestinoDao();
-
-	
-	private static final String queryList = "SELECT id, nombre, destino_id,  estrellas, precio, imagen, stock FROM hotel";
-	
-	private static final String queryConsultarHotel = "SELECT id, nombre, destino_id, estrellas, precio, imagen, stock   FROM hotel where id=?";
-	
+	private static final String queryConsultarHotel = "SELECT * FROM hotel WHERE id=?";
 	private static final String queryUpdateImage = "UPDATE hotel SET imagen=? WHERE id=?";
-	
-	private static final String queryAddHotel = "INSERT INTO hotel (nombre, destino_id, estrellas, precio, stock) VALUES (?,?,?,?,?)";
+	private static final String queryAddHotel = "INSERT INTO hotel (nombre, destino_id, estrellas, precio, stock) VALUES (?, ?, ?, ?, ?)";
+	private static final String queryDeleteHotel = "DELETE FROM hotel WHERE id=?";
 
-	private static final String queryDeleteExcursion = "DELETE FROM hotel WHERE id=?";
-
-
-	
+	@Override
 	public List<Hotel> list() throws Exception {
-		 ResultSet rs = null;
-		 List<Hotel> hotel = null;
-		 PreparedStatement st = null;
-		 try{
-			st = conexion.dameConnection().prepareStatement(queryList);
-			rs = st.executeQuery();
-			hotel = new ArrayList<Hotel>();
-			 while (rs.next()) { 
-				 int destinoId = rs.getInt("destino_id");
-				Destino destino = destinoDao.getOne(destinoId);{
-					hotel.add(new Hotel(
-		                    rs.getInt("id"),
-		                    rs.getString("nombre"),
-		                    destino,
-		                    rs.getDouble("estrellas"),
-		                    rs.getInt("precio"),
-		                    rs.getString("imagen"),
-		                    rs.getInt("stock")
+		List<Hotel> hoteles = new ArrayList<>();
 
-		                ));
-			 }	
-			 }	
-		 }catch (Exception e) {
-				throw new ErrorException("Hubo un error al realizar la consulta", e);
-		}finally {
-			try {
-				st.close();
-				rs.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		try (PreparedStatement st = conexion.dameConnection().prepareStatement(queryList);
+		     ResultSet rs = st.executeQuery()) {
+
+			while (rs.next()) {
+				Destino destino = new Destino(
+					rs.getInt("destino_id"),
+					rs.getString("destino_nombre"),
+					rs.getString("destino_pais"),
+					rs.getInt("destino_precio")
+				);
+
+				Hotel hotel = new Hotel(
+					rs.getInt("id"),
+					rs.getString("nombre"),
+					destino,
+					rs.getDouble("estrellas"),
+					rs.getInt("precio"),
+					rs.getString("imagen"),
+					rs.getInt("stock")
+				);
+
+				hoteles.add(hotel);
 			}
-			
+
+		} catch (Exception e) {
+			System.out.println("Error al listar hoteles: " + e.getMessage());
+			e.printStackTrace();
 		}
-		 
-		return hotel;
+
+		return hoteles;
 	}
 
+	@Override
 	public Hotel findById(int id) throws Exception {
 		 ResultSet rs = null;
 		 PreparedStatement st = null;
@@ -166,12 +155,12 @@ private DestinoDao destinoDao = new DestinoDao();
 		}
 	}
 
-
+	@Override
 	public void delete(int id) throws Exception {
 		 ResultSet rs = null;
 		 PreparedStatement st = null;
 		 try{
-			st = conexion.dameConnection().prepareStatement(queryDeleteExcursion);
+			st = conexion.dameConnection().prepareStatement(queryDeleteHotel);
 			st.setInt(1, id);
 			 System.out.println(id);
 			int rowsAffected = st.executeUpdate();

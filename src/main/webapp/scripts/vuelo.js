@@ -15,8 +15,29 @@
 			this.id_avion = id_avion;
 			this.imagen = imagen;
 		}
-	
+
+		generarEstrellas() {
+			const rating = parseFloat(this.estrellas);
+			let html = '';
+			const fullStars = Math.floor(rating);
+			const halfStar = rating - fullStars >= 0.5;
+			const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
+			for (let i = 0; i < fullStars; i++) {
+				html += '<i class="fas fa-star" style="color: gold; text-shadow: 0 0 1px white, 0 0 2px white;"></i>';
+			}
+			if (halfStar) {
+				html += '<i class="fas fa-star-half-alt" style="color: gold; text-shadow: 0 0 1px white, 0 0 2px white;"></i>';
+			}
+			for (let i = 0; i < emptyStars; i++) {
+				html += '<i class="far fa-star" style="color: gold;"></i>';
+			}
+			return html;
+		}
+
 		renderizar() {
+			const estrellasHTML = this.generarEstrellas();
+
 			return `
 				<div class="col">
 					<div class="card shadow-sm">
@@ -27,6 +48,7 @@
 							<p class="card-text"><strong>Fecha ida:</strong> ${this.fecha_inicio} ${this.hora_ida}</p>
 							<p class="card-text"><strong>Fecha vuelta:</strong> ${this.fecha_fin} ${this.hora_vuelta}</p>
 							<p class="card-text"><strong>Destino:</strong> ${this.destino_value}</p>
+							<p class="card-text estrellas">${estrellasHTML}</p>
 							<p class="card-text"><strong>Precio:</strong> $${this.precio}</p>
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="btn-group">
@@ -40,7 +62,7 @@
 				</div>
 			`;
 		}
-	
+
 		renderizarTabla() {
 			return `
 				<tr>
