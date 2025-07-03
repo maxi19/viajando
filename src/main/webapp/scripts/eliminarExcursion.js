@@ -10,7 +10,7 @@ function myFunction(data){
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
+        confirmButtonText: "Si, eliminar!"
       }).then((result) => {
         if (result.isConfirmed) {
             //agregamos ajax

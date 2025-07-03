@@ -61,7 +61,7 @@ class Paquete {
 				<td>${this.personas}</td>
 				<td>$${this.precio}</td>
 				<td>
-					<button class="btn btn-danger eliminar-paquete" data-id="${this.id}">Eliminar</button>
+				<button class="btn btn-danger" data-id="${this.id}" onClick="eliminarPaquete(this)">Eliminar</button>
 				</td>
 			</tr>
 		`;
@@ -82,7 +82,6 @@ class Paquete {
 	            </div>
 	            <div>
 	                <button class="btn btn-sm btn-outline-success boton-carrito" data-id="${this.id}" data-type="PAQUETE">Comprar</button>
-	                <button class="btn btn-sm btn-outline-danger eliminar-paquete" data-id="${this.id}">Eliminar</button>
 	            </div>
 	        </li>
 	    `;
@@ -149,9 +148,9 @@ function cargarListadoPaquete() {
 				if ($('#listaPaquetes').length) {
 				$('#listaPaquetes').append(paquete.renderizarLista());
 				}
-
+				
 			});
-
+			
 			// Carrito
 			$('.boton-carrito').click(function() {
 				const id = $(this).data("id");

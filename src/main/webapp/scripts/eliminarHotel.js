@@ -2,8 +2,8 @@ function eliminarHotel(data) {
     const value = $(data).attr("data-id");
 
     Swal.fire({
-        title: "¿Estás seguro de eliminar el hotel?",
-        text: "¡El hotel será eliminado de la base de datos!",
+        title: "Esta seguro de eliminar el hotel?",
+        text: "El hotel será eliminado de la base de datos!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
