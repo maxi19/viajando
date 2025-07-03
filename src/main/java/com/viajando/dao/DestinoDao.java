@@ -14,6 +14,8 @@ public class DestinoDao implements DaoBase<Integer, Destino>{
 
 	private Conexion conexion = Conexion.getInstance();
 	private static final String queryList = "SELECT id, nombre, pais, precio from destinos";
+    private static final String queryInsertDestino = "INSERT INTO destinos (nombre, pais, precio) VALUES (?, ?, ?)";
+
 	private static final String queryGetOne = "SELECT id, id_marca, titulo, nombre, descripcion, id_categoria, stock, precio, origen, portada FROM productos WHERE id = ?";
 	private static final String queryDelete = "DELETE from productos WHERE id=?";
 	private static final String queryEdit = "UPDATE productos SET stock = ? WHERE id= ?";
@@ -24,9 +26,27 @@ public class DestinoDao implements DaoBase<Integer, Destino>{
 	
 	@Override
 	public void add(Destino t) throws ErrorException {
-
+		PreparedStatement st = null;
+		Destino destino = null;
+    try {
+        st = conexion.dameConnection().prepareStatement(queryInsertDestino);
+		st.setString(1, t.getNombre());
+        st.setString(2, t.getPais());
+        st.setInt(3, t.getPrecio());
+        st.executeUpdate();
+    } catch (Exception e) {
+        throw new ErrorException("Error al insertar el destino", e);
+    } finally {
+        if (st != null) {
+            try {
+                st.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
 		
-	}
 
 	@Override
 	public void delete(Integer i) throws ErrorException {
