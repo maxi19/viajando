@@ -2,9 +2,6 @@ DROP DATABASE IF EXISTS viajando;
 CREATE DATABASE viajando;
 USE viajando;
 
-
-
-select * from destinos;
 -- Tabla Destinos
 CREATE TABLE destinos (
   id INT AUTO_INCREMENT PRIMARY KEY,
