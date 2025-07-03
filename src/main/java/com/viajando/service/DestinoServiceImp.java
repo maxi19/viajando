@@ -10,13 +10,14 @@ public class DestinoServiceImp implements DestinoService {
 	private DestinoDao destinoDao = new DestinoDao();
 	
 	@Override
-	public void addDestino() throws Exception {
-		
+	public void addDestino(Destino destino) throws Exception {
+		destinoDao.add(destino);
 	}
 
 	@Override
 	public List<Destino> list() throws Exception {
 		return destinoDao.list();
 	}
+
 
 }

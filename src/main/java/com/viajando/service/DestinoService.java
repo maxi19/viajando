@@ -5,9 +5,11 @@ import java.util.List;
 import com.viajando.domain.Destino;
 
 public interface DestinoService {
-
-	public void addDestino() throws Exception;
+	
+	void addDestino(Destino destino) throws Exception;
 	
 	public List<Destino> list()throws Exception;
+
+	
 	
 }
