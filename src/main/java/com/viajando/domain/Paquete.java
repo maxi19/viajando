@@ -119,15 +119,13 @@ public class Paquete implements Reservable {
         return precio;
     }
 
-	@Override
-	public int getCantidadPersonas() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public int getCantidadPersonas() {
+        return personas;
+    }
 
-	@Override
-	public void setCantidadPersonas(int cantidad) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void setCantidadPersonas(int cantidad) {
+        this.personas = cantidad;
+    }
 }

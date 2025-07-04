@@ -14,6 +14,7 @@ import com.viajando.dao.hotel.HotelDaoImp;
 import com.viajando.dao.vuelo.VueloDao;
 import com.viajando.dao.vuelo.VueloDaoImp;
 import com.viajando.domain.Hotel;
+import com.viajando.domain.Destino;
 import com.viajando.domain.Excursion;
 import com.viajando.domain.Vuelo;
 import com.viajando.domain.Paquete;
@@ -35,50 +36,133 @@ public class PaqueteDaoImp implements PaqueteDao {
 	private static final String queryDeletePaquete = "DELETE FROM paquete WHERE id=?";
 
 	private static final String queryList = "SELECT id, nombre, descripcion, hotel_id, vuelo_id, excursion_id, estrellas, personas, precio FROM paquete";
+	
+	private static final String queryListJoin = "SELECT "
+	        + "p.id, p.nombre AS paquete_nombre, p.descripcion AS paquete_descripcion, p.estrellas, p.personas, p.precio, "
+
+	        + "h.id AS hotel_id, h.nombre AS hotel_nombre, h.precio AS hotel_precio, h.estrellas AS hotel_estrellas, h.imagen AS hotel_imagen, "
+	        + "dh.id AS hotel_destino_id, dh.nombre AS hotel_destino_nombre, dh.pais AS hotel_destino_pais, "
+
+	        + "v.id AS vuelo_id, v.nombre AS vuelo_nombre, v.precio AS vuelo_precio, v.imagen AS vuelo_imagen, "
+	        + "dv.id AS vuelo_destino_id, dv.nombre AS vuelo_destino_nombre, dv.pais AS vuelo_destino_pais, "
+
+	        + "e.id AS excursion_id, e.nombre AS excursion_nombre, e.descripcion AS excursion_descripcion, e.fecha_inicio AS excursion_fecha_inicio, "
+	        + "e.fecha_fin AS excursion_fecha_fin, e.precio AS excursion_precio, e.estrellas AS excursion_estrellas, e.imagen AS excursion_imagen, "
+	        + "de.id AS excursion_destino_id, de.nombre AS excursion_destino_nombre, de.pais AS excursion_destino_pais "
+
+	        + "FROM paquete p "
+	        + "LEFT JOIN hotel h ON p.hotel_id = h.id "
+	        + "LEFT JOIN destinos dh ON h.destino_id = dh.id "
+	        + "LEFT JOIN vuelo v ON p.vuelo_id = v.id "
+	        + "LEFT JOIN destinos dv ON v.destino_id = dv.id "
+	        + "LEFT JOIN excursion e ON p.excursion_id = e.id "
+	        + "LEFT JOIN destinos de ON e.destino_id = de.id";
 
 	@Override
 	public List<Paquete> list() throws Exception {
-		ResultSet rs = null;
-		PreparedStatement st = null;
-		List<Paquete> paquetes = new ArrayList<>();
+	    List<Paquete> paquetes = new ArrayList<>();
 
-		try {
-			st = conexion.dameConnection().prepareStatement(queryList);
-			rs = st.executeQuery();
 
-			while (rs.next()) {
-				int hotelId = rs.getInt("hotel_id");
-				Hotel hotel = hotelDao.findById(hotelId);
-				if (!rs.wasNull()) {
-				    hotel = hotelDao.findById(hotelId);
-				}
-				
-				int vueloId = rs.getInt("vuelo_id");
-				Vuelo vuelo = null;
-				if (!rs.wasNull()) {
-				    vuelo = vueloDao.findById(vueloId);
-				}
 
-				int excursionId = rs.getInt("excursion_id");
-				Excursion excursion = null;
-				if (!rs.wasNull()) {
-				    excursion = excursionDao.findById(excursionId);
-				}
+	    try (PreparedStatement st = conexion.dameConnection().prepareStatement(queryListJoin);
+	         ResultSet rs = st.executeQuery()) {
 
-				paquetes.add(new Paquete(rs.getInt("id"), rs.getString("nombre"), rs.getString("descripcion"), hotel,
-						vuelo, excursion, rs.getDouble("estrellas"), rs.getInt("personas"), rs.getInt("precio")));
-			}
+	        while (rs.next()) {
 
-		} finally {
-			if (st != null)
-				st.close();
-			if (rs != null)
-				rs.close();
-		}
+	            // Hotel y Destino del hotel
+	            Hotel hotel = null;
+	            int hotelId = rs.getInt("hotel_id");
+	            if (!rs.wasNull()) {
+	                Destino destinoHotel = new Destino(
+	                    rs.getInt("hotel_destino_id"),
+	                    rs.getString("hotel_destino_nombre"),
+	                    rs.getString("hotel_destino_pais"), hotelId
+	                );
 
-		return paquetes;
+	                hotel = new Hotel(
+	                    hotelId,
+	                    rs.getString("hotel_nombre"),
+	                    destinoHotel,
+	                    rs.getDouble("hotel_estrellas"),
+	                    rs.getInt("hotel_precio"),
+	                    rs.getString("hotel_imagen"),
+	                    0 // stock no necesario si no se usa en vista
+	                );
+	            }
+
+	            // Vuelo y Destino del vuelo
+	            Vuelo vuelo = null;
+	            int vueloId = rs.getInt("vuelo_id");
+	            if (!rs.wasNull()) {
+	                Destino destinoVuelo = new Destino(
+	                    rs.getInt("vuelo_destino_id"),
+	                    rs.getString("vuelo_destino_nombre"),
+	                    rs.getString("vuelo_destino_pais"), vueloId
+	                );
+
+	                vuelo = new Vuelo(
+	                    vueloId,
+	                    rs.getString("vuelo_nombre"),
+	                    destinoVuelo,
+	                    null, // fecha_inicio
+	                    null, // fecha_fin
+	                    rs.getInt("vuelo_precio"),
+	                    0, // estrellas no traídas
+	                    null, // hora_ida
+	                    null, // hora_vuelta
+	                    0, // id_avion
+	                    rs.getString("vuelo_imagen")
+	                );
+	            }
+
+	            // Excursión y su destino
+	            Excursion excursion = null;
+	            int excursionId = rs.getInt("excursion_id");
+	            if (!rs.wasNull()) {
+	                Destino destinoExcursion = new Destino(
+	                    rs.getInt("excursion_destino_id"),
+	                    rs.getString("excursion_destino_nombre"),
+	                    rs.getString("excursion_destino_pais"), excursionId
+	                );
+
+	                excursion = new Excursion(
+	                    excursionId,
+	                    rs.getString("excursion_nombre"),
+	                    rs.getString("excursion_descripcion"),
+	                    rs.getDate("excursion_fecha_inicio").toLocalDate(),
+	                    rs.getDate("excursion_fecha_fin").toLocalDate(),
+	                    rs.getInt("excursion_precio"),
+	                    destinoExcursion,
+	                    rs.getDouble("excursion_estrellas"),
+	                    rs.getString("excursion_imagen")
+	                );
+	            }
+
+	            // Armar paquete
+	            Paquete paquete = new Paquete(
+	                rs.getInt("id"),
+	                rs.getString("paquete_nombre"),
+	                rs.getString("paquete_descripcion"),
+	                hotel,
+	                vuelo,
+	                excursion,
+	                rs.getDouble("estrellas"),
+	                rs.getInt("personas"),
+	                rs.getInt("precio")
+	            );
+
+	            paquetes.add(paquete);
+	        }
+
+	    } catch (Exception e) {
+	        System.err.println("Error en PaqueteDaoImp.list: " + e.getMessage());
+	        e.printStackTrace();
+	        throw e;
+	    }
+
+	    return paquetes;
 	}
-
+	
 	@Override
 	public Paquete findById(int id) throws Exception {
 		ResultSet rs = null;

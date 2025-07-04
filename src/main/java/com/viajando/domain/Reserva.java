@@ -34,6 +34,14 @@ public class Reserva {
 		this.precio = precio;
 	}
 	
+	public int getServicioId() {
+	    return this.servicio_id;
+	}
+	
+	public void setServicioId(int servicioId) {
+	    this.servicio_id = servicioId;
+	}
+	
 	public String getButaca() {
 	    return butaca;
 	}

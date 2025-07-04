@@ -12,6 +12,7 @@ public class Hotel implements Reservable{
     private int cantidadPersonas = 1;
     private int stock;
 
+    
 	
 	public Hotel(int id, String nombre, Destino destino, double estrellas, int precio,
 			String imagen, int stock) {

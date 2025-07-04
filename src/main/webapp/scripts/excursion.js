@@ -1,6 +1,5 @@
 var contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 1));
 
-
 class Excursion {
 	constructor(id, nombre, descripcion, fecha_inicio, fecha_fin, precio, destino_id, destino_value, estrellas, imagen) {
 		this.id = id;
@@ -13,7 +12,6 @@ class Excursion {
 		this.destino_value = destino_value;
 		this.estrellas = estrellas;
 		this.imagen = imagen;
-
 	}
 
 	renderizar() {
@@ -45,6 +43,7 @@ class Excursion {
 			</div>
 		`;
 	}
+
 	generarEstrellas() {
 		const rating = parseFloat(this.estrellas);
 		let html = '';
@@ -64,106 +63,126 @@ class Excursion {
 
 		return html;
 	}
-		renderizarTabla() {
-		    return `
-		        <tr>
-		            <td>${this.id}</td>
-		            <td>${this.nombre}</td>
-		            <td>${this.descripcion}</td>
-		            <td>${this.fecha_inicio}</td>
-		            <td>${this.fecha_fin}</td>
-		            <td>$${this.precio}</td>
-		            <td>${this.destino_id}</td>
-					<td>${this.destino_value}</td>
-		            <td>${this.estrellas}</td>
-		            <td>
-		                <button class="btn btn-danger" data-id="${this.id}" onClick="myFunction(this)">Eliminar</button>
-		            </td>
-		        </tr>
-		    `;
-		}
-		}
 
-
-	function cargarListadoExcursion() {
-		$.ajax({
-			url: contextPath + "/excursionController",
-			method: "GET",
-			cache: false,
-			success: function(response) {
-				console.log(response);
-				$('#contenedorExcursion').empty();
-
-				response.forEach(m => {
-					console.log("Destino recibido:", m.destino);
-				  const excursion = new Excursion(
-				    m.id, m.nombre, m.descripcion,
-				    m.fecha_inicio, m.fecha_fin,
-				    m.precio, m.destino.id, `${m.destino.nombre}, ${m.destino.pais}`, m.estrellas,
-				    m.imagen
-				  );
-
-				  // Renderiza tarjeta
-				  $('#contenedorExcursion').append(excursion.renderizar());
-
-				  // Renderiza fila en tabla
-				  $('#tablaExcursion').append(excursion.renderizarTabla());
-
-				  });
-
-				  $('.boton-carrito-excursion').click(function () {
-				      const id = $(this).data("id");
-				      const type = $(this).data("type");
-
-				      Swal.fire({
-				          title: '¿Agregar al carrito?',
-				          text: "¿Deseás agregar esta excursión al carrito?",
-				          icon: 'question',
-				          showCancelButton: true,
-				          confirmButtonText: 'Sí, agregar',
-				          cancelButtonText: 'Cancelar'
-				      }).then((result) => {
-				          if (result.isConfirmed) {
-				              // Hacer la llamada AJAX para agregar
-				              $.ajax({
-				                  type: "GET",
-				                  url: contextPath + '/carrito.do',
-				                  data: { id: id, type: type },
-				                  dataType: "json",
-				                  success: function(response) {
-				                      Swal.fire({
-				                          title: 'Agregado al carrito',
-				                          icon: 'success',
-				                          showCancelButton: true,
-				                          confirmButtonText: 'Ver carrito',
-				                          cancelButtonText: 'Seguir navegando',
-				                      }).then((choice) => {
-				                          if (choice.isConfirmed) {
-				                              // Redirigir a la página del carrito
-				                              window.location.href = contextPath + '/carrito/carritoPage.jsp'; // ajustá esta URL si es otra
-				                          }
-				                          // Sino no hace nada y el usuario sigue en la página actual
-				                      });
-				                  },
-				                  error: function() {
-				                      Swal.fire('Error', 'No se pudo agregar al carrito.', 'error');
-				                  }
-				              });
-				          }
-				      });
-				  });
-			},
-			error: function(xhr) {
-				console.error("Error al obtener la excursión:", xhr);
-				$('#contenedorExcursion').html('<p>Error al cargar las excursiones.</p>');
-			}
-		});
+	renderizarTabla() {
+		return `
+			<tr>
+				<td>${this.id}</td>
+				<td>${this.nombre}</td>
+				<td>${this.descripcion}</td>
+				<td>${this.fecha_inicio}</td>
+				<td>${this.fecha_fin}</td>
+				<td>$${this.precio}</td>
+				<td>${this.destino_id}</td>
+				<td>${this.destino_value}</td>
+				<td>${this.estrellas}</td>
+				<td>
+					<button class="btn btn-danger" data-id="${this.id}" onClick="myFunction(this)">Eliminar</button>
+				</td>
+			</tr>
+		`;
 	}
+}
 
+function cargarListadoExcursion() {
+	$.ajax({
+		url: contextPath + "/excursionController",
+		method: "GET",
+		cache: false,
+		success: function(response) {
+			$('#contenedorExcursion').empty();
+			$('#tablaExcursion').empty();
 
+			response.forEach(m => {
+				const excursion = new Excursion(
+					m.id, m.nombre, m.descripcion,
+					m.fecha_inicio, m.fecha_fin,
+					m.precio, m.destino.id, `${m.destino.nombre}, ${m.destino.pais}`, m.estrellas,
+					m.imagen
+				);
 
-	$(document).ready(function () {
-		// Llamá el que necesites según el JSP actual
-		cargarListadoExcursion(); // Para galería.jsp
-		//cargarExcursionesTabla(); // Para dashboard.jsp
+				$('#contenedorExcursion').append(excursion.renderizar());
+				$('#tablaExcursion').append(excursion.renderizarTabla());
+			});
+
+			$('.ver-mas-btn').click(function () {
+				const id = $(this).data("id");
+				const excursion = response.find(e => e.id === id);
+				if (!excursion) {
+					console.error("Excursión no encontrada");
+					return;
+				}
+				const estrellas = new Excursion().generarEstrellas.call({ estrellas: excursion.estrellas });
+
+				const html = `
+					<div class="row">
+						<div class="col-md-6">
+							<img src="${contextPath}/images/${excursion.imagen}" class="img-fluid" alt="Imagen Excursion">
+						</div>
+						<div class="col-md-6">
+							<h5>${excursion.nombre}</h5>
+							<p><strong>Destino:</strong> ${excursion.destino.nombre}, ${excursion.destino.pais}</p>
+							<p><strong>Descripción:</strong> ${excursion.descripcion}</p>
+							<p><strong>Desde:</strong> ${excursion.fecha_inicio}</p>
+							<p><strong>Hasta:</strong> ${excursion.fecha_fin}</p>
+							<p><strong>Precio:</strong> $${excursion.precio}</p>
+							<p class="estrellas">${estrellas}</p>
+						</div>
+					</div>
+				`;
+
+				$('#modalContent').html(html);
+				const modal = new bootstrap.Modal(document.getElementById('modalExcursion'));
+				modal.show();
+			});
+		},
+		error: function(xhr) {
+			console.error("Error al obtener la excursión:", xhr);
+			$('#contenedorExcursion').html('<p>Error al cargar las excursiones.</p>');
+		}
 	});
+}
+
+// Evento para botón "Agregar al carrito"
+$(document).on("click", ".boton-carrito-excursion", function () {
+	const id = $(this).data("id");
+	const type = $(this).data("type");
+
+	Swal.fire({
+		title: '¿Agregar al carrito?',
+		text: "¿Deseás agregar esta excursión al carrito?",
+		icon: 'question',
+		showCancelButton: true,
+		confirmButtonText: 'Sí, agregar',
+		cancelButtonText: 'Cancelar'
+	}).then((result) => {
+		if (result.isConfirmed) {
+			$.ajax({
+				type: "GET",
+				url: contextPath + '/carrito.do',
+				data: { id: id, type: type },
+				dataType: "json",
+				success: function(response) {
+					Swal.fire({
+						title: 'Agregado al carrito',
+						icon: 'success',
+						showCancelButton: true,
+						confirmButtonText: 'Ver carrito',
+						cancelButtonText: 'Seguir navegando',
+					}).then((choice) => {
+						if (choice.isConfirmed) {
+							window.location.href = contextPath + '/carrito/carritoPage.jsp';
+						}
+					});
+				},
+				error: function() {
+					Swal.fire('Error', 'No se pudo agregar al carrito.', 'error');
+				}
+			});
+		}
+	});
+});
+
+$(document).ready(function () {
+	cargarListadoExcursion();
+});

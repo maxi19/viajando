@@ -1,7 +1,5 @@
-// Obtener el contextPath desde la URL actual
 var contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 1));
 
-// Clase para representar un Paquete
 class Paquete {
 	constructor(id, nombre, descripcion, hotel_id, hotel_value, vuelo_id, vuelo_value, excursion_id, excursion_value, estrellas, personas, precio, imagen) {
 		this.id = id;
@@ -19,7 +17,29 @@ class Paquete {
 		this.imagen = imagen;
 	}
 
+	generarEstrellas() {
+		const rating = parseFloat(this.estrellas);
+		let html = '';
+		const fullStars = Math.floor(rating);
+		const halfStar = rating - fullStars >= 0.5;
+		const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
+		for (let i = 0; i < fullStars; i++) {
+			html += '<i class="fas fa-star" style="color: gold;"></i>';
+		}
+		if (halfStar) {
+			html += '<i class="fas fa-star-half-alt" style="color: gold;"></i>';
+		}
+		for (let i = 0; i < emptyStars; i++) {
+			html += '<i class="far fa-star" style="color: gold;"></i>';
+		}
+
+		return html;
+	}
+
 	renderizar() {
+		const estrellas = this.generarEstrellas();
+
 		return `
 			<div class="col">
 				<div class="card shadow-sm">
@@ -27,115 +47,90 @@ class Paquete {
 					<div class="card-body">
 						<h5 class="card-title">Paquete N° ${this.id}</h5>
 						<p class="card-text"><strong>Nombre:</strong> ${this.nombre}</p>
-						<p class="card-text"><strong>Descripción:</strong> ${this.descripcion}</p>
 						<p class="card-text"><strong>Hotel:</strong> ${this.hotel_value}</p>
 						<p class="card-text"><strong>Vuelo:</strong> ${this.vuelo_value}</p>
 						<p class="card-text"><strong>Excursión:</strong> ${this.excursion_value}</p>
-						<p class="card-text"><strong>Estrellas:</strong> ${this.estrellas}</p>
-						<p class="card-text"><strong>Personas:</strong> ${this.personas}</p>
 						<p class="card-text"><strong>Precio:</strong> $${this.precio}</p>
+						<p class="card-text estrellas">${estrellas}</p>
 						<div class="d-flex justify-content-between align-items-center">
 							<div class="btn-group">
-								<button type="button" class="btn btn-sm btn-outline-secondary ver-mas-btn" data-id="${this.id}">Ver más</button>
+								<button type="button" class="btn btn-sm btn-outline-secondary ver-mas-btn-paquete" data-id="${this.id}">Ver más</button>
 								<button class="btn btn-sm btn-outline-secondary boton-carrito-paquete" data-id="${this.id}" data-type="PAQUETE">Carrito</button>
 							</div>
-							<small class="text-body-secondary">9 mins</small>
 						</div>
 					</div>
 				</div>
 			</div>
 		`;
 	}
-
-	renderizarTabla() {
-		return `
-			<tr>
-				<td>${this.id}</td>
-				<td>${this.nombre}</td>
-				<td>${this.descripcion}</td>
-				<td>${this.hotel_id}</td>
-				<td>${this.hotel_value}</td>
-				<td>${this.vuelo_id}</td>
-				<td>${this.vuelo_value}</td>
-				<td>${this.excursion_id}</td>
-				<td>${this.excursion_value}</td>
-				<td>${this.estrellas}</td>
-				<td>${this.personas}</td>
-				<td>$${this.precio}</td>
-				<td>
-					<button class="btn btn-danger" data-id="${this.id}" onClick="eliminarPaquete(this)">Eliminar</button>
-				</td>
-			</tr>
-		`;
-	}
-
-	renderizarLista() {
-	    return `
-	        <li class="list-group-item d-flex justify-content-between align-items-center">
-	            <div>
-	                <h5>${this.nombre}</h5>
-	                <p class="mb-1">${this.descripcion}</p>
-	                <p class="mb-1">
-	                    <strong>Hotel:</strong> ${this.hotel_value} |
-	                    <strong>Vuelo:</strong> ${this.vuelo_value} |
-	                    <strong>Excursión:</strong> ${this.excursion_value}
-	                </p>
-	                <p class="mb-1"><strong>Precio:</strong> $${this.precio}</p>
-	            </div>
-	            <div>
-	                <button class="btn btn-sm btn-outline-success boton-carrito-paquete" data-id="${this.id}" data-type="PAQUETE">Comprar</button>
-	            </div>
-	        </li>
-	    `;
-	}
 }
 
+// Cargar paquetes
 function cargarListadoPaquete() {
 	$.ajax({
 		url: contextPath + "/paqueteController",
 		method: "GET",
 		cache: false,
-		success: function(response) {
+		success: function (response) {
 			if ($('#contenedorPaquete').length) $('#contenedorPaquete').empty();
-			if ($('#tablaPaquete').length) $('#tablaPaquete').empty();
-			if ($('#listaPaquetes').length) $('#listaPaquetes').empty();
 
-			response.forEach(m => {
+			response.forEach(p => {
 				const paquete = new Paquete(
-					m.id,
-					m.nombre,
-					m.descripcion,
-					m.hotel?.id || "-",
-					m.hotel?.nombre || "No incluye hotel",
-					m.vuelo?.id || "-",
-					m.vuelo?.nombre || "No incluye vuelo",
-					m.excursion?.id || "-",
-					m.excursion?.nombre || "No incluye excursión",
-					m.estrellas,
-					m.personas,
-					m.precio,
-					m.imagen
+				  p.id,
+				  p.nombre,
+				  p.descripcion,
+				  (p.hotel ? p.hotel.id : "-"),
+				  (p.hotel ? p.hotel.nombre : "No incluye hotel"),
+				  (p.vuelo ? p.vuelo.id : "-"),
+				  (p.vuelo ? p.vuelo.nombre : "No incluye vuelo"),
+				  (p.excursion ? p.excursion.id : "-"),
+				  (p.excursion ? p.excursion.nombre : "No incluye excursión"),
+				  p.estrellas,
+				  p.personas,
+				  p.precio,
+				  p.imagen
 				);
 
-				if ($('#contenedorPaquete').length)
-					$('#contenedorPaquete').append(paquete.renderizar());
+				$('#contenedorPaquete').append(paquete.renderizar());
+			});
 
-				if ($('#tablaPaquete').length)
-					$('#tablaPaquete').append(paquete.renderizarTabla());
+			$('.ver-mas-btn-paquete').off().on('click', function () {
+				const id = $(this).data("id");
+				const paquete = response.find(p => p.id === id);
+				if (!paquete) return;
 
-				if ($('#listaPaquetes').length)
-					$('#listaPaquetes').append(paquete.renderizarLista());
+				const estrellas = new Paquete().generarEstrellas.call({ estrellas: paquete.estrellas });
+
+				const html = `
+					<div class="row">
+						<div class="col-md-6">
+							<img src="${contextPath}/images/${paquete.imagen}" class="img-fluid" alt="Imagen Paquete">
+						</div>
+						    <div class="col-md-6">
+						      <h5>${paquete.nombre}</h5>
+						      <p><strong>Descripción:</strong> ${paquete.descripcion}</p>
+						      <p><strong>Hotel:</strong> ${paquete.hotel && paquete.hotel.nombre ? paquete.hotel.nombre : "No incluye hotel"}</p>
+						      <p><strong>Vuelo:</strong> ${paquete.vuelo && paquete.vuelo.nombre ? paquete.vuelo.nombre : "No incluye vuelo"}</p>
+						      <p><strong>Excursión:</strong> ${paquete.excursion && paquete.excursion.nombre ? paquete.excursion.nombre : "No incluye excursión"}</p>
+						      <p><strong>Estrellas:</strong> ${estrellas}</p>
+						      <p><strong>Personas:</strong> ${paquete.personas}</p>
+						      <p><strong>Precio:</strong> $${paquete.precio}</p>
+						    </div>
+						  </div>
+						`;
+
+				$('#modalPaqueteContent').html(html);
+				new bootstrap.Modal(document.getElementById('modalPaquete')).show();
 			});
 		},
-		error: function(xhr) {
+		error: function (xhr) {
 			console.error("Error al obtener los paquetes:", xhr);
-			Swal.fire('Error', 'No se pudieron cargar los paquetes.', 'error');
-			if ($('#contenedorPaquete').length)
-				$('#contenedorPaquete').html('<p class="text-danger">Error al cargar los paquetes.</p>');
+			$('#contenedorPaquete').html('<p>Error al cargar los paquetes.</p>');
 		}
 	});
 }
 
+// Modal y botón de agregar al carrito
 $(document).on("click", ".boton-carrito-paquete", function () {
 	const id = $(this).data("id");
 	const type = $(this).data("type");
@@ -155,6 +150,8 @@ $(document).on("click", ".boton-carrito-paquete", function () {
 				data: { id: id, type: type },
 				dataType: "json",
 				success: function (response) {
+					actualizarContadorCarrito?.();
+
 					Swal.fire({
 						title: 'Paquete agregado',
 						icon: 'success',
@@ -175,6 +172,6 @@ $(document).on("click", ".boton-carrito-paquete", function () {
 	});
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
 	cargarListadoPaquete();
 });

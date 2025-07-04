@@ -226,6 +226,13 @@
             <a href="<%=request.getContextPath()%>/FAQ.jsp" class="nav-link text-white">FAQ</a>
             <a href="<%=request.getContextPath()%>/about.jsp" class="nav-link text-white">Acerca de</a>
             <a href="<%=request.getContextPath()%>/paquetes.jsp" class="nav-link text-white">Mis paquetes</a>
+            
+<a href="<%=request.getContextPath()%>/carrito/carritoPage.jsp" class="nav-link text-white position-relative">
+	<span class="material-symbols-outlined">shopping_cart</span>
+	<span id="carrito-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">
+		0
+	</span>
+</a>
             <button class="navbar-toggler" type="button"
                 data-bs-toggle="collapse" data-bs-target="#navbarHeader"
                 aria-controls="navbarHeader" aria-expanded="false"
@@ -416,8 +423,8 @@
 	<script src="<%=request.getContextPath()%>/scripts/hotel.js"></script>
 	<script src="<%=request.getContextPath()%>/scripts/vuelo.js"></script>
 	<script src="<%=request.getContextPath()%>/scripts/paquete.js"></script>
-	
-	
+	<script src="<%=request.getContextPath()%>/scripts/contadorCarrito.js"></script>
+
 
 
 
@@ -453,6 +460,46 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- Modal de Vuelo -->
+<div class="modal fade" id="modalVuelo" tabindex="-1" aria-labelledby="modalVueloLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalVueloLabel">Detalle de Vuelo</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+			</div>
+			<div class="modal-body" id="modalVueloContent">
+				<!-- Contenido dinámico se inyecta acá -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal de Hotel -->
+<div class="modal fade" id="modalHotel" tabindex="-1" aria-labelledby="modalHotelLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalHotelLabel">Detalle de Hotel</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+			</div>
+			<div class="modal-body" id="modalHotelContent">
+				<!-- Contenido dinámico se inyecta acá -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- MODAL VER MÁS PAQUETE -->
+<div class="modal fade" id="modalPaquete" tabindex="-1" aria-labelledby="modalPaqueteLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content p-4">
+      <h4 class="modal-title mb-3" id="modalPaqueteLabel">Detalle del Paquete</h4>
+      <div id="modalPaqueteContent"></div>
+    </div>
+  </div>
+</div>
 
 
 <script>

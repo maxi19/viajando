@@ -41,6 +41,7 @@ public class FormularioReservaDataController extends HttpServlet {
 						persona.put("tipo", "excursion");
 						persona.put("servicio_id", excursion.getId());
 						persona.put("nombre_servicio", excursion.getNombre());
+						persona.put("precio", excursion.getPrecio());
 						personas.add(persona);
 					}
 				} else if (obj instanceof Vuelo) {
@@ -52,6 +53,8 @@ public class FormularioReservaDataController extends HttpServlet {
 						persona.put("tipo", "vuelo");
 						persona.put("servicio_id", vuelo.getId());
 						persona.put("nombre_servicio", vuelo.getNombre());
+						persona.put("precio", vuelo.getPrecio());
+
 						personas.add(persona);
 					}
 				} else if (obj instanceof Hotel) {
@@ -62,6 +65,7 @@ public class FormularioReservaDataController extends HttpServlet {
 						persona.put("tipo", "hotel");
 						persona.put("servicio_id", hotel.getId());
 						persona.put("nombre_servicio", hotel.getNombre());
+						persona.put("precio", hotel.getPrecio());
 						personas.add(persona);
 					}
 					

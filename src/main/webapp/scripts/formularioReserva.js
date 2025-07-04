@@ -6,7 +6,7 @@ $(document).ready(function () {
 		dataType: "json",
 		success: function (data) {
 			const contenedor = $("#contenedorFormularios");
-
+	
 			console.log("Data recibida:", data);
 			
 			let indexGlobal = 0;
@@ -26,6 +26,8 @@ $(document).ready(function () {
 								<label>Seleccionar Butaca</label>
 								<div id="contenedorButacasPersona${indexGlobal}" class="d-flex flex-wrap mb-2"></div>
 								<input type="hidden" name="butaca[]" id="butacaSeleccionada${indexGlobal}" required>
+								<input type="hidden" name="precio[]" value="${p.precio}">
+
 							</div>
 						`;
 					}
@@ -96,16 +98,21 @@ $(document).ready(function () {
 		}
 
 		$.ajax({
-			url: contextPath + "/confirmarReserva",
-			method: "POST",
-			contentType: "application/json",
-			data: JSON.stringify(reservas),
-			success: function () {
-				window.location.href = contextPath + "/reserva/confirmacion.jsp?ok";
-			},
-			error: function () {
-				alert("Error al confirmar la reserva");
-			}
+		    url: contextPath + "/generarCupon",
+		    method: "POST",
+		    success: function (response) {
+				const json = typeof response === "string" ? JSON.parse(response) : response;
+				console.log("Respuesta de /generarCupon:", json);
+
+		        if (json.init_point) {
+		            window.location.href = json.init_point; // Redirige a MercadoPago
+		        } else {
+		            alert("Error al generar preferencia de pago");
+		        }
+		    },
+		    error: function () {
+		        alert("Error al crear preferencia de pago");
+		    }
 		});
 	});
 });

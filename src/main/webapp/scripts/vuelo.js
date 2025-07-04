@@ -54,6 +54,7 @@ var contextPath = window.location.pathname.substring(0, window.location.pathname
 
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="btn-group">
+								<button type="button" class="btn btn-sm btn-outline-secondary ver-mas-btn-vuelo" data-id="${this.id}">Ver más</button>
 									<button class="btn btn-sm btn-outline-secondary boton-carrito-vuelo" data-id="${this.id}" data-type="VUELO">Carrito</button>
 								</div>
 								<small class="text-body-secondary">Avión ID: ${this.id_avion}</small>
@@ -93,7 +94,7 @@ var contextPath = window.location.pathname.substring(0, window.location.pathname
 			success: function (response) {
 				console.log("Vuelos:", response);
 				$('#contenedorVuelo').empty();
-				$('#tablaVuelo').empty();
+				if ($('#tablaVuelo').length) $('#tablaVuelo').empty();
 
 				response.forEach(v => {
 					const vuelo = new Vuelo(
@@ -106,7 +107,38 @@ var contextPath = window.location.pathname.substring(0, window.location.pathname
 					);
 
 					$('#contenedorVuelo').append(vuelo.renderizar());
-					$('#tablaVuelo').append(vuelo.renderizarTabla());
+					if ($('#tablaVuelo').length) {
+						$('#tablaVuelo').append(vuelo.renderizarTabla());
+					}
+				});
+
+				// Evento "ver más"
+				$('.ver-mas-btn-vuelo').off().on('click', function () {
+					const id = $(this).data("id");
+					const vuelo = response.find(v => v.id === id);
+					if (!vuelo) return;
+
+					const estrellas = new Vuelo().generarEstrellas.call({ estrellas: vuelo.estrellas });
+
+					const html = `
+						<div class="row">
+							<div class="col-md-6">
+								<img src="${contextPath}/images/${vuelo.imagen}" class="img-fluid" alt="Imagen Vuelo">
+							</div>
+							<div class="col-md-6">
+								<h5>${vuelo.nombre}</h5>
+								<p><strong>Destino:</strong> ${vuelo.destino.nombre}, ${vuelo.destino.pais}</p>
+								<p><strong>Fecha ida:</strong> ${vuelo.fecha_inicio} ${vuelo.hora_ida}</p>
+								<p><strong>Fecha vuelta:</strong> ${vuelo.fecha_fin} ${vuelo.hora_vuelta}</p>
+								<p><strong>Avión ID:</strong> ${vuelo.id_avion}</p>
+								<p><strong>Precio:</strong> $${vuelo.precio}</p>
+								<p class="estrellas">${estrellas}</p>
+							</div>
+						</div>
+					`;
+
+					$('#modalVueloContent').html(html);
+					new bootstrap.Modal(document.getElementById('modalVuelo')).show();
 				});
 			},
 			error: function (xhr) {
@@ -116,7 +148,7 @@ var contextPath = window.location.pathname.substring(0, window.location.pathname
 		});
 	}
 
-	//Agregar vuelo al carrito
+
 	$(document).on("click", ".boton-carrito-vuelo", function () {
 		const id = $(this).data("id");
 		const type = $(this).data("type");
@@ -136,6 +168,8 @@ var contextPath = window.location.pathname.substring(0, window.location.pathname
 					data: { id: id, type: type },
 					dataType: "json",
 					success: function (response) {
+						actualizarContadorCarrito(); // <--- ¡Esto es lo que te faltaba!
+
 						Swal.fire({
 							title: 'Vuelo agregado',
 							icon: 'success',
