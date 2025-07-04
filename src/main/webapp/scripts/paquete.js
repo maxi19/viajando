@@ -76,19 +76,19 @@ function cargarListadoPaquete() {
 
 			response.forEach(p => {
 				const paquete = new Paquete(
-				  p.id,
-				  p.nombre,
-				  p.descripcion,
-				  (p.hotel ? p.hotel.id : "-"),
-				  (p.hotel ? p.hotel.nombre : "No incluye hotel"),
-				  (p.vuelo ? p.vuelo.id : "-"),
-				  (p.vuelo ? p.vuelo.nombre : "No incluye vuelo"),
-				  (p.excursion ? p.excursion.id : "-"),
-				  (p.excursion ? p.excursion.nombre : "No incluye excursión"),
-				  p.estrellas,
-				  p.personas,
-				  p.precio,
-				  p.imagen
+					p.id,
+					p.nombre,
+					p.descripcion,
+					(p.hotel ? p.hotel.id : "-"),
+					(p.hotel ? p.hotel.nombre : "No incluye hotel"),
+					(p.vuelo ? p.vuelo.id : "-"),
+					(p.vuelo ? p.vuelo.nombre : "No incluye vuelo"),
+					(p.excursion ? p.excursion.id : "-"),
+					(p.excursion ? p.excursion.nombre : "No incluye excursión"),
+					p.estrellas,
+					p.personas,
+					p.precio,
+					p.imagen
 				);
 
 				$('#contenedorPaquete').append(paquete.renderizar());
@@ -106,18 +106,18 @@ function cargarListadoPaquete() {
 						<div class="col-md-6">
 							<img src="${contextPath}/images/${paquete.imagen}" class="img-fluid" alt="Imagen Paquete">
 						</div>
-						    <div class="col-md-6">
-						      <h5>${paquete.nombre}</h5>
-						      <p><strong>Descripción:</strong> ${paquete.descripcion}</p>
-						      <p><strong>Hotel:</strong> ${paquete.hotel && paquete.hotel.nombre ? paquete.hotel.nombre : "No incluye hotel"}</p>
-						      <p><strong>Vuelo:</strong> ${paquete.vuelo && paquete.vuelo.nombre ? paquete.vuelo.nombre : "No incluye vuelo"}</p>
-						      <p><strong>Excursión:</strong> ${paquete.excursion && paquete.excursion.nombre ? paquete.excursion.nombre : "No incluye excursión"}</p>
-						      <p><strong>Estrellas:</strong> ${estrellas}</p>
-						      <p><strong>Personas:</strong> ${paquete.personas}</p>
-						      <p><strong>Precio:</strong> $${paquete.precio}</p>
-						    </div>
-						  </div>
-						`;
+						<div class="col-md-6">
+							<h5>${paquete.nombre}</h5>
+							<p><strong>Descripción:</strong> ${paquete.descripcion}</p>
+							<p><strong>Hotel:</strong> ${paquete.hotel_value}</p>
+							<p><strong>Vuelo:</strong> ${paquete.vuelo_value}</p>
+							<p><strong>Excursión:</strong> ${paquete.excursion_value}</p>
+							<p><strong>Estrellas:</strong> ${estrellas}</p>
+							<p><strong>Personas:</strong> ${paquete.personas}</p>
+							<p><strong>Precio:</strong> $${paquete.precio}</p>
+						</div>
+					</div>
+				`;
 
 				$('#modalPaqueteContent').html(html);
 				new bootstrap.Modal(document.getElementById('modalPaquete')).show();
@@ -149,8 +149,8 @@ $(document).on("click", ".boton-carrito-paquete", function () {
 				url: contextPath + "/carrito.do",
 				data: { id: id, type: type },
 				dataType: "json",
-				success: function (response) {
-					actualizarContadorCarrito?.();
+				success: function () {
+					// actualizarContadorCarrito(); // Descomentar si implementás esta función
 
 					Swal.fire({
 						title: 'Paquete agregado',

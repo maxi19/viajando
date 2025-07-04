@@ -8,7 +8,7 @@
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Astro v5.9.2">
-<title>Viajando.com</title>
+<title>FAQ</title>
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/5.3/examples/album/">
 <script src="<%=request.getContextPath()%>/assets/js/color-modes.js"></script>
@@ -29,10 +29,6 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/style/estilosCarousel.css">
 
-<link
-	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 
 <script type="text/javascript">

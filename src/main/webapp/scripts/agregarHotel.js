@@ -55,7 +55,7 @@ $(function () {
         });
 
         setTimeout(function () {
-          window.location.href = contextPath + '/LeerDatosHotel';
+			location.reload();
         }, 1500);
       },
       error: function (xhr, status, error) {

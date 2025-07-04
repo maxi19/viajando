@@ -21,15 +21,15 @@ public class VueloDaoImp implements VueloDao {
 	private Conexion conexion = Conexion.getInstance();
 	private DestinoDao destinoDao = new DestinoDao();
 
-	private static final String QUERY_LIST = "SELECT v.id, v.nombre, v.fecha_inicio, v.fecha_fin, v.precio, v.estrellas, v.hora_ida, v.hora_vuelta, v.id_avion, v.imagen, d.id AS destino_id, d.nombre AS destino_nombre, d.pais AS destino_pais, d.precio AS destino_precio FROM vuelo v JOIN destinos d ON v.destino_id = d.id";
-	private static final String QUERY_FIND = "SELECT * FROM vuelo WHERE id = ?";
+	private static final String QUERY_LIST = "SELECT v.*, d.id AS destino_id, d.nombre AS destino_nombre, d.pais AS destino_pais, d.precio AS destino_precio FROM vuelo v JOIN destinos d ON v.destino_id = d.id";
+	private static final String QUERY_FIND = "SELECT v.*, d.id AS destino_id, d.nombre AS destino_nombre, d.pais AS destino_pais, d.precio AS destino_precio FROM vuelo v JOIN destinos d ON v.destino_id = d.id WHERE v.id = ?";
 	private static final String QUERY_INSERT = "INSERT INTO vuelo (nombre, destino_id, fecha_inicio, fecha_fin, precio, estrellas, hora_ida, hora_vuelta, id_avion, imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String QUERY_UPDATE_IMG = "UPDATE vuelo SET imagen = ? WHERE id = ?";
 	private static final String QUERY_DELETE = "DELETE FROM vuelo WHERE id = ?";
 	private static final String queryCapacidad = "SELECT capacidad FROM avion WHERE id = ?";
 	private static final String queryInsertButaca = "INSERT INTO butaca_vuelo (vuelo_id, asiento, estado) VALUES (?, ?, 'disponible')";
 	private static final String queryDeleteButaca = "DELETE FROM butaca_vuelo WHERE vuelo_id = ?";
-	private static final String QUERY_LIST_BETWEEN_DATES = "SELECT * FROM vuelo WHERE fecha_inicio BETWEEN ? AND ?";
+	private static final String QUERY_LIST_BETWEEN_DATES = "SELECT v.*, d.id AS destino_id, d.nombre AS destino_nombre, d.pais AS destino_pais, d.precio AS destino_precio FROM vuelo v JOIN destinos d ON v.destino_id = d.id WHERE v.fecha_inicio BETWEEN ? AND ?";
 
 
 
@@ -40,7 +40,13 @@ public class VueloDaoImp implements VueloDao {
 		try (PreparedStatement st = conexion.dameConnection().prepareStatement(QUERY_LIST);
 		     ResultSet rs = st.executeQuery()) {
 			while (rs.next()) {
-				Destino destino = destinoDao.getOne(rs.getInt("destino_id"));
+				Destino destino = new Destino(
+					rs.getInt("destino_id"),
+					rs.getString("destino_nombre"),
+					rs.getString("destino_pais"),
+					rs.getInt("destino_precio")
+				);
+
 				Vuelo vuelo = new Vuelo(
 					rs.getInt("id"),
 					rs.getString("nombre"),
@@ -66,44 +72,35 @@ public class VueloDaoImp implements VueloDao {
 	public List<Vuelo> findByDate(LocalDate begin, LocalDate end) throws Exception {
 		List<Vuelo> vuelos = new ArrayList<>();
 
-		PreparedStatement st = null;
-		ResultSet rs = null;
-
-		try {
-			st = conexion.dameConnection().prepareStatement(QUERY_LIST_BETWEEN_DATES);
+		try (PreparedStatement st = conexion.dameConnection().prepareStatement(QUERY_LIST_BETWEEN_DATES)) {
 			st.setDate(1, Date.valueOf(begin));
 			st.setDate(2, Date.valueOf(end));
-			rs = st.executeQuery();
+			try (ResultSet rs = st.executeQuery()) {
+				while (rs.next()) {
+					Destino destino = new Destino(
+						rs.getInt("destino_id"),
+						rs.getString("destino_nombre"),
+						rs.getString("destino_pais"),
+						rs.getInt("destino_precio")
+					);
 
-			while (rs.next()) {
-				Destino destino = destinoDao.getOne(rs.getInt("destino_id"));
-				Vuelo vuelo = new Vuelo(
-					rs.getInt("id"),
-					rs.getString("nombre"),
-					destino,
-					rs.getDate("fecha_inicio").toLocalDate(),
-					rs.getDate("fecha_fin").toLocalDate(),
-					rs.getInt("precio"),
-					rs.getDouble("estrellas"),
-					rs.getTime("hora_ida").toLocalTime(),
-					rs.getTime("hora_vuelta").toLocalTime(),
-					rs.getInt("id_avion"),
-					rs.getString("imagen")
-				);
-				vuelos.add(vuelo);
-			}
-		} catch (Exception e) {
-			System.out.println("Error en findByDate: " + e.getMessage());
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null) rs.close();
-				if (st != null) st.close();
-			} catch (Exception ex) {
-				ex.printStackTrace();
+					Vuelo vuelo = new Vuelo(
+						rs.getInt("id"),
+						rs.getString("nombre"),
+						destino,
+						rs.getDate("fecha_inicio").toLocalDate(),
+						rs.getDate("fecha_fin").toLocalDate(),
+						rs.getInt("precio"),
+						rs.getDouble("estrellas"),
+						rs.getTime("hora_ida").toLocalTime(),
+						rs.getTime("hora_vuelta").toLocalTime(),
+						rs.getInt("id_avion"),
+						rs.getString("imagen")
+					);
+					vuelos.add(vuelo);
+				}
 			}
 		}
-
 		return vuelos;
 	}
 	
@@ -114,7 +111,13 @@ public class VueloDaoImp implements VueloDao {
 			st.setInt(1, id);
 			try (ResultSet rs = st.executeQuery()) {
 				if (rs.next()) {
-					Destino destino = destinoDao.getOne(rs.getInt("destino_id"));
+					Destino destino = new Destino(
+						rs.getInt("destino_id"),
+						rs.getString("destino_nombre"),
+						rs.getString("destino_pais"),
+						rs.getInt("destino_precio")
+					);
+
 					return new Vuelo(
 						rs.getInt("id"),
 						rs.getString("nombre"),

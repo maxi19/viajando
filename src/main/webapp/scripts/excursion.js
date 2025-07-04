@@ -27,7 +27,7 @@ class Excursion {
 						<p class="card-text"><strong>Fecha inicio:</strong> ${this.fecha_inicio}</p>
 						<p class="card-text"><strong>Fecha fin:</strong> ${this.fecha_fin}</p>
 						<p class="card-text"><strong>Destino:</strong> ${this.destino_value}</p>
-						<p class="card-text"><strong>Precio</strong> ${this.precio}</p>
+						<p class="card-text"><strong>Precio</strong> $${this.precio}</p>
 						
 						<p class="card-text estrellas">${estrellas}</p>
 
@@ -163,6 +163,8 @@ $(document).on("click", ".boton-carrito-excursion", function () {
 				data: { id: id, type: type },
 				dataType: "json",
 				success: function(response) {
+					actualizarContadorCarrito();
+					
 					Swal.fire({
 						title: 'Agregado al carrito',
 						icon: 'success',

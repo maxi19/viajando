@@ -243,6 +243,8 @@
     </div>
 </div>
 
+
+
 	</header>
 
 
@@ -293,17 +295,13 @@
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <div id="mensajeBienvenida">
       <h1>BIENVENIDO</h1>
-      <button type="button" class="btn btn-primary" id="btn-verCarrito">
-        Ver carrito <span class="badge text-bg-secondary">4</span>
-      </button>
+
       <p >tu plataforma confiable
         para organizar y reservar tu próxima aventura. Nos especializamos
         en ofrecer una experiencia simple, rápida y segura para que puedas
         planificar viajes a cualquier destino del mundo.</p>
       <p>
        <button class="boton-paquete" onclick="mostrarOpciones()">Armar tu paquete</button>
-       <a href="#" class="btn btn-secondary my-2">Secondary
-          action</a>
       </p>
     </div>
     
@@ -339,6 +337,91 @@
   </button>
 </div>
 
+<h1 class="NombreServicio">Vuelos</h1>
+
+<style>
+	#form-fecha-vuelo {
+		background-color: var(--bs-body-bg);
+		color: var(--bs-body-color);
+		border-radius: 20px;
+		box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+		padding: 30px;
+		margin-bottom: 40px;
+		border: 1px solid rgba(0, 0, 0, 0.1);
+		transition: all 0.3s ease;
+	}
+
+	[data-bs-theme="dark"] #form-fecha-vuelo {
+		box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	#form-fecha-vuelo .form-label {
+		font-weight: bold;
+		color: var(--bs-body-color);
+	}
+
+	#form-fecha-vuelo input[type="date"] {
+		border-radius: 10px;
+		border: 1px solid var(--bs-border-color, #ced4da);
+		background-color: var(--bs-body-bg);
+		color: var(--bs-body-color);
+		box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+		transition: all 0.3s ease;
+	}
+
+	#form-fecha-vuelo input[type="date"]:focus {
+		border-color: #0d6efd;
+		box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
+		outline: none;
+	}
+
+	#form-fecha-vuelo button {
+		border-radius: 10px;
+		padding: 10px 20px;
+		background: linear-gradient(45deg, #0d6efd, #00c6ff);
+		border: none;
+		color: #fff;
+		font-weight: bold;
+		transition: background 0.3s ease, transform 0.2s ease;
+	}
+
+	#form-fecha-vuelo button:hover {
+		background: linear-gradient(45deg, #0056b3, #0099cc);
+		transform: scale(1.05);
+	}
+</style>
+
+<div class="container">
+	<h1 class="text-center mb-4 NombreServicio text-light-emphasis">🔍 Buscar Vuelos por Fecha</h1>
+
+	<form id="form-fecha-vuelo" class="row g-4 justify-content-center">
+		<div class="col-md-4">
+			<label for="fecha_inicio" class="form-label">Desde</label>
+			<input type="date" class="form-control" name="fecha_inicio" required>
+		</div>
+		<div class="col-md-4">
+			<label for="fecha_fin" class="form-label">Hasta</label>
+			<input type="date" class="form-control" name="fecha_fin" required>
+		</div>
+		<div class="col-md-2 d-flex align-items-end">
+			<button type="submit" class="btn w-100">Buscar vuelos</button>
+		</div>
+	</form>
+</div>
+
+
+
+		<div class="album py-5 bg-body-tertiary">
+			<div class="container">
+				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"
+					id="contenedorVuelo">
+
+					<!--  -->
+
+				</div>
+			</div>
+		</div>
 
 
 
@@ -354,17 +437,6 @@
 			</div>
 		</div>
 
-		<h1 class="NombreServicio">Vuelos</h1>
-		<div class="album py-5 bg-body-tertiary">
-			<div class="container">
-				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"
-					id="contenedorVuelo">
-
-					<!--  -->
-
-				</div>
-			</div>
-		</div>
 
 		<h1 class="NombreServicio">Hoteles</h1>
 		<div class="album py-5 bg-body-tertiary">

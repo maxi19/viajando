@@ -1,155 +1,157 @@
 var contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 1));
 
-	class Vuelo {
-		constructor(id, nombre, fecha_inicio, fecha_fin, hora_ida, hora_vuelta, precio, destino_id, destino_value, estrellas, id_avion, imagen) {
-			this.id = id;
-			this.nombre = nombre;
-			this.fecha_inicio = fecha_inicio;
-			this.fecha_fin = fecha_fin;
-			this.hora_ida = hora_ida;
-			this.hora_vuelta = hora_vuelta;
-			this.precio = precio;
-			this.destino_id = destino_id;
-			this.destino_value = destino_value;
-			this.estrellas = estrellas;
-			this.id_avion = id_avion;
-			this.imagen = imagen;
+class Vuelo {
+	constructor(id, nombre, fecha_inicio, fecha_fin, hora_ida, hora_vuelta, precio, destino_id, destino_value, estrellas, id_avion, imagen) {
+		this.id = id;
+		this.nombre = nombre;
+		this.fecha_inicio = fecha_inicio;
+		this.fecha_fin = fecha_fin;
+		this.hora_ida = hora_ida;
+		this.hora_vuelta = hora_vuelta;
+		this.precio = precio;
+		this.destino_id = destino_id;
+		this.destino_value = destino_value;
+		this.estrellas = estrellas;
+		this.id_avion = id_avion;
+		this.imagen = imagen;
+	}
+
+	generarEstrellas() {
+		const rating = parseFloat(this.estrellas);
+		let html = '';
+		const fullStars = Math.floor(rating);
+		const halfStar = rating - fullStars >= 0.5;
+		const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
+		for (let i = 0; i < fullStars; i++) {
+			html += '<i class="fas fa-star" style="color: gold;"></i>';
+		}
+		if (halfStar) {
+			html += '<i class="fas fa-star-half-alt" style="color: gold;"></i>';
+		}
+		for (let i = 0; i < emptyStars; i++) {
+			html += '<i class="far fa-star" style="color: gold;"></i>';
 		}
 
-		generarEstrellas() {
-			const rating = parseFloat(this.estrellas);
-			let html = '';
-			const fullStars = Math.floor(rating);
-			const halfStar = rating - fullStars >= 0.5;
-			const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+		return html;
+	}
 
-			for (let i = 0; i < fullStars; i++) {
-				html += '<i class="fas fa-star" style="color: gold;"></i>';
-			}
-			if (halfStar) {
-				html += '<i class="fas fa-star-half-alt" style="color: gold;"></i>';
-			}
-			for (let i = 0; i < emptyStars; i++) {
-				html += '<i class="far fa-star" style="color: gold;"></i>';
-			}
+	renderizar() {
+		const estrellas = this.generarEstrellas();
 
-			return html;
-		}
-
-		renderizar() {
-			const estrellas = this.generarEstrellas();
-
-			return `
-				<div class="col">
-					<div class="card shadow-sm">
-						<img src="${contextPath}/images/${this.imagen}" class="card-img-top" alt="Imagen Vuelo" style="width: 100%; height: 250px; object-fit: cover;">
-						<div class="card-body">
-							<h5 class="card-title">Vuelo N° ${this.id}</h5>
-							<p class="card-text"><strong>Nombre:</strong> ${this.nombre}</p>
-							<p class="card-text"><strong>Fecha ida:</strong> ${this.fecha_inicio} ${this.hora_ida}</p>
-							<p class="card-text"><strong>Fecha vuelta:</strong> ${this.fecha_fin} ${this.hora_vuelta}</p>
-							<p class="card-text"><strong>Destino:</strong> ${this.destino_value}</p>
-							<p class="card-text"><strong>Precio:</strong> $${this.precio}</p>
-							<p class="card-text estrellas">${estrellas}</p>
-
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="btn-group">
+		return `
+			<div class="col">
+				<div class="card shadow-sm">
+					<img src="${contextPath}/images/${this.imagen}" class="card-img-top" alt="Imagen Vuelo" style="width: 100%; height: 250px; object-fit: cover;">
+					<div class="card-body">
+						<h5 class="card-title">Vuelo N° ${this.id}</h5>
+						<p class="card-text"><strong>Nombre:</strong> ${this.nombre}</p>
+						<p class="card-text"><strong>Fecha ida:</strong> ${this.fecha_inicio} ${this.hora_ida}</p>
+						<p class="card-text"><strong>Fecha vuelta:</strong> ${this.fecha_fin} ${this.hora_vuelta}</p>
+						<p class="card-text"><strong>Destino:</strong> ${this.destino_value}</p>
+						<p class="card-text"><strong>Precio:</strong> $${this.precio}</p>
+						<p class="card-text estrellas">${estrellas}</p>
+						<div class="d-flex justify-content-between align-items-center">
+							<div class="btn-group">
 								<button type="button" class="btn btn-sm btn-outline-secondary ver-mas-btn-vuelo" data-id="${this.id}">Ver más</button>
-									<button class="btn btn-sm btn-outline-secondary boton-carrito-vuelo" data-id="${this.id}" data-type="VUELO">Carrito</button>
-								</div>
-								<small class="text-body-secondary">Avión ID: ${this.id_avion}</small>
+								<button class="btn btn-sm btn-outline-secondary boton-carrito-vuelo" data-id="${this.id}" data-type="VUELO">Carrito</button>
 							</div>
+							<small class="text-body-secondary">Avión ID: ${this.id_avion}</small>
 						</div>
 					</div>
 				</div>
-			`;
-		}
+			</div>
+		`;
+	}
+}
 
-		renderizarTabla() {
-			return `
-				<tr>
-					<td>${this.id}</td>
-					<td>${this.nombre}</td>
-					<td>${this.fecha_inicio} ${this.hora_ida}</td>
-					<td>${this.fecha_fin} ${this.hora_vuelta}</td>
-					<td>${this.precio}</td>
-					<td>${this.destino_id}</td>
-					<td>${this.destino_value}</td>
-					<td>${this.estrellas}</td>
-					<td>${this.id_avion}</td>
-					<td>
-						<button class="btn btn-danger" data-id="${this.id}" onclick="eliminarVuelo(this)">Eliminar</button>
-					</td>
-				</tr>
-			`;
+// Cargar todos los vuelos al iniciar
+function cargarListadoVuelo() {
+	$.ajax({
+		url: contextPath + "/vueloController",
+		method: "GET",
+		cache: false,
+		success: function (response) {
+			renderizarVuelos(response);
+		},
+		error: function () {
+			$('#contenedorVuelo').html('<div class="alert alert-danger">Error al cargar los vuelos.</div>');
 		}
+	});
+}
+
+// Buscar vuelos por fecha
+$('#form-fecha-vuelo').on('submit', function (e) {
+	e.preventDefault();
+
+	const fecha_inicio = $(this).find('[name="fecha_inicio"]').val();
+	const fecha_fin = $(this).find('[name="fecha_fin"]').val();
+
+	$.ajax({
+		url: contextPath + "/buscarVuelo",
+		method: "GET",
+		data: { fecha_inicio, fecha_fin },
+		success: function (response) {
+			renderizarVuelos(response);
+		},
+		error: function () {
+			$('#contenedorVuelo').html('<div class="alert alert-danger">Error al buscar vuelos.</div>');
+		}
+	});
+});
+
+// Renderizar vuelos
+function renderizarVuelos(data) {
+	$('#contenedorVuelo').empty();
+
+	if (data.length === 0) {
+		$('#contenedorVuelo').html('<div class="alert alert-warning">No hay vuelos disponibles.</div>');
+		return;
 	}
 
-	// Carga de vuelos
-	function cargarListadoVuelo() {
-		$.ajax({
-			url: contextPath + "/vueloController",
-			method: "GET",
-			cache: false,
-			success: function (response) {
-				console.log("Vuelos:", response);
-				$('#contenedorVuelo').empty();
-				if ($('#tablaVuelo').length) $('#tablaVuelo').empty();
+	data.forEach(v => {
+		const vuelo = new Vuelo(
+			v.id, v.nombre,
+			v.fecha_inicio, v.fecha_fin,
+			v.hora_ida, v.hora_vuelta,
+			v.precio, v.destino.id,
+			`${v.destino.nombre}, ${v.destino.pais}`,
+			v.estrellas, v.id_avion, v.imagen
+		);
+		$('#contenedorVuelo').append(vuelo.renderizar());
+	});
 
-				response.forEach(v => {
-					const vuelo = new Vuelo(
-						v.id, v.nombre,
-						v.fecha_inicio, v.fecha_fin,
-						v.hora_ida, v.hora_vuelta,
-						v.precio, v.destino.id,
-						`${v.destino.nombre}, ${v.destino.pais}`,
-						v.estrellas, v.id_avion, v.imagen
-					);
+	// Ver más modal
+	$('.ver-mas-btn-vuelo').off().on('click', function () {
+		const id = $(this).data("id");
+		const vuelo = data.find(v => v.id === id);
+		if (!vuelo) return;
 
-					$('#contenedorVuelo').append(vuelo.renderizar());
-					if ($('#tablaVuelo').length) {
-						$('#tablaVuelo').append(vuelo.renderizarTabla());
-					}
-				});
+		const estrellas = new Vuelo().generarEstrellas.call({ estrellas: vuelo.estrellas });
 
-				// Evento "ver más"
-				$('.ver-mas-btn-vuelo').off().on('click', function () {
-					const id = $(this).data("id");
-					const vuelo = response.find(v => v.id === id);
-					if (!vuelo) return;
+		const html = `
+			<div class="row">
+				<div class="col-md-6">
+					<img src="${contextPath}/images/${vuelo.imagen}" class="img-fluid" alt="Imagen Vuelo">
+				</div>
+				<div class="col-md-6">
+					<h5>${vuelo.nombre}</h5>
+					<p><strong>Destino:</strong> ${vuelo.destino.nombre}, ${vuelo.destino.pais}</p>
+					<p><strong>Fecha ida:</strong> ${vuelo.fecha_inicio} ${vuelo.hora_ida}</p>
+					<p><strong>Fecha vuelta:</strong> ${vuelo.fecha_fin} ${vuelo.hora_vuelta}</p>
+					<p><strong>Avión ID:</strong> ${vuelo.id_avion}</p>
+					<p><strong>Precio:</strong> $${vuelo.precio}</p>
+					<p class="estrellas">${estrellas}</p>
+				</div>
+			</div>
+		`;
 
-					const estrellas = new Vuelo().generarEstrellas.call({ estrellas: vuelo.estrellas });
+		$('#modalVueloContent').html(html);
+		new bootstrap.Modal(document.getElementById('modalVuelo')).show();
+	});
 
-					const html = `
-						<div class="row">
-							<div class="col-md-6">
-								<img src="${contextPath}/images/${vuelo.imagen}" class="img-fluid" alt="Imagen Vuelo">
-							</div>
-							<div class="col-md-6">
-								<h5>${vuelo.nombre}</h5>
-								<p><strong>Destino:</strong> ${vuelo.destino.nombre}, ${vuelo.destino.pais}</p>
-								<p><strong>Fecha ida:</strong> ${vuelo.fecha_inicio} ${vuelo.hora_ida}</p>
-								<p><strong>Fecha vuelta:</strong> ${vuelo.fecha_fin} ${vuelo.hora_vuelta}</p>
-								<p><strong>Avión ID:</strong> ${vuelo.id_avion}</p>
-								<p><strong>Precio:</strong> $${vuelo.precio}</p>
-								<p class="estrellas">${estrellas}</p>
-							</div>
-						</div>
-					`;
-
-					$('#modalVueloContent').html(html);
-					new bootstrap.Modal(document.getElementById('modalVuelo')).show();
-				});
-			},
-			error: function (xhr) {
-				console.error("Error al obtener vuelos:", xhr);
-				$('#contenedorVuelo').html('<p>Error al cargar los vuelos.</p>');
-			}
-		});
-	}
-
-
-	$(document).on("click", ".boton-carrito-vuelo", function () {
+	// Agregar al carrito
+	$('.boton-carrito-vuelo').off().on('click', function () {
 		const id = $(this).data("id");
 		const type = $(this).data("type");
 
@@ -167,8 +169,8 @@ var contextPath = window.location.pathname.substring(0, window.location.pathname
 					url: contextPath + "/carrito.do",
 					data: { id: id, type: type },
 					dataType: "json",
-					success: function (response) {
-						actualizarContadorCarrito(); // <--- ¡Esto es lo que te faltaba!
+					success: function () {
+						actualizarContadorCarrito();
 
 						Swal.fire({
 							title: 'Vuelo agregado',
@@ -189,39 +191,39 @@ var contextPath = window.location.pathname.substring(0, window.location.pathname
 			}
 		});
 	});
+}
 
-	// Eliminar vuelo (desde tabla)
-	function eliminarVuelo(boton) {
-		const id = $(boton).data("id");
+// Eliminar vuelo (desde tabla)
+function eliminarVuelo(boton) {
+	const id = $(boton).data("id");
 
-		Swal.fire({
-			title: '¿Eliminar vuelo?',
-			text: "Esta acción no se puede deshacer",
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonText: 'Sí, eliminar',
-			cancelButtonText: 'Cancelar'
-		}).then((result) => {
-			if (result.isConfirmed) {
-				$.ajax({
-					type: "GET",
-					url: contextPath + "/VueloEliminar",
-					data: { id: id },
-					dataType: "json",
-					success: function (response) {
-						Swal.fire('Eliminado', response.mensaje, 'success');
-						cargarListadoVuelo(); // Recarga la tabla y tarjetas
-					},
-					error: function (xhr) {
-						console.error("Error al eliminar vuelo:", xhr);
-						Swal.fire('Error', 'No se pudo eliminar el vuelo.', 'error');
-					}
-				});
-			}
-		});
-	}
-
-	// Al cargar el documento
-	$(document).ready(function () {
-		cargarListadoVuelo(); // Para galería o dashboard
+	Swal.fire({
+		title: '¿Eliminar vuelo?',
+		text: "Esta acción no se puede deshacer",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonText: 'Sí, eliminar',
+		cancelButtonText: 'Cancelar'
+	}).then((result) => {
+		if (result.isConfirmed) {
+			$.ajax({
+				type: "GET",
+				url: contextPath + "/VueloEliminar",
+				data: { id: id },
+				dataType: "json",
+				success: function (response) {
+					Swal.fire('Eliminado', response.mensaje, 'success');
+					cargarListadoVuelo(); // Recarga la tabla y tarjetas
+				},
+				error: function () {
+					Swal.fire('Error', 'No se pudo eliminar el vuelo.', 'error');
+				}
+			});
+		}
 	});
+}
+
+// Al cargar la página
+$(document).ready(function () {
+	cargarListadoVuelo();
+});

@@ -121,11 +121,14 @@ $(document).ready(function () {
 // ✅ Cargar butacas
 // =============================
 function cargarButacas(vueloId, indexPersona) {
+
 	$.ajax({
 		url: contextPath + "/butacasPorVuelo?vuelo_id=" + vueloId,
 		method: "GET",
 		dataType: "json",
 		success: function (butacas) {
+			console.log("Butacas recibidas:", butacas); // ✅ Ahora sí existe
+			
 			const contenedor = $(`#contenedorButacasPersona${indexPersona}`);
 			contenedor.empty();
 

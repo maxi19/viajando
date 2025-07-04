@@ -24,7 +24,7 @@ $(function () {
         });
 
         setTimeout(function() {
-          window.location.href = contextPath + '/LeerDatosDestino';
+			location.reload();
         }, 1500);
       },
       error: function(xhr, status, error) {

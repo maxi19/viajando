@@ -7,20 +7,14 @@ import java.time.LocalTime;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
 import org.apache.http.HttpStatus;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.viajando.domain.Carrito;
-import com.viajando.domain.Excursion;
-import com.viajando.domain.Hotel;
-import com.viajando.domain.Paquete;
-import com.viajando.domain.Vuelo;
+import com.google.gson.JsonObject;
+import com.viajando.domain.*;
 import com.viajando.parser.Parser;
 import com.viajando.parser.ParserTime;
 import com.viajando.service.excursion.ExcursionService;
@@ -32,87 +26,76 @@ import com.viajando.service.hotel.HotelServiceImp;
 import com.viajando.service.paquete.PaqueteService;
 import com.viajando.service.paquete.PaqueteServiceImp;
 
-@WebServlet( urlPatterns =  "/carrito.do")
+@WebServlet(urlPatterns = "/carrito.do")
 public class CarritoController extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
 
 	VueloService vueloService = new VueloServiceImp();
 	ExcursionService excursionService = new ExcursionServiceImp();
 	HotelService hotelService = new HotelServiceImp();
 	PaqueteService paqueteService = new PaqueteServiceImp();
 
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	
-		
-	String id =  req.getParameter("id");
-	String tipo= req.getParameter("type");
-	HttpSession	session = req.getSession(true);
-	Carrito carrito = (Carrito)session.getAttribute("carrito");
-	
-	if (carrito == null) {
-		carrito = new Carrito();
-	}
-	
-	try {
-		if (tipo.equals("VUELO")) {
-			  Vuelo vuelo = this.vueloService.findById(Integer.parseInt(id));
-			  carrito.getReservables().add(vuelo);
-			  session.setAttribute("carrito", carrito);
-			} else if (tipo.equals("EXCURSION")) {
-			  Excursion excursion = this.excursionService.findById(Integer.parseInt(id));
-			  carrito.getReservables().add(excursion);
-			  session.setAttribute("carrito", carrito);
-			} else if (tipo.equals("HOTEL")) {
-				  Hotel hotel = this.hotelService.findById(Integer.parseInt(id));
-				  carrito.getReservables().add(hotel);
-				  session.setAttribute("carrito", carrito);
-			} else if (tipo.equals("PAQUETE")) {
-				  Paquete paquete = this.paqueteService.findById(Integer.parseInt(id));
-				  carrito.getReservables().add(paquete);
-				  session.setAttribute("carrito", carrito);
-			}
-		
-		Gson gson = new GsonBuilder()
-				.registerTypeAdapter(LocalDate.class, new Parser())
-				.registerTypeAdapter(LocalTime.class, new ParserTime())
-				.create();
-		
-		PrintWriter out = resp.getWriter();
-		resp.setContentType("application/json");
-		resp.setCharacterEncoding("utf-8");
-		resp.setStatus(HttpStatus.SC_OK);
-		out.print(gson.toJson(carrito));
-		out.flush();
-		
-		} catch (NumberFormatException e) {
-			Gson gson = new GsonBuilder()
-			        .registerTypeAdapter(LocalDate.class, new Parser())
-			        .create();			PrintWriter out = resp.getWriter();
-			resp.setContentType("application/json");
-			resp.setCharacterEncoding("utf-8");
-			resp.setStatus(HttpStatus.SC_BAD_REQUEST);
-			out.print(gson.toJson(carrito));
-			out.flush();
-		} catch (Exception e) {
-			Gson gson = new GsonBuilder()
-			        .registerTypeAdapter(LocalDate.class, new Parser())
-			        .create();			PrintWriter out = resp.getWriter();
-			resp.setContentType("application/json");
-			resp.setCharacterEncoding("utf-8");
-			resp.setStatus(HttpStatus.SC_BAD_REQUEST);
-			out.print(gson.toJson(carrito));
-			out.flush();
-		}
-	
 
-	}	
-	
-	
-	
+		String id = req.getParameter("id");
+		String tipo = req.getParameter("type");
+
+		HttpSession session = req.getSession(true);
+		Carrito carrito = (Carrito) session.getAttribute("carrito");
+
+		if (carrito == null) {
+			carrito = new Carrito();
+		}
+
+		// Eliminar previamente el servicio del mismo tipo si existe
+		carrito.getReservables().removeIf(r -> r.getClass().getSimpleName().equalsIgnoreCase(tipo));
+
+		try {
+			switch (tipo) {
+				case "VUELO":
+					Vuelo vuelo = vueloService.findById(Integer.parseInt(id));
+					carrito.getReservables().add(vuelo);
+					break;
+				case "EXCURSION":
+					Excursion excursion = excursionService.findById(Integer.parseInt(id));
+					carrito.getReservables().add(excursion);
+					break;
+				case "HOTEL":
+					Hotel hotel = hotelService.findById(Integer.parseInt(id));
+					carrito.getReservables().add(hotel);
+					break;
+				case "PAQUETE":
+					Paquete paquete = paqueteService.findById(Integer.parseInt(id));
+					carrito.getReservables().add(paquete);
+					break;
+				default:
+					resp.setStatus(HttpStatus.SC_BAD_REQUEST);
+					resp.setContentType("application/json");
+					resp.setCharacterEncoding("utf-8");
+					resp.getWriter().write("{\"error\": true, \"mensaje\": \"Tipo inválido\"}");
+					return;
+			}
+
+			session.setAttribute("carrito", carrito);
+
+			JsonObject json = new JsonObject();
+			json.addProperty("error", false);
+			json.addProperty("mensaje", tipo + " agregado/reemplazado correctamente.");
+			resp.setContentType("application/json");
+			resp.setCharacterEncoding("utf-8");
+			resp.setStatus(HttpStatus.SC_OK);
+			resp.getWriter().print(json.toString());
+
+		} catch (Exception e) {
+			JsonObject json = new JsonObject();
+			json.addProperty("error", true);
+			json.addProperty("mensaje", "Error al procesar el carrito: " + e.getMessage());
+			resp.setStatus(HttpStatus.SC_BAD_REQUEST);
+			resp.setContentType("application/json");
+			resp.setCharacterEncoding("utf-8");
+			resp.getWriter().print(json.toString());
+		}
+	}
 }

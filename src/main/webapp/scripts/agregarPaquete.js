@@ -29,7 +29,7 @@ function enviarFormularioPaquete(urlDestino) {
         timer: 1500,
         timerProgressBar: true
       }).then(() => {
-        window.location.href = contextPath + '/LeerDatosPaquete';
+		location.reload();
       });
     },
     error: function (xhr) {

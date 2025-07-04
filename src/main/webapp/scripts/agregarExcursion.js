@@ -44,7 +44,7 @@ $(function () {
         });
 
         setTimeout(function() {
-          window.location.href = contextPath + '/LeerDatosExcursion';
+			location.reload();
         }, 1500);
       },
       error: function(xhr, status, error) {
