@@ -375,7 +375,21 @@
 			</div>
 		</div>
 
+<h1 class="NombreServicio">Paquetes</h1>
+		<div class="album py-5 bg-body-tertiary">
+			<div class="container">
+				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"
+					id="contenedorPaquete">
 
+
+
+
+
+					<!--  -->
+
+				</div>
+			</div>
+		</div>
 
 
 
@@ -401,6 +415,9 @@
 	<script src="<%=request.getContextPath()%>/scripts/excursion.js"></script>
 	<script src="<%=request.getContextPath()%>/scripts/hotel.js"></script>
 	<script src="<%=request.getContextPath()%>/scripts/vuelo.js"></script>
+	<script src="<%=request.getContextPath()%>/scripts/paquete.js"></script>
+	
+	
 
 
 
