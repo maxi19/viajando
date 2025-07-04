@@ -31,4 +31,9 @@ public class VueloServiceImp implements VueloService {
 	public void delete(int id) throws Exception {
 		dao.delete(id);
 	}
+	
+
+	public List<Vuelo> findByDates(LocalDate begin, LocalDate end) throws Exception {
+		return vueloDao.findByDate(begin, end);	
+	}
 }

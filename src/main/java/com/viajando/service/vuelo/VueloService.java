@@ -20,4 +20,7 @@ public interface VueloService {
 	public void updateImage(int id, String imagen) throws Exception;
 	
 	public void delete(int id) throws Exception;
+	
+	public List<Vuelo> findByDates(LocalDate begin, LocalDate end) throws Exception;
+
 }
