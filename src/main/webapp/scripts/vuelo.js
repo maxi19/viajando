@@ -116,8 +116,8 @@ var contextPath = window.location.pathname.substring(0, window.location.pathname
 		});
 	}
 
-	// Agregar vuelo al carrito
-	/*$(document).on("click", ".boton-carrito-vuelo", function () {
+	//Agregar vuelo al carrito
+	$(document).on("click", ".boton-carrito-vuelo", function () {
 		const id = $(this).data("id");
 		const type = $(this).data("type");
 
@@ -154,7 +154,7 @@ var contextPath = window.location.pathname.substring(0, window.location.pathname
 				});
 			}
 		});
-	});*/
+	});
 
 	// Eliminar vuelo (desde tabla)
 	function eliminarVuelo(boton) {
