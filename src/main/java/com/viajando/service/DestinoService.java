@@ -10,6 +10,7 @@ public interface DestinoService {
 	
 	public List<Destino> list()throws Exception;
 
-	
+	public void delete (int id) throws Exception;
+
 	
 }

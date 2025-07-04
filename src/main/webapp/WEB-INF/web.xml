@@ -14,10 +14,90 @@
     <servlet-name>MyServlet</servlet-name>
     <servlet-class>com.viajando.controller.HomeController</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>LeerDatosVuelo</servlet-name>
+  	<display-name>LeerDatosVuelo</display-name>
+  	<description></description>
+  	<servlet-class>com.viajando.controller.vuelo.LeerDatosVuelo</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>VueloCrear</servlet-name>
+  	<display-name>VueloCrear</display-name>
+  	<description></description>
+  	<servlet-class>com.viajando.controller.vuelo.VueloCrear</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>VueloEliminar</servlet-name>
+  	<display-name>VueloEliminar</display-name>
+  	<description></description>
+  	<servlet-class>com.viajando.controller.vuelo.VueloEliminar</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ListasVuelo</servlet-name>
+  	<display-name>ListasVuelo</display-name>
+  	<description></description>
+  	<servlet-class>com.viajando.controller.vuelo.ListasVuelo</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>DestinoEliminar</servlet-name>
+  	<display-name>DestinoEliminar</display-name>
+  	<description></description>
+  	<servlet-class>com.viajando.controller.destino.DestinoEliminar</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>AvionController</servlet-name>
+  	<display-name>AvionController</display-name>
+  	<description></description>
+  	<servlet-class>com.viajando.avion.controller.AvionController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ControllerAvion</servlet-name>
+  	<display-name>ControllerAvion</display-name>
+  	<description></description>
+  	<servlet-class>com.viajando.controller.avion.AvionController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ListasAviones</servlet-name>
+  	<display-name>ListasAviones</display-name>
+  	<description></description>
+  	<servlet-class>com.viajando.controller.avion.ListasAviones</servlet-class>
+  </servlet>
 	
   <servlet-mapping>
     <servlet-name>MyServlet</servlet-name>
     <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LeerDatosVuelo</servlet-name>
+  	<url-pattern>/LeerDatosVuelo</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>VueloCrear</servlet-name>
+  	<url-pattern>/VueloCrear</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>VueloEliminar</servlet-name>
+  	<url-pattern>/VueloEliminar</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ListasVuelo</servlet-name>
+  	<url-pattern>/ListasVuelo</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>DestinoEliminar</servlet-name>
+  	<url-pattern>/DestinoEliminar</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AvionController</servlet-name>
+  	<url-pattern>/AvionController</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ControllerAvion</servlet-name>
+  	<url-pattern>/ControllerAvion</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ListasAviones</servlet-name>
+  	<url-pattern>/ListasAviones</url-pattern>
   </servlet-mapping>
 	
   <filter>

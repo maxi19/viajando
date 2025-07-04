@@ -19,5 +19,11 @@ public class DestinoServiceImp implements DestinoService {
 		return destinoDao.list();
 	}
 
+	@Override
+	public void delete(int id) throws Exception {
+		destinoDao.delete(id);
+		
+	}
+
 
 }

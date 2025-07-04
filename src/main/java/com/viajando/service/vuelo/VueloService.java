@@ -1,7 +1,10 @@
 
 package com.viajando.service.vuelo;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import com.viajando.domain.Vuelo;
@@ -17,7 +20,4 @@ public interface VueloService {
 	public void updateImage(int id, String imagen) throws Exception;
 	
 	public void delete(int id) throws Exception;
-	
-	public List<Vuelo> findByDates(LocalDate begin, LocalDate end) throws Exception;
-	
 }

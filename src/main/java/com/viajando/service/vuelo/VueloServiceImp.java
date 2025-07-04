@@ -1,6 +1,7 @@
 package com.viajando.service.vuelo;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import com.viajando.dao.vuelo.VueloDao;
 import com.viajando.dao.vuelo.VueloDaoImp;
@@ -9,28 +10,25 @@ import com.viajando.domain.Vuelo;
 public class VueloServiceImp implements VueloService {
 	private VueloDao vueloDao = new VueloDaoImp();
 
+	private VueloDaoImp dao = new VueloDaoImp();
+
 	public List<Vuelo> list() throws Exception {
-		return vueloDao.list();
+		return dao.list();
 	}
 
 	public Vuelo findById(int id) throws Exception {
-		return vueloDao.findById(id);
+		return dao.findById(id);
 	}
 
 	public int saveAndReturnId(Vuelo vuelo) throws Exception {
-		return vueloDao.saveAndReturnId(vuelo);
+		return dao.saveAndReturnId(vuelo);
 	}
 
 	public void updateImage(int id, String imagen) throws Exception {
-		vueloDao.updateImage(id, imagen);
+		dao.updateImage(id, imagen);
 	}
 
 	public void delete(int id) throws Exception {
-		vueloDao.delete(id);
-	}
-
-	@Override
-	public List<Vuelo> findByDates(LocalDate begin, LocalDate end) throws Exception {
-		return vueloDao.findByDate(begin, end);	
+		dao.delete(id);
 	}
 }

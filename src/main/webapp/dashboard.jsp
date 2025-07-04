@@ -428,7 +428,7 @@
   </div>
   </div>
   </div>
-
+  
   <!-- VUELOS -->
   <div class="tab-pane fade" id="vuelo-tab-pane" role="tabpanel" aria-labelledby="vuelo-tab" tabindex="0">
     <span>
@@ -467,6 +467,130 @@
 <div class="card-footer text-muted text-center">Viajando · Administración de vuelos</div>
 
   </div>
+  
+  
+  
+  
+  <!-- MODAL NUEVO VUELO -->
+<div class="modal fade" id="modalVuelo" tabindex="-1" role="dialog" aria-labelledby="modalVueloLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content p-4">
+      <h1>Nuevo Vuelo</h1>
+      <form class="form" id="formVuelo" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="nombre">Nombre:</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" required placeholder="Ingrese el nombre del vuelo">
+        </div>
+
+        <div class="form-group">
+          <label for="fecha_inicio">Fecha de Ida:</label>
+          <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
+        </div>
+
+        <div class="form-group">
+          <label for="hora_ida">Hora de Ida:</label>
+          <input type="time" class="form-control" id="hora_ida" name="hora_ida" required>
+        </div>
+
+        <div class="form-group">
+          <label for="fecha_fin">Fecha de Vuelta:</label>
+          <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" required>
+        </div>
+
+        <div class="form-group">
+          <label for="hora_vuelta">Hora de Vuelta:</label>
+          <input type="time" class="form-control" id="hora_vuelta" name="hora_vuelta" required>
+        </div>
+
+        <div class="form-group">
+          <label for="precio">Precio:</label>
+          <input type="number" class="form-control" id="precio" name="precio" required placeholder="Ingrese el precio">
+        </div>
+
+        <div class="form-group">
+          <label for="destino_id">Destino:</label>
+          <select class="form-control" id="cmbDestinoVuelo" name="destino_id" required>
+            <option selected>Seleccione un destino...</option>
+          </select>
+        </div>
+
+
+<div class="form-group">
+  <label for="id_avion">Avi�n:</label>
+  <select class="form-control" id="cmbAvionVuelo" name="id_avion" required>
+    <option selected>Seleccione un avi�n...</option>
+  </select>
+</div>
+
+        <div class="form-group">
+          <label for="estrellas">Estrellas:</label>
+          <input type="number" step="0.1" class="form-control" id="estrellas" name="estrellas" required placeholder="Ingrese las estrellas">
+        </div>
+
+        <div class="form-group">
+          <label for="imagen">Imagen:</label>
+          <input type="file" class="form-control" id="imagen" name="imagen" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3" id="btn-confirmar">Confirmar</button>
+      </form>
+
+      <!-- VALIDACI�N -->
+      <script>
+        $(document).ready(function () {
+          $("#formVuelo").validate({
+            rules: {
+              nombre: { required: true, minlength: 2 },
+              fecha_inicio: { required: true },
+              hora_ida: { required: true },
+              fecha_fin: { required: true },
+              hora_vuelta: { required: true },
+              precio: { required: true, number: true, min: 0 },
+              destino_id: { required: true },
+              id_avion: { required: true },
+              estrellas: { required: true, number: true, min: 0, max: 5 },
+              imagen: { required: true, extension: "jpg|jpeg|png" }
+            },
+            messages: {
+              nombre: {
+                required: "Por favor, ingrese un nombre",
+                minlength: "Debe tener al menos 2 caracteres"
+              },
+              fecha_inicio: { required: "Ingrese la fecha de ida" },
+              hora_ida: { required: "Ingrese la hora de ida" },
+              fecha_fin: { required: "Ingrese la fecha de vuelta" },
+              hora_vuelta: { required: "Ingrese la hora de vuelta" },
+              precio: {
+                required: "Ingrese un precio",
+                number: "Debe ser un n�mero",
+                min: "No puede ser negativo"
+              },
+              destino_id: { required: "Seleccione un destino" },
+              id_avion: { required: "Seleccione un avi�n" },
+              estrellas: {
+                required: "Ingrese estrellas",
+                number: "Debe ser un n�mero",
+                min: "M�nimo 0", max: "M�ximo 5"
+              },
+              imagen: {
+                required: "Seleccione una imagen",
+                extension: "Solo JPG, JPEG o PNG"
+              }
+            },
+            errorElement: "div",
+            errorClass: "invalid-feedback",
+            highlight: function (element) {
+              $(element).addClass("is-invalid");
+            },
+            unhighlight: function (element) {
+              $(element).removeClass("is-invalid");
+            }
+          });
+        });
+      </script>
+    </div>
+  </div>
+</div>
 
 
   <!-- EXCURSION -->
@@ -1072,16 +1196,22 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="<%=request.getContextPath()%>/scripts/agregarExcursion.js"></script>
-<script src="<%=request.getContextPath()%>/scripts/excursion.js"></script>
-<script src="<%=request.getContextPath()%>/scripts/vuelo.js"></script>
-<script src="<%=request.getContextPath()%>/scripts/hotel.js"></script>
-<script src="<%=request.getContextPath()%>/scripts/paquete.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/agregarPaquete.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/agregarHotel.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/agregarDestino.js"></script>
+<script src="<%=request.getContextPath()%>/scripts/agregarVuelo.js"></script>
+<script src="<%=request.getContextPath()%>/scripts/excursion.js"></script>
+<script src="<%=request.getContextPath()%>/scripts/paquete.js"></script>
+<script src="<%=request.getContextPath()%>/scripts/hotel.js"></script>
+<script src="<%=request.getContextPath()%>/scripts/vuelo.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/eliminarExcursion.js"></script>
-<script src="<%=request.getContextPath()%>/scripts/eliminarHotel.js"></script>
 <script src="<%=request.getContextPath()%>/scripts/eliminarPaquete.js"></script>
+<script src="<%=request.getContextPath()%>/scripts/eliminarHotel.js"></script>
+<script src="<%=request.getContextPath()%>/scripts/eliminarDestino.js"></script>
+<script src="<%=request.getContextPath()%>/scripts/eliminarVuelo.js"></script>
+
+
+
 
 
 

@@ -1,48 +1,42 @@
 package com.viajando.dao.vuelo;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
 import java.time.LocalDate;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.viajando.config.Conexion;
 import com.viajando.domain.Destino;
 import com.viajando.domain.Vuelo;
-import com.viajando.exception.ErrorException;
 import com.viajando.dao.DestinoDao;
+import com.viajando.exception.ErrorException;
 
 public class VueloDaoImp implements VueloDao {
 
 	private Conexion conexion = Conexion.getInstance();
 	private DestinoDao destinoDao = new DestinoDao();
 
-
-	private static final String QUERY_LIST = 
-	    "SELECT v.id, v.nombre, v.fecha_inicio, v.fecha_fin, v.precio, v.estrellas, v.hora_ida, v.hora_vuelta, v.id_avion, v.imagen, " +
-	    "d.id AS destino_id, d.nombre AS destino_nombre, d.pais AS destino_pais, d.precio AS destino_precio " +
-	    "FROM vuelo v JOIN destinos d ON v.destino_id = d.id";
-
+	private static final String QUERY_LIST = "SELECT * FROM vuelo";
 	private static final String QUERY_FIND = "SELECT * FROM vuelo WHERE id = ?";
 	private static final String QUERY_INSERT = "INSERT INTO vuelo (nombre, destino_id, fecha_inicio, fecha_fin, precio, estrellas, hora_ida, hora_vuelta, id_avion, imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String QUERY_UPDATE_IMG = "UPDATE vuelo SET imagen = ? WHERE id = ?";
 	private static final String QUERY_DELETE = "DELETE FROM vuelo WHERE id = ?";
-	private static final String QUERY_LIST_BETWEEN_DATES = "SELECT * FROM vuelo WHERE fecha_inicio BETWEEN ? AND ?";
+	private static final String queryCapacidad = "SELECT capacidad FROM avion WHERE id = ?";
+	private static final String queryInsertButaca = "INSERT INTO butaca_vuelo (vuelo_id, asiento, estado) VALUES (?, ?, 'disponible')";
+	private static final String queryDeleteButaca = "DELETE FROM butaca_vuelo WHERE vuelo_id = ?";
 
 	@Override
 	public List<Vuelo> list() throws Exception {
 		List<Vuelo> vuelos = new ArrayList<>();
-
 		try (PreparedStatement st = conexion.dameConnection().prepareStatement(QUERY_LIST);
 		     ResultSet rs = st.executeQuery()) {
-
 			while (rs.next()) {
-				Destino destino = new Destino(
-					rs.getInt("destino_id"),
-					rs.getString("destino_nombre"),
-					rs.getString("destino_pais"),
-					rs.getInt("destino_precio")
-				);
-
+				Destino destino = destinoDao.getOne(rs.getInt("destino_id"));
 				Vuelo vuelo = new Vuelo(
 					rs.getInt("id"),
 					rs.getString("nombre"),
@@ -56,19 +50,12 @@ public class VueloDaoImp implements VueloDao {
 					rs.getInt("id_avion"),
 					rs.getString("imagen")
 				);
-
 				vuelos.add(vuelo);
 			}
-
-		} catch (Exception e) {
-			System.out.println("Error al listar vuelos: " + e.getMessage());
-			e.printStackTrace();
 		}
-
 		return vuelos;
 	}
-
-
+	
 
 	@Override
 	public Vuelo findById(int id) throws Exception {
@@ -126,9 +113,7 @@ public class VueloDaoImp implements VueloDao {
 	}
 
 	private void generarButacasParaVuelo(int idVuelo, int idAvion) throws Exception {
-		String queryCapacidad = "SELECT capacidad FROM avion WHERE id = ?";
-		String queryInsertButaca = "INSERT INTO butaca_vuelo (vuelo_id, asiento, estado) VALUES (?, ?, 'disponible')";
-
+		
 		try (PreparedStatement stCapacidad = conexion.dameConnection().prepareStatement(queryCapacidad)) {
 			stCapacidad.setInt(1, idAvion);
 			try (ResultSet rs = stCapacidad.executeQuery()) {
@@ -161,55 +146,33 @@ public class VueloDaoImp implements VueloDao {
 
 	@Override
 	public void delete(int id) throws Exception {
-		try (PreparedStatement st = conexion.dameConnection().prepareStatement(QUERY_DELETE)) {
-			st.setInt(1, id);
-			st.executeUpdate();
-		}
+		 Connection conn = null;
+		    try {
+		        conn = conexion.dameConnection();
+		        conn.setAutoCommit(false);
+
+		        // Borrar las butacas relacionadas al vuelo
+		        try (PreparedStatement stButacas = conn.prepareStatement(queryDeleteButaca)) {
+		            stButacas.setInt(1, id);
+		            stButacas.executeUpdate();
+		        }
+
+		        // Borrar el vuelo
+		        try (PreparedStatement stVuelo = conn.prepareStatement(QUERY_DELETE)) {
+		            stVuelo.setInt(1, id);
+		            stVuelo.executeUpdate();
+		        }
+
+		        conn.commit();
+		    } catch (Exception e) {
+		        if (conn != null) {
+		            conn.rollback();
+		        }
+		        throw e;
+		    } finally {
+		        if (conn != null) {
+		            conn.setAutoCommit(true);
+		        }
+		    }
 	}
-
-	@Override
-	public List<Vuelo> findByDate(LocalDate begin, LocalDate end) throws Exception {
-		List<Vuelo> vuelos = new ArrayList<>();
-
-		PreparedStatement st = null;
-		ResultSet rs = null;
-
-		try {
-			st = conexion.dameConnection().prepareStatement(QUERY_LIST_BETWEEN_DATES);
-			st.setDate(1, Date.valueOf(begin));
-			st.setDate(2, Date.valueOf(end));
-			rs = st.executeQuery();
-
-			while (rs.next()) {
-				Destino destino = destinoDao.getOne(rs.getInt("destino_id"));
-				Vuelo vuelo = new Vuelo(
-					rs.getInt("id"),
-					rs.getString("nombre"),
-					destino,
-					rs.getDate("fecha_inicio").toLocalDate(),
-					rs.getDate("fecha_fin").toLocalDate(),
-					rs.getInt("precio"),
-					rs.getDouble("estrellas"),
-					rs.getTime("hora_ida").toLocalTime(),
-					rs.getTime("hora_vuelta").toLocalTime(),
-					rs.getInt("id_avion"),
-					rs.getString("imagen")
-				);
-				vuelos.add(vuelo);
-			}
-		} catch (Exception e) {
-			System.out.println("Error en findByDate: " + e.getMessage());
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null) rs.close();
-				if (st != null) st.close();
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-
-		return vuelos;
-	}
-
 }

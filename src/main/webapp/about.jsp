@@ -418,7 +418,7 @@ body {
         </div>
 
         <div class="text-center mt-5">
-            <a href="<%=request.getContextPath()%>/index.jsp" class="btn btn-secondary">Volver al inicio</a>
+            <a href="<%=request.getContextPath()%>/galeria.jsp" class="btn btn-secondary">Volver al inicio</a>
         </div>
     </div>
 </main>

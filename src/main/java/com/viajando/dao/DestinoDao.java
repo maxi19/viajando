@@ -17,6 +17,7 @@ public class DestinoDao implements DaoBase<Integer, Destino>{
 	private static final String queryList = "SELECT id, nombre, pais, precio from destinos";
     private static final String queryInsertDestino = "INSERT INTO destinos (nombre, pais, precio) VALUES (?, ?, ?)";
     private static final String query = "SELECT id, nombre, pais, precio FROM destinos WHERE id = ?";
+    private static final String queryDelete = "DELETE FROM destinos where id=?";
 
 
 
@@ -47,9 +48,16 @@ public class DestinoDao implements DaoBase<Integer, Destino>{
 
 	@Override
 	public void delete(Integer i) throws ErrorException {
-		// TODO Auto-generated method stub
-		
-	}
+		  try (PreparedStatement st = conexion.dameConnection().prepareStatement(queryDelete)) {
+	            st.setInt(1, i);
+	            int rowsAffected = st.executeUpdate();
+	            if (rowsAffected == 0) {
+	                throw new Error("No se encontró el registro");
+	            }
+	        } catch (Exception e) {
+	            throw new ErrorException("Hubo un error al realizar la consulta", e);
+	        }
+	    }
 
 	@Override
 	public void edit(Destino t) throws ErrorException {

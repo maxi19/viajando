@@ -1,5 +1,5 @@
-	var contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 1));
-	
+var contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 1));
+
 	class Vuelo {
 		constructor(id, nombre, fecha_inicio, fecha_fin, hora_ida, hora_vuelta, precio, destino_id, destino_value, estrellas, id_avion, imagen) {
 			this.id = id;
@@ -24,19 +24,20 @@
 			const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
 
 			for (let i = 0; i < fullStars; i++) {
-				html += '<i class="fas fa-star" style="color: gold; text-shadow: 0 0 1px white, 0 0 2px white;"></i>';
+				html += '<i class="fas fa-star" style="color: gold;"></i>';
 			}
 			if (halfStar) {
-				html += '<i class="fas fa-star-half-alt" style="color: gold; text-shadow: 0 0 1px white, 0 0 2px white;"></i>';
+				html += '<i class="fas fa-star-half-alt" style="color: gold;"></i>';
 			}
 			for (let i = 0; i < emptyStars; i++) {
 				html += '<i class="far fa-star" style="color: gold;"></i>';
 			}
+
 			return html;
 		}
 
 		renderizar() {
-			const estrellasHTML = this.generarEstrellas();
+			const estrellas = this.generarEstrellas();
 
 			return `
 				<div class="col">
@@ -48,11 +49,11 @@
 							<p class="card-text"><strong>Fecha ida:</strong> ${this.fecha_inicio} ${this.hora_ida}</p>
 							<p class="card-text"><strong>Fecha vuelta:</strong> ${this.fecha_fin} ${this.hora_vuelta}</p>
 							<p class="card-text"><strong>Destino:</strong> ${this.destino_value}</p>
-							<p class="card-text estrellas">${estrellasHTML}</p>
 							<p class="card-text"><strong>Precio:</strong> $${this.precio}</p>
+							<p class="card-text estrellas">${estrellas}</p>
+
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="btn-group">
-									<button type="button" class="btn btn-sm btn-outline-secondary ver-mas-btn" data-id="${this.id}">Ver más</button>
 									<button class="btn btn-sm btn-outline-secondary boton-carrito-vuelo" data-id="${this.id}" data-type="VUELO">Carrito</button>
 								</div>
 								<small class="text-body-secondary">Avión ID: ${this.id_avion}</small>
@@ -76,22 +77,24 @@
 					<td>${this.estrellas}</td>
 					<td>${this.id_avion}</td>
 					<td>
-						<button class="btn btn-danger" data-id="${this.id}" onClick="eliminarVuelo(this)">Eliminar</button>
+						<button class="btn btn-danger" data-id="${this.id}" onclick="eliminarVuelo(this)">Eliminar</button>
 					</td>
 				</tr>
 			`;
 		}
 	}
-	
+
+	// Carga de vuelos
 	function cargarListadoVuelo() {
 		$.ajax({
 			url: contextPath + "/vueloController",
 			method: "GET",
 			cache: false,
 			success: function (response) {
-				console.log(response);
+				console.log("Vuelos:", response);
 				$('#contenedorVuelo').empty();
-	
+				$('#tablaVuelo').empty();
+
 				response.forEach(v => {
 					const vuelo = new Vuelo(
 						v.id, v.nombre,
@@ -101,11 +104,8 @@
 						`${v.destino.nombre}, ${v.destino.pais}`,
 						v.estrellas, v.id_avion, v.imagen
 					);
-	
-					// Renderiza tarjeta
+
 					$('#contenedorVuelo').append(vuelo.renderizar());
-	
-					// Renderiza tabla (si existe)
 					$('#tablaVuelo').append(vuelo.renderizarTabla());
 				});
 			},
@@ -115,9 +115,9 @@
 			}
 		});
 	}
-	
-	// Evento para el botón "Carrito" de vuelos
-	$(document).on("click", ".boton-carrito-vuelo", function () { 
+
+	// Agregar vuelo al carrito
+	/*$(document).on("click", ".boton-carrito-vuelo", function () {
 		const id = $(this).data("id");
 		const type = $(this).data("type");
 
@@ -154,9 +154,40 @@
 				});
 			}
 		});
-	});
-	
-	// Ejecutar al cargar
+	});*/
+
+	// Eliminar vuelo (desde tabla)
+	function eliminarVuelo(boton) {
+		const id = $(boton).data("id");
+
+		Swal.fire({
+			title: '¿Eliminar vuelo?',
+			text: "Esta acción no se puede deshacer",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Sí, eliminar',
+			cancelButtonText: 'Cancelar'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$.ajax({
+					type: "GET",
+					url: contextPath + "/VueloEliminar",
+					data: { id: id },
+					dataType: "json",
+					success: function (response) {
+						Swal.fire('Eliminado', response.mensaje, 'success');
+						cargarListadoVuelo(); // Recarga la tabla y tarjetas
+					},
+					error: function (xhr) {
+						console.error("Error al eliminar vuelo:", xhr);
+						Swal.fire('Error', 'No se pudo eliminar el vuelo.', 'error');
+					}
+				});
+			}
+		});
+	}
+
+	// Al cargar el documento
 	$(document).ready(function () {
-		cargarListadoVuelo();
+		cargarListadoVuelo(); // Para galería o dashboard
 	});
