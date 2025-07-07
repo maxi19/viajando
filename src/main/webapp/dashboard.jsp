@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.util.Locale" %>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
@@ -201,6 +204,7 @@
 		data-bs-theme="dark">
 		<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white"
 			href="#">Viajando.com</a>
+	
 		<ul class="navbar-nav flex-row d-md-none">
 			<li class="nav-item text-nowrap">
 				<button class="nav-link px-3 text-white" type="button"
@@ -366,41 +370,37 @@
 
 <div class="tab-content" id="myTabContent">
   <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-    Home
+<br>    
+    <%   
+    // Mostrar la fecha
+    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("EEEE, dd 'de' MMMM 'de' yyyy", new java.util.Locale("es", "ES"));
+    String fechaActual = sdf.format(new java.util.Date());
+%>
+
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+  <h4>Bienvenido!</h4>
+  <p>Hoy es <%= fechaActual %></p>
+  </div>
+    
  <!-- Tu canvas y tabla aquí -->
 <div class="grafico-reservas mt-4">
     <h3>Gráfico de reservas por tipo</h3>
-        <div style="max-width: 300px; margin: 0 auto;">
+        <div style="max-width: 300px; margin: 0;">
  
-    <canvas id="graficoCircular" width="50px" height="50px"></canvas>	
+    <canvas id="graficoCircular" width="200" height="200"></canvas>	
         </div>
     
 </div>
 
-<div class="tabla-reservas mt-4">
-    <h3>Reservas del tipo seleccionado</h3>
-    <table id="tablaDetalle" class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Identificador</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Tipo</th>
-                <th>Precio</th>
-                <th>Butaca</th>
-            </tr>
-        </thead>
 
-    </table>
-</div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const ctx = document.getElementById('graficoCircular').getContext('2d');
 
     const graficoCircular = new Chart(ctx, {
-        type: 'pie',
+        type: 'pie',	
         data: {
             labels: [],
             datasets: [{
