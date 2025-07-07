@@ -13,13 +13,11 @@ import java.util.List;
 import com.viajando.config.Conexion;
 import com.viajando.domain.Destino;
 import com.viajando.domain.Vuelo;
-import com.viajando.dao.DestinoDao;
 import com.viajando.exception.ErrorException;
 
 public class VueloDaoImp implements VueloDao {
 
 	private Conexion conexion = Conexion.getInstance();
-	private DestinoDao destinoDao = new DestinoDao();
 
 	private static final String QUERY_LIST = "SELECT v.*, d.id AS destino_id, d.nombre AS destino_nombre, d.pais AS destino_pais, d.precio AS destino_precio FROM vuelo v JOIN destinos d ON v.destino_id = d.id";
 	private static final String QUERY_FIND = "SELECT v.*, d.id AS destino_id, d.nombre AS destino_nombre, d.pais AS destino_pais, d.precio AS destino_precio FROM vuelo v JOIN destinos d ON v.destino_id = d.id WHERE v.id = ?";

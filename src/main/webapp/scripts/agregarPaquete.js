@@ -1,57 +1,133 @@
-function enviarFormularioPaquete(urlDestino) {
-  const form = $('#formPaquete')[0];
-  const data = new FormData(form);
+function cargarHoteles() {
+	$.ajax({
+		url: contextPath + '/listarHoteles',
+		method: 'GET',
+		dataType: 'json',
+		success: function(hoteles) {
+			const $select = $('#cmbHotel');
+			$select.empty().append('<option value="">Seleccione un hotel...</option>');
+			$.each(hoteles, function(i, hotel) {
+				$select.append(`<option value="${hotel.id}">${hotel.nombre}</option>`);
+			});
+		},
+		error: function() {
+			Swal.fire({
+				title: 'Error',
+				text: 'No se pudieron cargar los hoteles',
+				icon: 'error'
+			});
+		}
+	});
+}
 
-  $('#cmbHotel').prop('required', $('#input-hotel').is(':visible'));
-  $('#cmbVuelo').prop('required', $('#input-vuelo').is(':visible'));
-  $('#cmbExcursion').prop('required', $('#input-excursion').is(':visible'));
+function cargarVuelos() {
+	$.ajax({
+		url: contextPath + '/listarVuelos',
+		method: 'GET',
+		dataType: 'json',
+		success: function(vuelos) {
+			const $select = $('#cmbVuelo');
+			$select.empty().append('<option value="">Seleccione un vuelo...</option>');
+			$.each(vuelos, function(i, vuelo) {
+				$select.append(`<option value="${vuelo.id}">${vuelo.nombre}</option>`);
+			});
+		},
+		error: function() {
+			Swal.fire({
+				title: 'Error',
+				text: 'No se pudieron cargar los vuelos',
+				icon: 'error'
+			});
+		}
+	});
+}
 
-  if (!form.checkValidity()) {
-    form.reportValidity();
-    return;
-  }
+function cargarExcursiones() {
+	$.ajax({
+		url: contextPath + '/listarExcursiones',
+		method: 'GET',
+		dataType: 'json',
+		success: function(excursiones) {
+			const $select = $('#cmbExcursion');
+			$select.empty().append('<option value="">Seleccione una excursión...</option>');
+			$.each(excursiones, function(i, excursion) {
+				$select.append(`<option value="${excursion.id}">${excursion.nombre}</option>`);
+			});
+		},
+		error: function() {
+			Swal.fire({
+				title: 'Error',
+				text: 'No se pudieron cargar las excursiones',
+				icon: 'error'
+			});
+		}
+	});
+}
 
-  $.ajax({
-    url: contextPath + urlDestino,
-    type: 'POST',
-    enctype: 'multipart/form-data',
-    data: data,
-    processData: false,
-    contentType: false,
-    cache: false,
-    success: function () {
-      Swal.fire({
-        position: 'center',
-        title: '¡Guardado con éxito!',
-        text: 'El paquete se ha creado exitosamente.',
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 1500,
-        timerProgressBar: true
-      }).then(() => {
-		location.reload();
-      });
-    },
-    error: function (xhr) {
-      console.error("Error:", xhr);
-      Swal.fire({
-        title: 'Error',
-        text: 'No se pudo crear el paquete.',
-        icon: 'error'
-      });
-    }
-  });
+$('#modalPaquete').on('shown.bs.modal', function() {
+	cargarHoteles();
+	cargarVuelos();
+	cargarExcursiones();
+});
+
+function enviarFormularioPaquete(urlDestino, redirigirAInicio = false) {
+	const form = $('#formPaquete')[0];
+	const data = new FormData(form);
+
+	$('#cmbHotel').prop('required', $('#input-hotel').is(':visible'));
+	$('#cmbVuelo').prop('required', $('#input-vuelo').is(':visible'));
+	$('#cmbExcursion').prop('required', $('#input-excursion').is(':visible'));
+
+	if (!form.checkValidity()) {
+		form.reportValidity();
+		return;
+	}
+
+	$.ajax({
+		url: contextPath + urlDestino,
+		type: 'POST',
+		enctype: 'multipart/form-data',
+		data: data,
+		processData: false,
+		contentType: false,
+		cache: false,
+		success: function() {
+			Swal.fire({
+				position: 'center',
+				title: '¡Guardado con éxito!',
+				text: 'El paquete se ha creado exitosamente.',
+				icon: 'success',
+				showConfirmButton: false,
+				timer: 1500,
+				timerProgressBar: true
+			}).then(() => {
+				if (redirigirAInicio) {
+					window.location.href = contextPath + '/galeria.jsp';
+				} else {
+					location.reload();
+				}
+			});
+		},
+		error: function(xhr) {
+			console.error("Error:", xhr);
+			Swal.fire({
+				title: 'Error',
+				text: 'No se pudo crear el paquete.',
+				icon: 'error'
+			});
+		}
+	});
 }
 
 $(document).ready(function() {
-// Depende de cada botón es a dónde te lleva:
-$('#btn-confirmar-paquete').on('click', function (e) {
-  e.preventDefault();
-  enviarFormularioPaquete('/crearPaqueteCompleto');
-});
+	// Depende de cada botón es a dónde te lleva:
+	$('#btn-confirmar-paquete').on('click', function(e) {
+		e.preventDefault();
+		enviarFormularioPaquete('/crearPaqueteCompleto', false);
+	});
 
-$('#btn-armar-paquete').on('click', function (e) {
-  e.preventDefault();
-  enviarFormularioPaquete('/crearPaqueteSimple');
-});
+	$('#btn-armar-paquete').on('click', function(e) {
+		e.preventDefault();
+		enviarFormularioPaquete('/crearPaqueteSimple', true);
+	});
 });

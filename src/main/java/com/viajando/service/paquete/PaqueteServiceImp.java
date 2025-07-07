@@ -5,11 +5,19 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.viajando.dao.paquete.PaqueteDaoImp;
+import com.viajando.dao.hotel.HotelDao;
+import com.viajando.dao.hotel.HotelDaoImp;
+import com.viajando.dao.vuelo.VueloDao;
+import com.viajando.dao.vuelo.VueloDaoImp;
+import com.viajando.dao.excursion.ExcursionDao;
+import com.viajando.dao.excursion.ExcursionDaoImp;
 
 import com.viajando.domain.Paquete;
 
 public class PaqueteServiceImp implements PaqueteService {
-
+	private HotelDao hotelDao = new HotelDaoImp();
+	private VueloDao vueloDao = new VueloDaoImp();
+	private ExcursionDao excursionDao = new ExcursionDaoImp();
 	private PaqueteDaoImp  paqueteDao = new PaqueteDaoImp();
 
 	@Override
@@ -48,8 +56,21 @@ public class PaqueteServiceImp implements PaqueteService {
 
 	@Override
 	public int calcularPrecio(int hotel_id, int vuelo_id, int excursion_id, int personas) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	    int total = 0;
+	    
+	    if (hotel_id > 0) {
+	        total += hotelDao.findById(hotel_id).getPrecio();
+	    }
+
+	    if (vuelo_id > 0) {
+	        total += vueloDao.findById(vuelo_id).getPrecio();
+	    }
+
+	    if (excursion_id > 0) {
+	        total += excursionDao.findById(excursion_id).getPrecio();
+	    }
+
+	    return total * personas;
 	}
 
 

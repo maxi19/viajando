@@ -1,4 +1,4 @@
-function myFunction(data){
+function eliminarExcursion(data){
     
     value =  $(data).attr("data-id");
     

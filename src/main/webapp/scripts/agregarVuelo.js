@@ -52,7 +52,7 @@ $(function () {
   });
 
   // Enviar formulario
-  $("#btn-confirmar").click(function (e) {
+  $("#btn-confirmar-vuelo").click(function (e) {
     e.preventDefault();
 
     if (!$('#formVuelo').valid()) return;
@@ -79,7 +79,7 @@ $(function () {
         });
 
         setTimeout(function () {
-          window.location.href = contextPath + '/LeerDatosVuelos';
+			location.reload();
         }, 1500);
       },
       error: function () {

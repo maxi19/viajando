@@ -4,87 +4,87 @@ USE viajando;
 
 -- Tabla Destinos
 CREATE TABLE destinos (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR(100),
-  pais VARCHAR(50),
-  precio INT
+id INT AUTO_INCREMENT PRIMARY KEY,
+nombre VARCHAR(100),
+pais VARCHAR(50),
+precio INT
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Tabla Empresa
 CREATE TABLE empresa (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR(35),
-  pais VARCHAR(35),
-  imagen VARCHAR(255)
+id INT AUTO_INCREMENT PRIMARY KEY,
+nombre VARCHAR(35),
+pais VARCHAR(35),
+imagen VARCHAR(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Tabla Avion
 CREATE TABLE avion (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR(35),
-  empresa_id INT,
-  capacidad INT
-  ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+id INT AUTO_INCREMENT PRIMARY KEY,
+nombre VARCHAR(35),
+empresa_id INT,
+capacidad INT
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Tabla Vuelo
 CREATE TABLE vuelo (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR(100),
-  destino_id INT,
-  fecha_inicio DATE,
-  fecha_fin DATE,
-  precio INT,
-  estrellas DOUBLE,
-  hora_ida TIME,
-  hora_vuelta TIME,
-  id_avion INT,
-  imagen VARCHAR(255)
+id INT AUTO_INCREMENT PRIMARY KEY,
+nombre VARCHAR(100),
+destino_id INT,
+fecha_inicio DATE,
+fecha_fin DATE,
+precio INT,
+estrellas DOUBLE,
+hora_ida TIME,
+hora_vuelta TIME,
+id_avion INT,
+imagen VARCHAR(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 -- Tabla Hotel
 CREATE TABLE hotel (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR(100),
-  destino_id INT,
-  estrellas DOUBLE,
-  precio INT,
-  imagen VARCHAR(255),
-  stock int
-  ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
- 
-  create table habitacion(
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  hotel_id int,
-  habitacion varchar(50),
-  cantidad int,
-  estado enum ('disponible', 'ocupado') default ('disponible')
+id INT AUTO_INCREMENT PRIMARY KEY,
+nombre VARCHAR(100),
+destino_id INT,
+estrellas DOUBLE,
+precio INT,
+imagen VARCHAR(255),
+stock int
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+create table habitacion(
+id INT AUTO_INCREMENT PRIMARY KEY,
+hotel_id int,
+habitacion varchar(50),
+cantidad int,
+estado enum ('disponible', 'ocupado') default ('disponible')
 );
- 
+
 
 CREATE TABLE excursion (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR(100),
-  descripcion VARCHAR(100),
-  fecha_inicio DATE,
-  fecha_fin DATE,
-  precio INT,
-  destino_id INT,
-  estrellas DOUBLE,
-  imagen VARCHAR(255)
-  ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+id INT AUTO_INCREMENT PRIMARY KEY,
+nombre VARCHAR(100),
+descripcion VARCHAR(100),
+fecha_inicio DATE,
+fecha_fin DATE,
+precio INT,
+destino_id INT,
+estrellas DOUBLE,
+imagen VARCHAR(255)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE paquete (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR(100),
-  descripcion VARCHAR(100),
-  hotel_id INT default null,
-  vuelo_id INT default null,
-  excursion_id INT default null,
-  estrellas DOUBLE,
-  personas INT,
-  precio INT,
-  imagen VARCHAR(255)
+id INT AUTO_INCREMENT PRIMARY KEY,
+nombre VARCHAR(100),
+descripcion VARCHAR(100),
+hotel_id INT default null,
+vuelo_id INT default null,
+excursion_id INT default null,
+estrellas DOUBLE,
+personas INT,
+precio INT,
+imagen VARCHAR(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -92,37 +92,37 @@ CREATE TABLE paquete (
 
 
 CREATE TABLE usuario (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR(100),
-  apellido VARCHAR(100),
-  usuario VARCHAR(100),
-  password VARCHAR(100),
-  correo VARCHAR(100)
+id INT AUTO_INCREMENT PRIMARY KEY,
+nombre VARCHAR(100),
+apellido VARCHAR(100),
+usuario VARCHAR(100),
+password VARCHAR(100),
+correo VARCHAR(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 CREATE TABLE reservas (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  identificador VARCHAR(50) NOT NULL, -- unica
-  nombre VARCHAR(100), -- datos de la persona ingresada
-  apellido VARCHAR(100),
-  sexo varchar(100),
-  DNI INT,
-  tipo_servicio VARCHAR(50) NOT NULL, -- vuelo / hotel / excursion
-  id_vuelo int default null,
-  id_hotel int default null,
-  id_excursion int default null,
-  id_paquete int  default null,
-  butaca int default null,
-  precio INT
- 
+id INT AUTO_INCREMENT PRIMARY KEY,
+identificador VARCHAR(50) NOT NULL, -- unica
+nombre VARCHAR(100), -- datos de la persona ingresada
+apellido VARCHAR(100),
+sexo varchar(100),
+DNI INT,
+tipo_servicio VARCHAR(50) NOT NULL, -- vuelo / hotel / excursion
+id_vuelo int default null,
+id_hotel int default null,
+id_excursion int default null,
+id_paquete int default null,
+butaca int default null,
+precio INT
+
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE butaca_vuelo (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  asiento INT,
-  vuelo_id INT,
-  estado ENUM('disponible', 'ocupado') default 'disponible'
+id INT AUTO_INCREMENT PRIMARY KEY,
+asiento INT,
+vuelo_id INT,
+estado ENUM('disponible', 'ocupado') default 'disponible'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ------------------------------------------------------
@@ -167,28 +167,28 @@ INSERT INTO avion (nombre, empresa_id, capacidad) VALUES
 
 
 INSERT INTO vuelo (nombre, destino_id, fecha_inicio, fecha_fin, precio, estrellas, hora_ida, hora_vuelta, id_avion, imagen) VALUES
-('Vuelo a Madrid', 1, '2025-07-01', '2025-07-15', 1200, 4, '10:30:00', '22:45:00', 2, 'vueloimg1.png'),
-('Vuelo a Buenos Aires', 2, '2025-08-10', '2025-08-20', 900, 3, '08:15:00', '19:30:00', 1, 'vueloimg2.png'),
-('Vuelo a Cancún', 3, '2025-09-05', '2025-09-12', 1300, 5, '09:00:00', '18:00:00', 3, 'vueloimg3.png'),
-('Vuelo a Bariloche', 4, '2025-07-20', '2025-07-28', 950, 4, '07:45:00', '20:10:00', 5, 'vueloimg4.png'),
-('Vuelo a Roma', 5, '2025-10-01', '2025-10-15', 1400, 4.5, '11:00:00', '23:30:00', 8, 'vueloimg5.png'),
-('Vuelo a Tokio', 6, '2025-11-05', '2025-11-20', 2000, 5, '13:00:00', '04:00:00', 10, 'vueloimg6.png'),
-('Vuelo a Nueva York', 7, '2025-12-10', '2025-12-20', 1500, 4.2, '15:00:00', '02:00:00', 4, 'vueloimg7.png'),
-('Vuelo a Londres', 8, '2025-08-25', '2025-09-02', 1600, 4.8, '12:00:00', '23:00:00', 6, 'vueloimg8.png'),
-('Vuelo a Río', 9, '2025-09-15', '2025-09-22', 1100, 4, '06:30:00', '17:30:00', 7, 'vueloimg9.png'),
-('Vuelo a Santiago', 10, '2025-10-10', '2025-10-18', 1050, 3.8, '09:30:00', '21:00:00', 9, 'vueloimg10.png');
+('Vuelo a Madrid', 1, '2025-07-01', '2025-07-15', 1200, 4, '10:30:00', '22:45:00', 2, 'madrid.jpg'),
+('Vuelo a Buenos Aires', 2, '2025-08-10', '2025-08-20', 900, 3, '08:15:00', '19:30:00', 1, 'obelisco.jpg'),
+('Vuelo a Cancún', 3, '2025-09-05', '2025-09-12', 1300, 5, '09:00:00', '18:00:00', 3, 'cancun.jpg'),
+('Vuelo a Bariloche', 4, '2025-07-20', '2025-07-28', 950, 4, '07:45:00', '20:10:00', 5, 'bariloche.jpg'),
+('Vuelo a Roma', 5, '2025-10-01', '2025-10-15', 1400, 4.5, '11:00:00', '23:30:00', 8, 'roma.jpg'),
+('Vuelo a Tokio', 6, '2025-11-05', '2025-11-20', 2000, 5, '13:00:00', '04:00:00', 10, 'tokio.jpg'),
+('Vuelo a Nueva York', 7, '2025-12-10', '2025-12-20', 1500, 4.2, '15:00:00', '02:00:00', 4, 'nueva_york.jpg'),
+('Vuelo a Londres', 8, '2025-08-25', '2025-09-02', 1600, 4.8, '12:00:00', '23:00:00', 6, 'londres.jpg'),
+('Vuelo a Río', 9, '2025-09-15', '2025-09-22', 1100, 4, '06:30:00', '17:30:00', 7, 'rio.jpg'),
+('Vuelo a Santiago', 10, '2025-10-10', '2025-10-18', 1050, 3.8, '09:30:00', '21:00:00', 9, 'santiago_estero.jpg');
 
 INSERT INTO hotel (nombre, destino_id, estrellas, precio, imagen, stock) VALUES
-('Hotel Madrid Center', 1, 4.2, 700, 'hotelimg1.png', 10),
-('Hotel Buenos Aires', 2, 3.5, 500, 'hotelimg2.png', 15),
-('Resort Cancún', 3, 5.0, 1200, 'hotelimg3.png', 8),
-('Cabañas Bariloche', 4, 4.5, 650, 'hotelimg4.png', 12),
-('Hotel Roma Lux', 5, 4.8, 1100, 'hotelimg5.png', 9),
-('Tokio Inn', 6, 4.6, 1300, 'hotelimg6.png', 7),
-('NY Grand Hotel', 7, 4.7, 1250, 'hotelimg7.png', 11),
-('Londres Royal', 8, 5.0, 1400, 'hotelimg8.png', 10),
-('Río Beach Hotel', 9, 4.0, 750, 'hotelimg9.png', 13),
-('Santiago Suite', 10, 3.8, 600, 'hotelimg10.png', 14);
+('Hotel Madrid Center', 1, 4.2, 700, 'hotel_madrid.jpg', 10),
+('Hotel Buenos Aires', 2, 3.5, 500, 'hotel_bs.jpg', 15),
+('Resort Cancún', 3, 5.0, 1200, 'hotel_cancun.jpg', 8),
+('Cabañas Bariloche', 4, 4.5, 650, 'cabaña.jpg', 12),
+('Hotel Roma Lux', 5, 4.8, 1100, 'roma_lux.jpg', 9),
+('Tokio Inn', 6, 4.6, 1300, 'tokio.jpg', 7),
+('NY Grand Hotel', 7, 4.7, 1250, 'hotel_grandny.jpg', 11),
+('Londres Royal', 8, 5.0, 1400, 'hotel_royal.jpg', 10),
+('Río Beach Hotel', 9, 4.0, 750, 'hotel_rio.jpg', 13),
+('Santiago Suite', 10, 3.8, 600, 'hotel_santiago.jpg', 14);
 
 INSERT INTO excursion (nombre, descripcion, fecha_inicio, fecha_fin, precio, destino_id, estrellas, imagen) VALUES
 ('Museo del Prado', 'Visita guiada', '2025-07-03', '2025-07-03', 60, 1, 4.5, 'excursionimg1.png'),

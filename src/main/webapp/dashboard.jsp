@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
+<meta name="descrip	tion" content="">
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Astro v5.9.2">
@@ -516,9 +516,9 @@
 
 
 <div class="form-group">
-  <label for="id_avion">Avi�n:</label>
+  <label for="id_avion">Avión:</label>
   <select class="form-control" id="cmbAvionVuelo" name="id_avion" required>
-    <option selected>Seleccione un avi�n...</option>
+    <option selected>Seleccione un avión...</option>
   </select>
 </div>
 
@@ -532,7 +532,7 @@
           <input type="file" class="form-control" id="imagen" name="imagen" required>
         </div>
 
-        <button type="submit" class="btn btn-primary mt-3" id="btn-confirmar">Confirmar</button>
+        <button type="submit" class="btn btn-primary mt-3" id="btn-confirmar-vuelo">Confirmar</button>
       </form>
 
       <!-- VALIDACI�N -->
@@ -994,7 +994,8 @@ document.addEventListener("DOMContentLoaded", function () {
           <th>Destino</th>
           <th>Estrellas</th>
           <th>Personas</th>
-          <th>Precio</th>     
+          <th>Precio</th>   
+          <th>Accion</th>  
         </tr>
       </thead>
       <tbody id="tablaPaquete">

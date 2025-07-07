@@ -12,9 +12,6 @@
 <title>Viajando.com</title>
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/5.3/examples/album/">
-	
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-	
 <script src="<%=request.getContextPath()%>/assets/js/color-modes.js"></script>
 <script
 	src="<%=request.getContextPath()%>/assets/js/sweetalert2.all.min.js"></script>

@@ -77,7 +77,7 @@ class Excursion {
 				<td>${this.destino_value}</td>
 				<td>${this.estrellas}</td>
 				<td>
-					<button class="btn btn-danger" data-id="${this.id}" onClick="myFunction(this)">Eliminar</button>
+					<button class="btn btn-danger" data-id="${this.id}" onClick="eliminarExcursion(this)">Eliminar</button>
 				</td>
 			</tr>
 		`;

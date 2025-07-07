@@ -63,6 +63,27 @@ class Vuelo {
 			</div>
 		`;
 	}
+	
+	renderizarTabla() {
+			return `
+				<tr>
+					<td>${this.id}</td>
+					<td>${this.nombre}</td>
+					<td>${this.fecha_inicio} ${this.hora_ida}</td>
+					<td>${this.fecha_fin} ${this.hora_vuelta}</td>
+					<td>$${this.precio}</td>
+					<td>${this.destino_id}</td>
+					<td>${this.destino_value}</td>
+					<td>${this.estrellas}</td>
+					<td>${this.id_avion}</td>
+
+					<td>
+						<button class="btn btn-danger" data-id="${this.id}" onClick="eliminarVuelo(this)">Eliminar</button>
+					</td>
+				</tr>
+			`;
+		}
+	
 }
 
 // Cargar todos los vuelos al iniciar
@@ -103,6 +124,8 @@ $('#form-fecha-vuelo').on('submit', function (e) {
 // Renderizar vuelos
 function renderizarVuelos(data) {
 	$('#contenedorVuelo').empty();
+	$('#tablaVuelo').empty();
+
 
 	if (data.length === 0) {
 		$('#contenedorVuelo').html('<div class="alert alert-warning">No hay vuelos disponibles.</div>');
@@ -119,6 +142,8 @@ function renderizarVuelos(data) {
 			v.estrellas, v.id_avion, v.imagen
 		);
 		$('#contenedorVuelo').append(vuelo.renderizar());
+		$('#tablaVuelo').append(vuelo.renderizarTabla());
+
 	});
 
 	// Ver más modal

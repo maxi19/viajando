@@ -63,7 +63,35 @@ class Paquete {
 			</div>
 		`;
 	}
+	
+	renderizarTabla() {
+			return `
+				<tr>
+					<td>${this.id}</td>
+					<td>${this.nombre}</td>
+					<td>${this.descripcion}</td>
+					<td>${this.hotel_id}</td>
+					<td>${this.hotel_value}</td>
+					<td>$${this.vuelo_id}</td>
+					<td>${this.vuelo_value}</td>
+					<td>${this.excursion_id}</td>
+					<td>${this.excursion_value}</td>
+					<td>${this.estrellas}</td>
+					<td>${this.personas}</td>
+					<td>${this.precio}</td>
+					
+					<td>
+						<button class="btn btn-danger" data-id="${this.id}" onClick="eliminarPaquete(this)">Eliminar</button>
+					</td>
+				</tr>
+			`;
+		}
+	
+	
 }
+
+
+
 
 // Cargar paquetes
 function cargarListadoPaquete() {
@@ -73,6 +101,7 @@ function cargarListadoPaquete() {
 		cache: false,
 		success: function (response) {
 			if ($('#contenedorPaquete').length) $('#contenedorPaquete').empty();
+			if ($('#tablaPaquete').length) $('#tablaPaquete').empty();
 
 			response.forEach(p => {
 				const paquete = new Paquete(
@@ -92,6 +121,9 @@ function cargarListadoPaquete() {
 				);
 
 				$('#contenedorPaquete').append(paquete.renderizar());
+				$('#tablaPaquete').append(paquete.renderizarTabla());
+
+				
 			});
 
 			$('.ver-mas-btn-paquete').off().on('click', function () {

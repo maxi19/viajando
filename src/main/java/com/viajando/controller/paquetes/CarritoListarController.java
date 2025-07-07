@@ -73,6 +73,40 @@ public class CarritoListarController extends HttpServlet {
 	                json.addProperty("precio", hotel.getPrecio());
 
 	            }
+	            
+	            
+	            if (r instanceof Paquete) {
+	                Paquete paquete = (Paquete) r;
+	                json.addProperty("nombre", paquete.getNombre());
+	                json.addProperty("descripcion", paquete.getDescripcion());
+	                json.addProperty("estrellas", paquete.getEstrellas());
+	                json.addProperty("personas", paquete.getPersonas());
+	                json.addProperty("precio", paquete.getPrecio());
+
+	                if (paquete.getHotel() != null) {
+	                    json.addProperty("hotel_id", paquete.getHotel().getId());
+	                    json.addProperty("hotel_value", paquete.getHotel().getNombre());
+	                } else {
+	                    json.addProperty("hotel_id", "-");
+	                    json.addProperty("hotel_value", "No incluye hotel");
+	                }
+
+	                if (paquete.getVuelo() != null) {
+	                    json.addProperty("vuelo_id", paquete.getVuelo().getId());
+	                    json.addProperty("vuelo_value", paquete.getVuelo().getNombre());
+	                } else {
+	                    json.addProperty("vuelo_id", "-");
+	                    json.addProperty("vuelo_value", "No incluye vuelo");
+	                }
+
+	                if (paquete.getExcursion() != null) {
+	                    json.addProperty("excursion_id", paquete.getExcursion().getId());
+	                    json.addProperty("excursion_value", paquete.getExcursion().getNombre());
+	                } else {
+	                    json.addProperty("excursion_id", "-");
+	                    json.addProperty("excursion_value", "No incluye excursión");
+	                }
+	            }
 
 	            jsonArray.add(json);
 	        }
