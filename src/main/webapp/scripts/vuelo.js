@@ -56,7 +56,7 @@ class Vuelo {
 								<button type="button" class="btn btn-sm btn-outline-secondary ver-mas-btn-vuelo" data-id="${this.id}">Ver más</button>
 								<button class="btn btn-sm btn-outline-secondary boton-carrito-vuelo" data-id="${this.id}" data-type="VUELO">Carrito</button>
 							</div>
-							<small class="text-body-secondary">Avión ID: ${this.id_avion}</small>
+							<small class="text-body-secondary"></small>
 						</div>
 					</div>
 				</div>

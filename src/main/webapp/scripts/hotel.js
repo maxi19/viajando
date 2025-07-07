@@ -48,7 +48,7 @@ class Hotel {
 								<button type="button" class="btn btn-sm btn-outline-secondary ver-mas-btn-hotel" data-id="${this.id}">Ver más</button>
 								<button class="btn btn-sm btn-outline-secondary boton-carrito-hotel" data-id="${this.id}" data-type="HOTEL">Carrito</button>
 							</div>
-							<small class="text-body-secondary">hotel</small>
+							<small class="text-body-secondary" > </small>
 						</div>
 					</div>
 				</div>

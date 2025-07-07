@@ -36,7 +36,7 @@ class Excursion {
 								<button type="button" class="btn btn-sm btn-outline-secondary ver-mas-btn" data-id="${this.id}">Ver más</button>
 								<button class="btn btn-sm btn-outline-secondary boton-carrito-excursion" data-id="${this.id}" data-type="EXCURSION">Carrito</button>
 							</div>
-							<small class="text-body-secondary">9 mins</small>
+							<small class="text-body-secondary"></small>
 						</div>
 					</div>
 				</div>

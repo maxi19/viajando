@@ -50,7 +50,6 @@ class Reservable {
 		html += `
 			<div class="d-flex justify-content-between align-items-center mt-3">
 				<div class="btn-group">
-					<button type="button" class="btn btn-sm btn-outline-secondary ver-mas-btn" data-id="${this.data.id}">Ver más</button>
 					<button class="btn btn-sm btn-outline-danger quitar-del-carrito" data-id="${this.data.id}" data-tipo="${this.data.tipo}">Quitar</button>
 				</div>
 				<small class="text-body-secondary">${this.data.tipo}</small>
