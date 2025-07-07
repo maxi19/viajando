@@ -9,32 +9,33 @@ public class Paquete implements Reservable {
     private Vuelo vuelo;
     private Excursion excursion;
     private double estrellas;
-    private int personas; // si usás el campo `personas` en la tabla
+    private int personas; // cantidad de personas
     private int precio;
-    
+
     // Constructor con todos los campos
     public Paquete(int id, String nombre, String descripcion, Hotel hotel, Vuelo vuelo, Excursion excursion,
-			double estrellas, int personas, int precio) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.descripcion = descripcion;
-		this.hotel = hotel;
-		this.vuelo = vuelo;
-		this.excursion = excursion;
-		this.estrellas = estrellas;
-		this.personas = personas;
-		this.precio = precio;
-	}
+                   double estrellas, int personas, int precio) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.hotel = hotel;
+        this.vuelo = vuelo;
+        this.excursion = excursion;
+        this.estrellas = estrellas;
+        this.personas = personas;
+        this.precio = precio;
+    }
 
-    
+    // Constructor vacío por si lo necesitás
+    public Paquete() {}
+
     // Getters y setters
 
     public int getId() {
         return id;
     }
-    
-	public void setId(int id) {
+
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -71,30 +72,30 @@ public class Paquete implements Reservable {
     }
 
     public Hotel getHotel() {
-		return hotel;
-	}
+        return hotel;
+    }
 
-	public void setHotel(Hotel hotel) {
-		this.hotel = hotel;
-	}
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
 
-	public Vuelo getVuelo() {
-		return vuelo;
-	}
+    public Vuelo getVuelo() {
+        return vuelo;
+    }
 
-	public void setVuelo(Vuelo vuelo) {
-		this.vuelo = vuelo;
-	}
+    public void setVuelo(Vuelo vuelo) {
+        this.vuelo = vuelo;
+    }
 
-	public Excursion getExcursion() {
-		return excursion;
-	}
+    public Excursion getExcursion() {
+        return excursion;
+    }
 
-	public void setExcursion(Excursion excursion) {
-		this.excursion = excursion;
-	}
+    public void setExcursion(Excursion excursion) {
+        this.excursion = excursion;
+    }
 
-	public int getPersonas() {
+    public int getPersonas() {
         return personas;
     }
 
@@ -127,5 +128,15 @@ public class Paquete implements Reservable {
     @Override
     public void setCantidadPersonas(int cantidad) {
         this.personas = cantidad;
+    }
+
+    // ✅ Métodos adicionales para trabajar con el vuelo del paquete
+
+    public boolean tieneVueloEnPaquete() {
+        return this.vuelo != null;
+    }
+
+    public int getVueloId() {
+        return vuelo != null ? vuelo.getId() : -1;
     }
 }

@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -14,96 +16,87 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import com.google.gson.JsonObject;
-import com.viajando.service.habitacion.HabitacionService;
-import com.viajando.service.habitacion.HabitacionServiceImp;
+import com.viajando.dao.DestinoDao;
+import com.viajando.domain.Destino;
+import com.viajando.domain.Hotel;
 import com.viajando.service.hotel.HotelService;
 import com.viajando.service.hotel.HotelServiceImp;
 
-@WebServlet(urlPatterns = "/crearHotel")
 @MultipartConfig
+@WebServlet("/crearHotel")
 public class CrearHotelController extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
-    HotelService hotelService = new HotelServiceImp();
-    HabitacionService habitacionService = new HabitacionServiceImp();
+	private static final long serialVersionUID = 1L;
+	private HotelService hotelService = new HotelServiceImp();
+	private DestinoDao destinoDao = new DestinoDao();
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("application/json");
+		resp.setCharacterEncoding("utf-8");
+		PrintWriter out = resp.getWriter();
+		JsonObject json = new JsonObject();
 
-        String nombre = req.getParameter("nombre");
-        String estrellasString = req.getParameter("estrellas");
-        String precioString = req.getParameter("precio");
-        String destinoIdString = req.getParameter("destino_id");
-        
+		try {
+			String nombre = req.getParameter("nombre");
+			int destinoId = Integer.parseInt(req.getParameter("destino_id"));
+			double estrellas = Double.parseDouble(req.getParameter("estrellas"));
+			int precio = Integer.parseInt(req.getParameter("precio"));
+			int stock = Integer.parseInt(req.getParameter("stock"));
+			Part imagenPart = req.getPart("imagen");
 
-        int destino_id = Integer.parseInt(destinoIdString);
-        int precio = Integer.parseInt(precioString);
-        double estrellas = Double.parseDouble(estrellasString);
-        int stock = Integer.parseInt(req.getParameter("stock"));
+			Destino destino = destinoDao.getOne(destinoId);
+			Hotel hotel = new Hotel(0, nombre, destino, estrellas, precio, null, stock);
 
-        Part imagenPart = req.getPart("imagen");
+			// Cargar habitaciones
+			List<String> tipos = new ArrayList<>();
+			List<Integer> capacidades = new ArrayList<>();
 
-        try {
-            // Guardar hotel sin imagen primero para obtener ID
-        	
-        	 int idGenerado = hotelService.saveAndReturnId(nombre, destino_id, estrellas, precio, stock);
-        	 
-        	 for (int i = 1; i <= stock; i++) {
-        		    // Capacidad enviada desde formulario (input tipo número)
-        		    String capacidadParam = req.getParameter("capacidad_habitacion_" + i);
-        		    int capacidad = (capacidadParam != null && !capacidadParam.isEmpty()) ? Integer.parseInt(capacidadParam) : 2;
+			for (int i = 1; i <= stock; i++) {
+				String tipo = req.getParameter("habitacion" + i);
+				String capacidadStr = req.getParameter("capacidad_habitacion_" + i);
+				int capacidad = (capacidadStr != null && !capacidadStr.isEmpty()) ? Integer.parseInt(capacidadStr) : 2;
 
-        		    // Tipo/nombre de habitación desde select o input
-        		    String tipoHabitacion = req.getParameter("habitacion" + i); // Ejemplo: "doble", "suite"
-        		    if (tipoHabitacion == null || tipoHabitacion.isEmpty()) {
-        		        tipoHabitacion = "Habitación " + i; // fallback
-        		    }
+				tipos.add(tipo != null ? tipo : "Habitación " + i);
+				capacidades.add(capacidad);
+			}
 
-        		    habitacionService.crearHabitacion(idGenerado, tipoHabitacion, capacidad);
-        		}
-        	 
-            // Validar imagen y generar nombre de archivo
-            String nombreOriginal = Paths.get(imagenPart.getSubmittedFileName()).getFileName().toString();
-            String extension = nombreOriginal.substring(nombreOriginal.lastIndexOf('.') + 1);
+			hotel.setTiposHabitacion(tipos);
+			hotel.setCapacidades(capacidades);
 
-            if (!extension.equalsIgnoreCase("jpg") && 
-                !extension.equalsIgnoreCase("jpeg") && 
-                !extension.equalsIgnoreCase("png")) {
-                throw new ServletException("Formato de imagen no permitido.");
-            }
+			// Guardar y obtener ID generado
+			int idGenerado = hotelService.saveAndReturnId(hotel);
 
-            String nombreImagen = "hotelimg" + idGenerado + "." + extension;
+			// Procesar imagen
+			String nombreOriginal = Paths.get(imagenPart.getSubmittedFileName()).getFileName().toString();
+			String extension = nombreOriginal.substring(nombreOriginal.lastIndexOf('.') + 1);
 
-            // Guardar archivo físico
-            String uploadPath = getServletContext().getRealPath("/images/");
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) uploadDir.mkdirs();
-            imagenPart.write(uploadPath + File.separator + nombreImagen);
+			if (!extension.matches("(?i)jpg|jpeg|png")) {
+				throw new ServletException("Formato de imagen no permitido.");
+			}
 
-            // Actualizar imagen en la base de datos
-            hotelService.updateImage(idGenerado, nombreImagen);
+			String nombreImagen = "hotelimg" + idGenerado + "." + extension;
+			String uploadPath = getServletContext().getRealPath("/images/");
+			File uploadDir = new File(uploadPath);
+			if (!uploadDir.exists()) uploadDir.mkdirs();
+			imagenPart.write(uploadPath + File.separator + nombreImagen);
 
-            // Respuesta JSON
-            resp.setContentType("application/json");
-            resp.setCharacterEncoding("utf-8");
-            PrintWriter out = resp.getWriter();
-            JsonObject obj = new JsonObject();
-            obj.addProperty("estatus", "ok");
-            obj.addProperty("mensaje", "Hotel creado con ID: " + idGenerado);
-            out.print(obj.toString());
-            out.flush();
+			hotelService.updateImage(idGenerado, nombreImagen);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.setContentType("application/json");
-            resp.setCharacterEncoding("utf-8");
-            PrintWriter out = resp.getWriter();
-            JsonObject obj = new JsonObject();
-            obj.addProperty("estatus", "error");
-            obj.addProperty("mensaje", "Error interno: " + e.getMessage());
-            out.print(obj.toString());
-            out.flush();
-        }
-    }
+			// Respuesta
+			json.addProperty("estatus", "ok");
+			json.addProperty("mensaje", "Hotel creado con ID: " + idGenerado);
+			json.addProperty("imagen", nombreImagen);
+			out.print(json.toString());
+			out.flush();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			json.addProperty("estatus", "error");
+			json.addProperty("mensaje", "Error al crear hotel: " + e.getMessage());
+			out.print(json.toString());
+			out.flush();
+		}
+	}
 }

@@ -14,7 +14,6 @@ class Paquete {
 		this.estrellas = estrellas;
 		this.personas = personas;
 		this.precio = precio;
-		this.imagen = imagen;
 	}
 
 	generarEstrellas() {
@@ -43,7 +42,6 @@ class Paquete {
 		return `
 			<div class="col">
 				<div class="card shadow-sm">
-					<img src="${contextPath}/images/${this.imagen}" class="card-img-top" alt="Imagen Paquete" style="width: 100%; height: 250px; object-fit: cover;">
 					<div class="card-body">
 						<h5 class="card-title">Paquete N° ${this.id}</h5>
 						<p class="card-text"><strong>Nombre:</strong> ${this.nombre}</p>
@@ -116,8 +114,7 @@ function cargarListadoPaquete() {
 					(p.excursion ? p.excursion.nombre : "No incluye excursión"),
 					p.estrellas,
 					p.personas,
-					p.precio,
-					p.imagen
+					p.precio
 				);
 
 				$('#contenedorPaquete').append(paquete.renderizar());
@@ -126,33 +123,40 @@ function cargarListadoPaquete() {
 				
 			});
 
-			$('.ver-mas-btn-paquete').off().on('click', function () {
-				const id = $(this).data("id");
-				const paquete = response.find(p => p.id === id);
-				if (!paquete) return;
+			$('.ver-mas-btn-paquete').off('click').on('click', function () {
+			  const id = $(this).data('id');
+			  const paquete = response.find(p => p.id === id);
+			  if (!paquete) return;
 
-				const estrellas = new Paquete().generarEstrellas.call({ estrellas: paquete.estrellas });
+			  // Generar las estrellas
+			  const estrellasHTML = new Paquete()
+			    .generarEstrellas.call({ estrellas: paquete.estrellas });
 
-				const html = `
-					<div class="row">
-						<div class="col-md-6">
-							<img src="${contextPath}/images/${paquete.imagen}" class="img-fluid" alt="Imagen Paquete">
-						</div>
-						<div class="col-md-6">
-							<h5>${paquete.nombre}</h5>
-							<p><strong>Descripción:</strong> ${paquete.descripcion}</p>
-							<p><strong>Hotel:</strong> ${paquete.hotel_value}</p>
-							<p><strong>Vuelo:</strong> ${paquete.vuelo_value}</p>
-							<p><strong>Excursión:</strong> ${paquete.excursion_value}</p>
-							<p><strong>Estrellas:</strong> ${estrellas}</p>
-							<p><strong>Personas:</strong> ${paquete.personas}</p>
-							<p><strong>Precio:</strong> $${paquete.precio}</p>
-						</div>
-					</div>
-				`;
+			  // Construir el HTML con backticks correctamente
+			  const html = `
+			    <div class="row">
+			      <div class="col-md-6 mb-3">
+			        <!-- Si tienes URL de imagen: -->
+			        <img src="${contextPath}/images/${paquete.imagen || 'placeholder.png'}"
+			             class="img-fluid rounded" alt="${paquete.nombre}">
+			      </div>
+			      <div class="col-md-6">
+			        <h5>${paquete.nombre}</h5>
+			        <p><strong>Descripción:</strong> ${paquete.descripcion}</p>
+			        <p><strong>Hotel:</strong> ${paquete.hotel_value}</p>
+			        <p><strong>Vuelo:</strong> ${paquete.vuelo_value}</p>
+			        <p><strong>Excursión:</strong> ${paquete.excursion_value}</p>
+			        <p><strong>Estrellas:</strong> ${estrellasHTML}</p>
+			        <p><strong>Personas:</strong> ${paquete.personas}</p>
+			        <p><strong>Precio:</strong> $${paquete.precio}</p>
+			      </div>
+			    </div>
+			  `;  // <-- ¡Backtick de cierre justo aquí!
 
-				$('#modalPaqueteContent').html(html);
-				new bootstrap.Modal(document.getElementById('modalPaquete')).show();
+			  // Inyectar y mostrar modal
+			  $('#modalPaqueteContent').html(html);
+			  const myModal = new bootstrap.Modal(document.getElementById('modalPaquete'));
+			  myModal.show();
 			});
 		},
 		error: function (xhr) {

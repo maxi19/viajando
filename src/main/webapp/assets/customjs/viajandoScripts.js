@@ -52,27 +52,25 @@ $(function () {
         });
     }
 
-    function validarSession() {
-        $.ajax({
-            type: "get",
-            url: contextPath + "/existeSession.do",
-            dataType: "json",
-            success: function (response) {
-                if (response.loggeado === true) {
-                    Swal.fire({
-                        icon: 'info',
-                        title: 'Sesión activa',
-                        text: '¡Hola ' + response.username + '!',
-                        timer: 2000,
-                        showConfirmButton: false
-                    });
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error("Error al verificar sesión");
-            }
-        });
-    }
+	function validarSession() {
+	    $.ajax({
+	        type: "get",
+	        url: contextPath + "/existeSession.do",
+	        dataType: "json",
+	        success: function (response) {
+	            console.log("✅ Respuesta de /existeSession.do:", response);
+
+	            // Ajustado a tu respuesta real
+	            if (response.status === "ok") {
+	                window.location.href = contextPath + '/redirect?method=home';
+	            }
+	        },
+	        error: function (xhr, status, error) {
+	            console.error("❌ Error al verificar sesión:", xhr, status, error);
+	        }
+	    });
+	}
+
 
     $(document).ready(function () {
         login();

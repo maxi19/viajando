@@ -1,8 +1,10 @@
-
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
-<head>
+<head>	
+
+<link rel="icon" href="<%=request.getContextPath()%>/images/icon.svg">
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
@@ -34,6 +36,7 @@
 		<link rel="stylesheet"
 	href="<%=request.getContextPath()%>/style/estiloGaleria.css">
 	
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 <link
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
@@ -221,9 +224,7 @@
         <!-- DERECHA: Links + botón toggle -->
         <div class="d-flex align-items-center gap-3">
             <a href="<%=request.getContextPath()%>/FAQ.jsp" class="nav-link text-white">FAQ</a>
-            <a href="<%=request.getContextPath()%>/about.jsp" class="nav-link text-white">Acerca de</a>
-            <a href="<%=request.getContextPath()%>/paquetes.jsp" class="nav-link text-white">Mis paquetes</a>
-            
+            <a href="<%=request.getContextPath()%>/about.jsp" class="nav-link text-white">Acerca de</a>            
 <a href="<%=request.getContextPath()%>/carrito/carritoPage.jsp" class="nav-link text-white position-relative">
 	<span class="material-symbols-outlined">shopping_cart</span>
 	<span id="carrito-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">

@@ -20,17 +20,17 @@ $(document).ready(function () {
 				for (let i = 0; i < cantidad; i++) {
 					let selectButacaHtml = "";
 
-					if (tipo === "vuelo") {
+					if (tipo === "vuelo" || (tipo === "paquete" && p.vuelo_id)) {
 						selectButacaHtml = `
 							<div class="col-md-12">
 								<label>Seleccionar Butaca</label>
 								<div id="contenedorButacasPersona${indexGlobal}" class="d-flex flex-wrap mb-2"></div>
 								<input type="hidden" name="butaca[]" id="butacaSeleccionada${indexGlobal}" required>
 								<input type="hidden" name="precio[]" value="${p.precio}">
-
 							</div>
 						`;
 					}
+
 
 					const formHtml = `
 						<div class="card mb-3 p-3 bg-light">
@@ -68,6 +68,8 @@ $(document).ready(function () {
 
 					if (tipo === "vuelo") {
 						cargarButacas(p.servicio_id, indexGlobal);
+					} else if (tipo === "paquete" && p.vuelo_id) {
+						cargarButacas(p.vuelo_id, indexGlobal);
 					}
 
 					indexGlobal++;

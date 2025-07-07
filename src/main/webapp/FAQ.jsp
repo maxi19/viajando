@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
+	<link rel="icon" href="<%=request.getContextPath()%>/images/icon.svg">
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
@@ -374,10 +376,10 @@ body {
 <div class="navbar navbar-dark bg-dark shadow-sm">
     <div class="container d-flex justify-content-between align-items-center">
         <!-- IZQUIERDA: Marca -->
-        <a href="<%=request.getContextPath()%>/" class="navbar-brand d-flex align-items-center">
-            <span class="material-symbols-outlined me-2" style="font-size: 24px;">flight</span>
-            <strong>Viajando.com</strong>
-        </a>
+				<a href="#" class="navbar-brand d-flex align-items-center"> <span
+					class="material-symbols-outlined me-2" style="font-size: 24px;">flight</span>
+					<strong>Viajando.com</strong>
+				</a>
 
         <!-- DERECHA: Links + botón toggle -->
         <div class="d-flex align-items-center gap-3">

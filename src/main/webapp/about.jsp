@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
+	<link rel="icon" href="<%=request.getContextPath()%>/images/icon.svg">
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Información sobre Viajando.com, tu plataforma de viajes y vuelos.">

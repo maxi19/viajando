@@ -1,9 +1,11 @@
 package com.viajando.service.reserva;
 
 import java.util.List;
+import java.util.Map;
 
 import com.viajando.dao.reserva.ReservaDaoImp;
 import com.viajando.domain.Reserva;
+import com.viajando.domain.dto.ReservaResumen;
 
 public class ReservaServiceImp implements ReservaService{
 	
@@ -24,6 +26,15 @@ public class ReservaServiceImp implements ReservaService{
 	@Override
 	public void save(Reserva r) throws Exception {
 reservaDao.save(r);		
+	}
+	
+	@Override
+	public List<Reserva> buscarPorTipo(String tipo) throws Exception {
+	    return reservaDao.buscarPorTipo(tipo);
+	}
+	
+	public Map<String, Integer> resumenPorTipo() throws Exception {
+	    return reservaDao.resumenPorTipo();
 	}
 
 }

@@ -1,8 +1,10 @@
 package com.viajando.dao.reserva;
 
 import java.util.List;
+import java.util.Map;
 
 import com.viajando.domain.Reserva;
+import com.viajando.domain.dto.ReservaResumen;
 
 public interface ReservaDao {
 
@@ -12,5 +14,10 @@ public interface ReservaDao {
 			int id_hotel, int id_excursion, int id_paquete, int precio) throws Exception;
 
 	void save(Reserva r) throws Exception;
+	
+	List<Reserva> buscarPorTipo(String tipo) throws Exception;
+
+	Map<String, Integer> resumenPorTipo() throws Exception;
+
 	
 }

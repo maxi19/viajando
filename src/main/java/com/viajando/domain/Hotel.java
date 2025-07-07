@@ -1,5 +1,6 @@
 package com.viajando.domain;
 
+import java.util.List;
 
 public class Hotel implements Reservable{
 	
@@ -11,7 +12,8 @@ public class Hotel implements Reservable{
 	private String imagen;
     private int cantidadPersonas = 1;
     private int stock;
-
+    private List<String> tiposHabitacion;
+    private List<Integer> capacidades;
     
 	
 	public Hotel(int id, String nombre, Destino destino, double estrellas, int precio,
@@ -107,6 +109,22 @@ public class Hotel implements Reservable{
     @Override
     public void setCantidadPersonas(int cantidad) {
         this.cantidadPersonas = cantidad;
+    }
+
+    public List<String> getTiposHabitacion() {
+        return tiposHabitacion;
+    }
+
+    public void setTiposHabitacion(List<String> tiposHabitacion) {
+        this.tiposHabitacion = tiposHabitacion;
+    }
+
+    public List<Integer> getCapacidades() {
+        return capacidades;
+    }
+
+    public void setCapacidades(List<Integer> capacidades) {
+        this.capacidades = capacidades;
     }
 	
 

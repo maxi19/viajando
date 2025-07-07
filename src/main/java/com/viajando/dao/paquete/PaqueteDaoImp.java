@@ -34,6 +34,8 @@ public class PaqueteDaoImp implements PaqueteDao {
 	private static final String queryUpdateImage = "UPDATE paquete SET imagen=? WHERE id=?";
 
 	private static final String queryDeletePaquete = "DELETE FROM paquete WHERE id=?";
+	
+	
 
 	private static final String queryList = "SELECT id, nombre, descripcion, hotel_id, vuelo_id, excursion_id, estrellas, personas, precio FROM paquete";
 	
@@ -385,4 +387,43 @@ public class PaqueteDaoImp implements PaqueteDao {
 
 		    return idGenerado;
 		}
+
+	@Override
+	public double calcularEstrellas(int hotel_id, int vuelo_id, int excursion_id) throws Exception {
+		   double EstrellasHotel = 0.0;
+		   double EstrellasVuelo = 0.0;
+		   double EstrellaExcursion = 0.0;
+		   double sumaEstrellasPaquete = 0.0;
+		   int cantidad = 0; // llevar la cuenta de cuántos componentes tienen estrellas válidas, es decir, que realmente fueron cargados en el paquete
+
+
+		    
+		    if (hotel_id != 0) {
+		        Hotel hotel = hotelDao.findById(hotel_id);
+		        if (hotel != null) {
+		        	EstrellasHotel = hotel.getEstrellas();
+		            cantidad++;
+		        }
+		    }
+
+		    if (vuelo_id != 0) {
+		        Vuelo vuelo = vueloDao.findById(vuelo_id);
+		        if (vuelo != null) {
+		        	EstrellasVuelo = vuelo.getEstrellas();
+		            cantidad++;
+		        }
+		    }
+
+		    if (excursion_id != 0) {
+		        Excursion excursion = excursionDao.findById(excursion_id);
+		        if (excursion != null) {
+		        	EstrellaExcursion = excursion.getEstrellas();
+		            cantidad++;
+		        }
+		    }
+
+		    sumaEstrellasPaquete = EstrellasHotel + EstrellasVuelo + EstrellaExcursion;
+		    double PromedioEstrellas = sumaEstrellasPaquete/cantidad;
+		    return Math.min(PromedioEstrellas, 5.0); // por si acaso alguna suma da más de 5
+	}
 }

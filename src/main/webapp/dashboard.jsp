@@ -244,7 +244,7 @@
 						<ul class="nav flex-column">
 							<li class="nav-item"><a
 								class="nav-link d-flex align-items-center gap-2 active"
-								aria-current="page" href="#"> <svg class="bi"
+								aria-current="page" href="dashboard.jsp"> <svg class="bi"
 										aria-hidden="true">
 										<use xlink:href="#house-fill"></use></svg> Dashboard
 							</a></li>
@@ -258,31 +258,31 @@
 										class="bi" aria-hidden="true">
 										<use xlink:href="#cart"></use></svg> Products
 							</a></li>
-							<li class="nav-item"><a
+							<!--<li class="nav-item"><a
 								class="nav-link d-flex align-items-center gap-2" href="#"> <svg
 										class="bi" aria-hidden="true">
 										<use xlink:href="#people"></use></svg> Customers
-							</a></li>
-							<li class="nav-item"><a
+							</a></li>-->
+							<!--<li class="nav-item"><a
 								class="nav-link d-flex align-items-center gap-2" href="#"> <svg
 										class="bi" aria-hidden="true">
 										<use xlink:href="#graph-up"></use></svg> Reports
-							</a></li>
-							<li class="nav-item"><a
+							</a></li>-->
+							<!--<li class="nav-item"><a
 								class="nav-link d-flex align-items-center gap-2" href="#"> <svg
 										class="bi" aria-hidden="true">
 										<use xlink:href="#puzzle"></use></svg> Integrations
-							</a></li>
+							</a></li>-->
 						</ul>
-						<h6
+						<!--<h6
 							class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
 							<span>Saved reports</span> <a class="link-secondary" href="#"
 								aria-label="Add a new report"> <svg class="bi"
 									aria-hidden="true">
 									<use xlink:href="#plus-circle"></use></svg>
 							</a>
-						</h6>
-						<ul class="nav flex-column mb-auto">
+						</h6>-->
+						<!--<ul class="nav flex-column mb-auto">
 							<li class="nav-item"><a
 								class="nav-link d-flex align-items-center gap-2" href="#"> <svg
 										class="bi" aria-hidden="true">
@@ -303,7 +303,7 @@
 										class="bi" aria-hidden="true">
 										<use xlink:href="#file-earmark-text"></use></svg> Year-end sale
 							</a></li>
-						</ul>
+						</ul>-->
 						<hr class="my-3">
 						<ul class="nav flex-column mb-auto">
 							<li class="nav-item"><a
@@ -367,6 +367,110 @@
 <div class="tab-content" id="myTabContent">
   <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
     Home
+ <!-- Tu canvas y tabla aquí -->
+<div class="grafico-reservas mt-4">
+    <h3>Gráfico de reservas por tipo</h3>
+        <div style="max-width: 300px; margin: 0 auto;">
+ 
+    <canvas id="graficoCircular" width="50px" height="50px"></canvas>	
+        </div>
+    
+</div>
+
+<div class="tabla-reservas mt-4">
+    <h3>Reservas del tipo seleccionado</h3>
+    <table id="tablaDetalle" class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Identificador</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Tipo</th>
+                <th>Precio</th>
+                <th>Butaca</th>
+            </tr>
+        </thead>
+
+    </table>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('graficoCircular').getContext('2d');
+
+    const graficoCircular = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Reservas por tipo',
+                data: [],
+                backgroundColor: ['#42A5F5', '#66BB6A', '#FFA726', '#AB47BC'],
+                borderColor: ['#1E88E5', '#43A047', '#FB8C00', '#8E24AA'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'bottom' }
+            },
+            onClick: function (evt, elements) {
+                if (elements.length > 0) {
+                    const index = elements[0].index;
+                    const tipo = graficoCircular.data.labels[index];
+                    cargarReservasPorTipo(tipo);
+                }
+            }
+        }
+    });
+
+    function cargarGrafico() {
+        const contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 1));
+        fetch(contextPath + '/detalleReservasPorTipo')
+            .then(res => res.json())
+            .then(data => {
+                graficoCircular.data.labels = data.labels;
+                graficoCircular.data.datasets[0].data = data.data;
+                graficoCircular.update();
+            })
+            .catch(err => console.error("Error al cargar gráfico:", err));
+    }
+
+    function cargarReservasPorTipo(tipo) {
+        const contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 1));
+        fetch(contextPath + '/detalleReservasPorTipo?tipo=' + tipo)
+            .then(res => res.json())
+            .then(data => {
+                const tbody = document.querySelector("#tablaDetalle tbody");
+                tbody.innerHTML = "";
+
+                if (data.length === 0) {
+                    tbody.innerHTML = "<tr><td colspan='7'>No hay reservas de este tipo</td></tr>";
+                    return;
+                }
+
+                data.forEach(r => {
+                    const fila = `<tr>
+                        <td>${r.id}</td>
+                        <td>${r.identificador}</td>
+                        <td>${r.nombre}</td>
+                        <td>${r.apellido}</td>
+                        <td>${r.tipoServicio}</td>
+                        <td>${r.precio}</td>
+                        <td>${r.butaca ?? '-'}</td>
+                    </tr>`;
+                    tbody.innerHTML += fila;
+                });
+            })
+            .catch(err => console.error("Error al cargar detalle:", err));
+    }
+
+    cargarGrafico();
+});
+</script>
+    
   </div>
 
   <!-- DESTINOS -->
@@ -813,159 +917,99 @@
   
 </div>
 
-
 <!-- MODAL NUEVO HOTEL -->
-<div class="modal fade" id="modalHotel" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalHotel" tabindex="-1" role="dialog" aria-labelledby="modalHotelLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content p-4">
-      <h1>Hotel</h1>
-      <form class="form" id="formHotel" method="POST" enctype="multipart/form-data">
+      <h1>Nuevo Hotel</h1>
+      <form class="form" id="formHotel" method="post" enctype="multipart/form-data">
         <div class="form-group">
           <label for="nombre">Nombre:</label>
-          <input type="text" class="form-control" id="nombre" name="nombre" required placeholder="Ingrese el nombre de la excursion">
+          <input type="text" class="form-control" id="nombre" name="nombre" required placeholder="Ingrese el nombre del hotel">
         </div>
 
-        <div class="form-group" id="input-destino">
-          <label>Destino</label>
+        <div class="form-group">
+          <label for="destino_id">Destino:</label>
           <select class="form-control" id="cmbDestinoHotel" name="destino_id" required>
-            <option value="" selected disabled>Seleccione un destino...</option>
+            <option selected disabled>Seleccione un destino...</option>
           </select>
         </div>
 
         <div class="form-group">
           <label for="estrellas">Estrellas:</label>
-          <input type="number" step="0.1" class="form-control" id="estrellas" name="estrellas" required placeholder="Ingrese las estrellas">
+          <input type="number" step="0.1" class="form-control" id="estrellas" name="estrellas" required placeholder="Ingrese la cantidad de estrellas (0-5)">
         </div>
-        
-        <div class="form-group">
-          <label for="estrellas">Precio:</label>
-          <input type="number" step="0.1" class="form-control" id="precio" name="precio" required placeholder="Ingrese el precio">
-        </div>
-        
-<div class="form-group mb-3">
-    <label for="cantidadHabitaciones">Cantidad de habitaciones:</label>
-    <select id="cantidadHabitaciones" name="stock" class="form-control">
-        <option value="0">Seleccionar</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-    </select>
-</div>
 
-<div id="habitacionesContainer"></div>
+        <div class="form-group">
+          <label for="precio">Precio:</label>
+          <input type="number" class="form-control" id="precio" name="precio" required placeholder="Ingrese el precio">
+        </div>
+
+        <div class="form-group">
+          <label for="stock">Cantidad de habitaciones:</label>
+          <input type="number" class="form-control" id="stock" name="stock" required placeholder="Ingrese el número de habitaciones">
+        </div>
 
         <div class="form-group">
           <label for="imagen">Imagen:</label>
           <input type="file" class="form-control" id="imagen" name="imagen" required>
         </div>
 
-        <button type="submit" class="btn btn-primary mt-3" id="btn-confirmar-hotel">Submit</button>
+        <button type="submit" class="btn btn-primary mt-3" id="btn-confirmar-hotel">Confirmar</button>
       </form>
 
+      <!-- VALIDACIÓN -->
       <script>
-      $(document).ready(function () {
-        // â Validaciones existentes
-        $("#formHotel").validate({
-          rules: {
-            nombre: { required: true, minlength: 2 },
-            precio: { required: true, number: true, min: 0 },
-            estrellas: { required: true, number: true, min: 0, max: 5 },
-            imagen: { required: true, extension: "jpg|jpeg|png" },
-            destino_id: { required: true }
-          },
-          messages: {
-            nombre: { required: "Por favor, ingrese un nombre" },
-            precio: { required: "Ingrese un precio vÃ¡lido" },
-            estrellas: { required: "Ingrese estrellas vÃ¡lidas" },
-            imagen: { required: "Seleccione una imagen", extension: "Solo JPG o PNG" },
-            destino_id: { required: "Seleccione un destino" }
-          },
-          errorElement: "div",
-          errorClass: "invalid-feedback",
-          highlight: function (element) {
-            $(element).addClass("is-invalid");
-          },
-          unhighlight: function (element) {
-            $(element).removeClass("is-invalid");
-          }
-        });
-
-        // â NUEVO: Generar campos de habitaciones dinÃ¡micamente
-        $("#stock").on("input", function () {
-          const cantidad = parseInt($(this).val());
-          const contenedor = $("#contenedorHabitaciones");
-          contenedor.empty();
-
-          if (!isNaN(cantidad) && cantidad > 0) {
-            for (let i = 1; i <= cantidad; i++) {
-              contenedor.append(`
-                <div class="form-group">
-                  <label for="habitacion_${i}">Capacidad para la habitaciÃ³n ${i}:</label>
-                  <input type="number" class="form-control capacidad-habitacion" 
-                         name="capacidad_habitacion_${i}" 
-                         id="habitacion_${i}" min="1" required>
-                </div>
-              `);
+        $(document).ready(function () {
+          $("#formHotel").validate({
+            rules: {
+              nombre: { required: true, minlength: 2 },
+              destino_id: { required: true },
+              estrellas: { required: true, number: true, min: 0, max: 5 },
+              precio: { required: true, number: true, min: 0 },
+              stock: { required: true, number: true, min: 1 },
+              imagen: { required: true, extension: "jpg|jpeg|png" }
+            },
+            messages: {
+              nombre: {
+                required: "Por favor, ingrese un nombre",
+                minlength: "Debe tener al menos 2 caracteres"
+              },
+              destino_id: { required: "Seleccione un destino" },
+              estrellas: {
+                required: "Ingrese estrellas",
+                number: "Debe ser un número",
+                min: "Mínimo 0", max: "Máximo 5"
+              },
+              precio: {
+                required: "Ingrese un precio",
+                number: "Debe ser un número",
+                min: "No puede ser negativo"
+              },
+              stock: {
+                required: "Ingrese la cantidad de habitaciones",
+                number: "Debe ser un número",
+                min: "Debe ser al menos 1"
+              },
+              imagen: {
+                required: "Seleccione una imagen",
+                extension: "Solo JPG, JPEG o PNG"
+              }
+            },
+            errorElement: "div",
+            errorClass: "invalid-feedback",
+            highlight: function (element) {
+              $(element).addClass("is-invalid");
+            },
+            unhighlight: function (element) {
+              $(element).removeClass("is-invalid");
             }
-
-            // Si estÃ¡s usando jQuery Validate, actualizÃ¡ reglas dinÃ¡micas:
-            $(".capacidad-habitacion").each(function () {
-              $(this).rules("add", {
-                required: true,
-                number: true,
-                min: 1,
-                messages: {
-                  required: "Ingrese la capacidad",
-                  number: "Debe ser un número",
-                  min: "Mínimo 1 persona"
-                }
-              });
-            });
-          }
+          });
         });
-      });
-			</script>
-			
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-	const selectCantidad = document.getElementById("cantidadHabitaciones");
-	const contenedor = document.getElementById("habitacionesContainer");
-
-	selectCantidad.addEventListener("change", function () {
-		const cantidad = parseInt(this.value);
-		contenedor.innerHTML = ""; // Limpiar lo anterior
-
-		if (cantidad > 0) {
-			for (let i = 1; i <= cantidad; i++) {
-				const div = document.createElement("div");
-				div.classList.add("form-group", "mb-2");
-				div.innerHTML = `
-					<label for="habitacion${i}">HabitaciÃ³n ${i}:</label>
-					<select id="habitacion${i}" name="habitacion${i}" class="form-control">
-						<option value="individual">Individual</option>
-						<option value="doble">Doble</option>
-						<option value="suite">Suite</option>
-					</select>
-				`;
-				contenedor.appendChild(div);
-			}
-		}
-	});
-});			
-</script>
-	
+      </script>
     </div>
   </div>
-  
 </div>
-
 
 <!-- PAQUETES -->
    <div class="tab-pane fade" id="paquete-tab-pane" role="tabpanel" aria-labelledby="paquete-tab" tabindex="0">

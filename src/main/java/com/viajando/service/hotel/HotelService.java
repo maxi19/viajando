@@ -4,16 +4,12 @@ import java.util.List;
 
 import com.viajando.domain.Hotel;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface HotelService {
-
-	public List<Hotel> list() throws Exception;
-	
-	public Hotel findById(int id) throws Exception;
-	
-	public int saveAndReturnId(String nombre, int destino_id, double estrellas, int precio, int stock)  throws Exception;
-    
-    public void updateImage(int id, String nombreImagen) throws Exception;
-
-	public void delete(int id) throws Exception;
-
+	List<Hotel> list() throws Exception;
+	Hotel findById(int id) throws Exception;
+	int saveAndReturnId(Hotel hotel) throws Exception;
+	void updateImage(int id, String nombreImagen) throws Exception;
+	void delete(int id) throws Exception;
 }

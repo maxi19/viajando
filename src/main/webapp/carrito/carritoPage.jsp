@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
+	<link rel="icon" href="<%=request.getContextPath()%>/images/icon.svg">
+
 
 <script>
   const contextPath = "<%=request.getContextPath()%>";
