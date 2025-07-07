@@ -104,9 +104,24 @@ function enviarCantidadesYRedirigir() {
 
 	$(".cantidad-personas").each(function () {
 		const id = $(this).data("id");
+		const tipo = $(this).data("tipo");  // Obtener el tipo (vuelo, excursion)
 		const cantidad = parseInt($(this).val());
-		cantidades.push({ id, cantidad });
+		
+		// Crear un identificador único combinando id y tipo
+		const uniqueId = `${id}-${tipo}`;
+
+		// Verificar si ya existe el servicio en la lista
+		const existing = cantidades.find(item => item.uniqueId === uniqueId);
+		if (existing) {
+			// Si existe, sumar las cantidades
+			existing.cantidad += cantidad;
+		} else {
+			// Si no existe, agregar nuevo objeto con uniqueId
+			cantidades.push({ uniqueId, id, tipo, cantidad });
+		}
 	});
+
+	console.log("Datos consolidados antes de enviar:", cantidades);  // Debugging
 
 	$.ajax({
 		url: contextPath + "/actualizarCantidades",
@@ -114,7 +129,12 @@ function enviarCantidadesYRedirigir() {
 		contentType: "application/json",
 		data: JSON.stringify(cantidades),
 		success: function () {
-			window.location.href = contextPath + "/reserva/formularioReserva.jsp";
+			// Confirmamos la actualización con un GET
+			$.get(contextPath + "/carritoListado", function (carrito) {
+				console.log("Carrito actualizado:", carrito);
+				// Ahora redirigimos a la página de formularios
+				window.location.href = contextPath + "/reserva/formularioReserva.jsp";
+			});
 		},
 		error: function () {
 			alert("Ocurrió un error al actualizar las cantidades.");

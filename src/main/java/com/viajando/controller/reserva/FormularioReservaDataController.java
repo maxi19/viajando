@@ -36,32 +36,32 @@ public class FormularioReservaDataController extends HttpServlet {
         List<Map<String, Object>> personas = new ArrayList<>();
 
         if (carrito != null && carrito.getReservables() != null) {
-            for (Object obj : carrito.getReservables()) {
-                if (obj instanceof Reservable) {
-                    Reservable item = (Reservable) obj;
+        	for (Object obj : carrito.getReservables()) {
+        		if (obj instanceof Reservable) {
+        			Reservable item = (Reservable) obj;
 
-                    int cantidad = item.getCantidadPersonas();
+        			Map<String, Object> persona = new HashMap<>();
+        			persona.put("tipo", item.dameTipo().toLowerCase());
+        			persona.put("servicio_id", item.dameId());
+        			persona.put("nombre_servicio", item.dameTipo());
+        			persona.put("precio", item.damePrecio());
 
-                    for (int i = 0; i < cantidad; i++) {
-                        Map<String, Object> persona = new HashMap<>();
-                        persona.put("tipo", item.dameTipo().toLowerCase());
-                        persona.put("servicio_id", item.dameId());
-                        persona.put("nombre_servicio", item.dameTipo());
-                        persona.put("precio", item.damePrecio());
-                        persona.put("cantidad", cantidad); // útil para el frontend
+        			// 👇 Aquí controlamos cantidad correctamente
+        			if (item instanceof Paquete) {
+        				Paquete paquete = (Paquete) item;
+        				persona.put("cantidad", paquete.getPersonas()); // ✅ cantidad real del paquete
 
-                        //  Si es un paquete y tiene vuelo, incluimos el vuelo_id
-                        if (item instanceof Paquete) {
-                            Paquete paquete = (Paquete) item;
-                            if (paquete.tieneVueloEnPaquete()) {
-                                persona.put("vuelo_id", paquete.getVueloId());
-                            }
-                        }
+        				if (paquete.tieneVueloEnPaquete()) {
+        					persona.put("vuelo_id", paquete.getVueloId());
+        				}
+        			} else {
+        				persona.put("cantidad", item.getCantidadPersonas()); // vuelo, excursión, etc.
+        			}
 
-                        personas.add(persona);
-                    }
-                }
-            }
+        			personas.add(persona); // ✅ Solo uno por servicio
+        		}
+        	}
+            
         }
 
         // Serializar respuesta JSON

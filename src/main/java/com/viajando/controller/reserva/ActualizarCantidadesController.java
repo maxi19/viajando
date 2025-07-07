@@ -21,14 +21,17 @@ import com.viajando.domain.Reservable;
 import com.viajando.parser.Parser;
 
 
-
 @WebServlet("/actualizarCantidades")
 public class ActualizarCantidadesController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	    HttpSession session = req.getSession();
 	    Carrito carrito = (Carrito) session.getAttribute("carrito");
-	    if (carrito == null) return;
+	    if (carrito == null) {
+	        resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);  // Error si el carrito no existe
+	        return;
+	    }
 
 	    StringBuilder sb = new StringBuilder();
 	    String line;
@@ -43,9 +46,14 @@ public class ActualizarCantidadesController extends HttpServlet {
 
 	    List<Map<String, Object>> lista = gson.fromJson(sb.toString(), List.class);
 
+	    // Debug: Ver los datos recibidos
+	    System.out.println("Datos recibidos para actualizar cantidades: " + lista);
+
 	    for (Map<String, Object> item : lista) {
 	        int id = 0;
+	        String tipo = "";
 	        Object idObj = item.get("id");
+	        Object tipoObj = item.get("tipo");
 
 	        if (idObj instanceof Number) {
 	            id = ((Number) idObj).intValue();
@@ -57,6 +65,10 @@ public class ActualizarCantidadesController extends HttpServlet {
 	            } catch (NumberFormatException e) {
 	                continue;
 	            }
+	        }
+
+	        if (tipoObj instanceof String) {
+	            tipo = (String) tipoObj;
 	        }
 
 	        int cantidad = 1;
@@ -74,17 +86,27 @@ public class ActualizarCantidadesController extends HttpServlet {
 	            }
 	        }
 
+	        // Buscar el elemento en el carrito con el mismo id y tipo
 	        for (Object obj : carrito.getReservables()) {
 	            if (obj instanceof Reservable) {
 	            	Reservable reservable = (Reservable) obj ;
 	            
-	            	if (reservable.dameId() == id) {
-    	                reservable.setCantidadPersonas(cantidad);
-
+	            	// Comparar id y tipo para identificar el servicio correcto
+	            	if (reservable.dameId() == id && reservable.dameTipo().equalsIgnoreCase(tipo)) {
+    	                reservable.setCantidadPersonas(cantidad);  // Actualiza la cantidad
 	            	}
 	            
 	            }
 	        }
 	    }
+
+	    // Debug: Ver el carrito después de la actualización
+	    System.out.println("Carrito después de actualización: " + carrito);
+
+	    // Guardar el carrito actualizado en la sesión
+	    session.setAttribute("carrito", carrito);
+
+	    // Respuesta exitosa
+	    resp.setStatus(HttpServletResponse.SC_OK);
 	}
 }
