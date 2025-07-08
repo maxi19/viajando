@@ -30,8 +30,14 @@
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/style/estilosCarousel.css">
+		<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/style/estiloGaleria.css">
 
+<link
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+	rel="stylesheet">
 
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <script type="text/javascript">
 							var contextPath="<%=request.getContextPath()%>
@@ -82,12 +88,10 @@
 .NombreServicio { padding: 35px; }
 
 /* --- INICIO: CSS MEJORADO PARA PREGUNTAS FRECUENTES (MODO CLARO/OSCURO) --- */
-body {
+  body {
     font-family: 'Roboto', sans-serif;
-    background-color: var(--bs-body-bg); /* Usa la variable de fondo de Bootstrap */
-    color: var(--bs-body-color);         /* Usa la variable de color de texto de Bootstrap */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
-}
+    font-size: 1rem;
+  }
 
 /* Fallback/Especificación para Modo Oscuro si var(--bs-body-bg) no es suficiente */
 [data-bs-theme="dark"] body {
@@ -293,6 +297,8 @@ body {
 [data-bs-theme="light"] .dark-footer a { color: #495057; }
 [data-bs-theme="light"] .dark-footer a:hover { color: #212529; text-decoration: none; } /* Links blancos al pasar el mouse */
 }
+
+
 </style>
 </head>
 <body>
@@ -347,8 +353,7 @@ body {
 				</button>
 			</li>
 		</ul>
-	</div>
-	<header data-bs-theme="dark">
+	</div>	<header data-bs-theme="dark">
 		<div class="collapse text-bg-dark" id="navbarHeader">
 			<div class="container">
 				<div class="row">
@@ -362,30 +367,35 @@ body {
 					<div class="col-sm-4 offset-md-1 py-4">
 						<h4>Contact</h4>
 						<ul class="list-unstyled">
-							<li><a href="#" class="text-white">Follow on X</a></li>
 							<li><a
-								href="https://www.instagram.com/institutofatimasoldati/?hl=es"
+								href="https://www.instagram.com/institutofatimasoldati/"
 								class="text-white" target="_blank">Instagram</a></li>
-							<li><a href="#" class="text-white">Email me</a></li>
+							<li><a href="mailto:maximilianoguzman@fatimarem.edu.ar?" class="text-white">Email me</a></li>
 						</ul>
 						<button class="btn btn-primary" id="btn-login">Login</button>
 					</div>
 				</div>
 			</div>
 		</div>
+		
 <div class="navbar navbar-dark bg-dark shadow-sm">
     <div class="container d-flex justify-content-between align-items-center">
         <!-- IZQUIERDA: Marca -->
-				<a href="#" class="navbar-brand d-flex align-items-center"> <span
-					class="material-symbols-outlined me-2" style="font-size: 24px;">flight</span>
-					<strong>Viajando.com</strong>
-				</a>
+        <a href="<%=request.getContextPath()%>/" class="navbar-brand d-flex align-items-center">
+            <span class="material-symbols-outlined me-2" style="font-size: 24px;">flight</span>
+            <strong>Viajando.com</strong>
+        </a>
 
         <!-- DERECHA: Links + botón toggle -->
         <div class="d-flex align-items-center gap-3">
             <a href="<%=request.getContextPath()%>/FAQ.jsp" class="nav-link text-white">FAQ</a>
-            <a href="<%=request.getContextPath()%>/about.jsp" class="nav-link text-white">Acerca de</a>
-            <a href="<%=request.getContextPath()%>/paquetes.jsp" class="nav-link text-white">Mis paquetes</a>
+            <a href="<%=request.getContextPath()%>/about.jsp" class="nav-link text-white">Acerca de</a>            
+<a href="<%=request.getContextPath()%>/carrito/carritoPage.jsp" class="nav-link text-white position-relative">
+	<span class="material-symbols-outlined">shopping_cart</span>
+	<span id="carrito-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">
+		0
+	</span>
+</a>
             <button class="navbar-toggler" type="button"
                 data-bs-toggle="collapse" data-bs-target="#navbarHeader"
                 aria-controls="navbarHeader" aria-expanded="false"
@@ -395,7 +405,12 @@ body {
         </div>
     </div>
 </div>
+
+
+
 	</header>
+
+
 
 <main>
 
@@ -584,6 +599,9 @@ body {
 			</p>
 		</div>
 	</footer>
+	
+		<script src="<%=request.getContextPath()%>/scripts/contadorCarrito.js"></script>
+	
 
 </body>
 </html>

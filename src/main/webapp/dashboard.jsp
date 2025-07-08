@@ -232,8 +232,8 @@
 	</header>
 	<div class="container-fluid">
 		<div class="row">
-			<div
-				class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+<div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary" style="height: 100vh;">
+
 				<div class="offcanvas-md offcanvas-end bg-body-tertiary"
 					tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
 					<div class="offcanvas-header">
@@ -471,6 +471,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
     
+  </div>
   </div>
 
   <!-- DESTINOS -->

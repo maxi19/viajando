@@ -42,6 +42,8 @@
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
 	rel="stylesheet">
 
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 
 <script type="text/javascript">
 							var contextPath="<%=request.getContextPath()%>";
@@ -128,6 +130,16 @@
 .bd-mode-toggle .dropdown-menu .active .bi {
 	display: block !important
 }
+
+html {
+  font-size: 16px; /* base estándar */
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem; /* 16px base */
+  line-height: 1.6;
+}
 </style>
 </head>
 <body>
@@ -201,11 +213,10 @@
 					<div class="col-sm-4 offset-md-1 py-4">
 						<h4>Contact</h4>
 						<ul class="list-unstyled">
-							<li><a href="#" class="text-white">Follow on X</a></li>
 							<li><a
-								href="https://www.instagram.com/institutofatimasoldati/?hl=es"
+								href="https://www.instagram.com/institutofatimasoldati/"
 								class="text-white" target="_blank">Instagram</a></li>
-							<li><a href="#" class="text-white">Email me</a></li>
+							<li><a href="mailto:maximilianoguzman@fatimarem.edu.ar?" class="text-white">Email me</a></li>
 						</ul>
 						<button class="btn btn-primary" id="btn-login">Login</button>
 					</div>
@@ -473,19 +484,17 @@
 
 
 	</main>
-	<footer class="text-body-secondary py-5">
-		<div class="container">
-			<p class="float-end mb-1">
-				<a href="#">Back to top</a>
-			</p>
-			<p class="mb-1">Album example is &copy; Bootstrap, but please
-				download and customize it for yourself!</p>
-			<p class="mb-0">
-				New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a
-					href="../getting-started/introduction">getting started guide</a>.
-			</p>
-		</div>
-	</footer>
+<footer class="text-body-secondary py-5 dark-footer">
+    <div class="container">
+        <p class="float-end mb-1">
+            <a href="#">Back to top</a>
+        </p>
+        <p class="mb-1">Viajando.com &copy; 2025</p>
+        <p class="mb-0">
+            Para más información, visita nuestra <a href="<%=request.getContextPath()%>/about.jsp">página de Acerca de</a> o <a href="#">contáctanos</a>.
+        </p>
+    </div>
+</footer>
 	<script
 		src="<%=request.getContextPath()%>/assets/dist/js/bootstrap.bundle.min.js"
 		class="astro-vvvwv3sm"></script>
@@ -494,14 +503,6 @@
 	<script src="<%=request.getContextPath()%>/scripts/vuelo.js"></script>
 	<script src="<%=request.getContextPath()%>/scripts/paquete.js"></script>
 	<script src="<%=request.getContextPath()%>/scripts/contadorCarrito.js"></script>
-
-
-
-
-
-
-
-
 
 
 

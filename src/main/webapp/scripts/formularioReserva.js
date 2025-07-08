@@ -6,9 +6,8 @@ $(document).ready(function () {
 		dataType: "json",
 		success: function (data) {
 			const contenedor = $("#contenedorFormularios");
-	
 			console.log("Data recibida:", data);
-			
+
 			let indexGlobal = 0;
 
 			data.forEach((p) => {
@@ -22,7 +21,7 @@ $(document).ready(function () {
 
 					if (tipo === "vuelo" || (tipo === "paquete" && p.vuelo_id)) {
 						selectButacaHtml = `
-							<div class="col-md-12">
+							<div class="col-md-12 mt-2">
 								<label>Seleccionar Butaca</label>
 								<div id="contenedorButacasPersona${indexGlobal}" class="d-flex flex-wrap mb-2"></div>
 								<input type="hidden" name="butaca[]" id="butacaSeleccionada${indexGlobal}" required>
@@ -31,9 +30,11 @@ $(document).ready(function () {
 						`;
 					}
 
-
 					const formHtml = `
-						<div class="card mb-3 p-3 bg-light">
+						<div class="card mb-3 p-3 shadow-sm" 
+							 style="background-color: var(--bs-body-bg); 
+									color: var(--bs-body-color); 
+									border: 1px solid var(--bs-border-color);">
 							<h5 class="card-title">Persona ${indexGlobal + 1} para ${p.nombre_servicio}</h5>
 							<div class="row">
 								<div class="col-md-3">
@@ -100,21 +101,21 @@ $(document).ready(function () {
 		}
 
 		$.ajax({
-		    url: contextPath + "/generarCupon",
-		    method: "POST",
-		    success: function (response) {
+			url: contextPath + "/generarCupon",
+			method: "POST",
+			success: function (response) {
 				const json = typeof response === "string" ? JSON.parse(response) : response;
 				console.log("Respuesta de /generarCupon:", json);
 
-		        if (json.init_point) {
-		            window.location.href = json.init_point; // Redirige a MercadoPago
-		        } else {
-		            alert("Error al generar preferencia de pago");
-		        }
-		    },
-		    error: function () {
-		        alert("Error al crear preferencia de pago");
-		    }
+				if (json.init_point) {
+					window.location.href = json.init_point; // Redirige a MercadoPago
+				} else {
+					alert("Error al generar preferencia de pago");
+				}
+			},
+			error: function () {
+				alert("Error al crear preferencia de pago");
+			}
 		});
 	});
 });
@@ -123,19 +124,16 @@ $(document).ready(function () {
 // ✅ Cargar butacas
 // =============================
 function cargarButacas(vueloId, indexPersona) {
-
 	$.ajax({
 		url: contextPath + "/butacasPorVuelo?vuelo_id=" + vueloId,
 		method: "GET",
 		dataType: "json",
 		success: function (butacas) {
-			console.log("Butacas recibidas:", butacas); // ✅ Ahora sí existe
-			
+			console.log("Butacas recibidas:", butacas);
 			const contenedor = $(`#contenedorButacasPersona${indexPersona}`);
 			contenedor.empty();
 
 			butacas.forEach(b => {
-				// Verificar si la butaca ya fue seleccionada por otra persona
 				let butacaYaSeleccionada = false;
 				$("input[name='butaca[]']").each(function (i) {
 					if (i !== indexPersona && $(this).val() == b.asiento) {
@@ -157,11 +155,10 @@ function cargarButacas(vueloId, indexPersona) {
 				`);
 			});
 
-			// Evento de selección
+			// Evento selección
 			contenedor.off("click").on("click", ".butaca-disponible", function () {
 				const asiento = $(this).data("asiento");
 
-				// Verificar que ninguna otra persona ya tenga esa butaca
 				let duplicado = false;
 				$("input[name='butaca[]']").each(function (i) {
 					if (i !== indexPersona && $(this).val() == asiento) {
@@ -174,7 +171,6 @@ function cargarButacas(vueloId, indexPersona) {
 					return;
 				}
 
-				// Desmarcar otras
 				$(`#contenedorButacasPersona${indexPersona} .butaca-disponible`).css("background-color", "#87CEFA");
 				$(this).css("background-color", "#4CAF50");
 				$(`#butacaSeleccionada${indexPersona}`).val(asiento);

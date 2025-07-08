@@ -187,63 +187,6 @@
 			</li>
 		</ul>
 	</div>
-	<header data-bs-theme="dark">
-		<div class="collapse text-bg-dark" id="navbarHeader">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-8 col-md-7 py-4">
-						<h4>Sobre nuestra pagina</h4>
-						<p class="text-body-secondary">Nuestro sistema te permite
-							solicitar vuelos contratar paquetes turísticos, agendar
-							excursiones personalizadas y elegir entre una amplia variedad de
-							hoteles, todo desde un mismo lugar.</p>
-					</div>
-					<div class="col-sm-4 offset-md-1 py-4">
-						<h4>Contact</h4>
-						<ul class="list-unstyled">
-							<li><a href="#" class="text-white">Follow on X</a></li>
-							<li><a
-								href="https://www.instagram.com/institutofatimasoldati/?hl=es"
-								class="text-white" target="_blank">Instagram</a></li>
-							<li><a href="#" class="text-white">Email me</a></li>
-						</ul>
-						<button class="btn btn-primary" id="btn-login">Login</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-<div class="navbar navbar-dark bg-dark shadow-sm">
-    <div class="container d-flex justify-content-between align-items-center">
-        <!-- IZQUIERDA: Marca -->
-        <a href="<%=request.getContextPath()%>/" class="navbar-brand d-flex align-items-center">
-            <span class="material-symbols-outlined me-2" style="font-size: 24px;">flight</span>
-            <strong>Viajando.com</strong>
-        </a>
-
-        <!-- DERECHA: Links + botón toggle -->
-        <div class="d-flex align-items-center gap-3">
-            <a href="<%=request.getContextPath()%>/FAQ.jsp" class="nav-link text-white">FAQ</a>
-            <a href="<%=request.getContextPath()%>/about.jsp" class="nav-link text-white">Acerca de</a>            
-<a href="<%=request.getContextPath()%>/carrito/carritoPage.jsp" class="nav-link text-white position-relative">
-	<span class="material-symbols-outlined">shopping_cart</span>
-	<span id="carrito-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">
-		0
-	</span>
-</a>
-            <button class="navbar-toggler" type="button"
-                data-bs-toggle="collapse" data-bs-target="#navbarHeader"
-                aria-controls="navbarHeader" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-    </div>
-</div>
-
-
-
-	</header>
 
 
 			
@@ -301,6 +244,11 @@
 </head>
 <body>
 <div class="container py-5">
+
+<a href="javascript:history.back()" class="btn btn-outline-secondary mb-3 d-inline-flex align-items-center">
+  <i class="fas fa-arrow-left me-2"></i> Volver
+</a>
+
 	<h2 class="mb-4">Datos de los pasajeros</h2>
 	<form action="<%=request.getContextPath()%>/confirmarReserva" method="post" id="formReserva">
 		<div id="contenedorFormularios"></div>
@@ -364,23 +312,31 @@
 	}
 </style>
 
+<style>
+input.form-control,
+select.form-control {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  border: 1px solid var(--bs-border-color);
+}
+
+input.form-control:focus,
+select.form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
+}
+
+</style>
+
+
+
+
+
 
 
 
 	</main>
-	<footer class="text-body-secondary py-5">
-		<div class="container">
-			<p class="float-end mb-1">
-				<a href="#">Back to top</a>
-			</p>
-			<p class="mb-1">Album example is &copy; Bootstrap, but please
-				download and customize it for yourself!</p>
-			<p class="mb-0">
-				New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a
-					href="../getting-started/introduction">getting started guide</a>.
-			</p>
-		</div>
-	</footer>
+
 	<script
 		src="<%=request.getContextPath()%>/assets/dist/js/bootstrap.bundle.min.js"
 		class="astro-vvvwv3sm"></script>

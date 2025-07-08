@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
@@ -318,8 +318,7 @@ body {
 			</li>
 		</ul>
 	</div>
-
-    <header data-bs-theme="dark">
+	<header data-bs-theme="dark">
 		<div class="collapse text-bg-dark" id="navbarHeader">
 			<div class="container">
 				<div class="row">
@@ -333,17 +332,17 @@ body {
 					<div class="col-sm-4 offset-md-1 py-4">
 						<h4>Contact</h4>
 						<ul class="list-unstyled">
-							<li><a href="#" class="text-white">Follow on X</a></li>
 							<li><a
-								href="https://www.instagram.com/institutofatimasoldati/?hl=es"
+								href="https://www.instagram.com/institutofatimasoldati/"
 								class="text-white" target="_blank">Instagram</a></li>
-							<li><a href="#" class="text-white">Email me</a></li>
+							<li><a href="mailto:maximilianoguzman@fatimarem.edu.ar?" class="text-white">Email me</a></li>
 						</ul>
 						<button class="btn btn-primary" id="btn-login">Login</button>
 					</div>
 				</div>
 			</div>
 		</div>
+		
 <div class="navbar navbar-dark bg-dark shadow-sm">
     <div class="container d-flex justify-content-between align-items-center">
         <!-- IZQUIERDA: Marca -->
@@ -355,8 +354,13 @@ body {
         <!-- DERECHA: Links + botón toggle -->
         <div class="d-flex align-items-center gap-3">
             <a href="<%=request.getContextPath()%>/FAQ.jsp" class="nav-link text-white">FAQ</a>
-            <a href="<%=request.getContextPath()%>/about.jsp" class="nav-link text-white">Acerca de</a>
-            <a href="<%=request.getContextPath()%>/paquetes.jsp" class="nav-link text-white">Mis paquetes</a>
+            <a href="<%=request.getContextPath()%>/about.jsp" class="nav-link text-white">Acerca de</a>            
+<a href="<%=request.getContextPath()%>/carrito/carritoPage.jsp" class="nav-link text-white position-relative">
+	<span class="material-symbols-outlined">shopping_cart</span>
+	<span id="carrito-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">
+		0
+	</span>
+</a>
             <button class="navbar-toggler" type="button"
                 data-bs-toggle="collapse" data-bs-target="#navbarHeader"
                 aria-controls="navbarHeader" aria-expanded="false"
@@ -366,7 +370,12 @@ body {
         </div>
     </div>
 </div>
+
+
+
 	</header>
+
+
 
 <main>
     <div class="container about-container">
@@ -397,27 +406,50 @@ body {
                 <li><span class="material-symbols-outlined icon">library_add</span><strong>Librerías Adicionales:</strong> jQuery y SweetAlert2 para interacciones dinámicas y alertas atractivas.</li>
             </ul>
         </div>
+        
+        
 
-        <div class="about-section">
-            <h2><span class="material-symbols-outlined icon">group</span>Nuestro Equipo</h2>
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                <div class="col team-member">
-                    <img src="https://via.placeholder.com/120/0d6efd/FFFFFF?text=DM" alt="Miembro del Equipo 1">
-                    <h4>Desarrollador Java</h4>
-                    <p>Especialista en lógica de negocio y arquitectura de sistemas.</p>
-                </div>
-                <div class="col team-member">
-                    <img src="https://via.placeholder.com/120/0d6efd/FFFFFF?text=UD" alt="Miembro del Equipo 2">
-                    <h4>Diseñador UI/UX</h4>
-                    <p>Encargado de la experiencia de usuario y la interfaz visual.</p>
-                </div>
-                <div class="col team-member">
-                    <img src="https://via.placeholder.com/120/0d6efd/FFFFFF?text=QA" alt="Miembro del Equipo 3">
-                    <h4>Control de Calidad</h4>
-                    <p>Asegurando que la plataforma funcione sin problemas.</p>
-                </div>
-            </div>
-        </div>
+<div class="about-section">
+  <h2><span class="material-symbols-outlined icon">group</span> Nuestro Equipo</h2>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+
+    <div class="col team-member">
+      <h4>Castro William</h4>
+      <p><strong>Rol:</strong> Backend - Módulo de Vuelos</p>
+      <p><strong>Tareas:</strong> Desarrollo completo del backend de vuelos</p>
+      <p><strong>Motivo:</strong> Afinidad con datos estructurados y lógica técnica</p>
+    </div>
+
+    <div class="col team-member">
+      <h4>Martino Brisa</h4>
+      <p><strong>Rol:</strong> Backend - Excursiones</p>
+      <p><strong>Tareas:</strong> Alta de excursiones, destinos y paquetes para cliente</p>
+      <p><strong>Motivo:</strong> Interés en integrar distintos servicios</p>
+    </div>
+
+    <div class="col team-member">
+      <h4>Figueredo Miguel</h4>
+      <p><strong>Rol:</strong> Lógica - Paquetes y reservas</p>
+      <p><strong>Tareas:</strong> Reservas, carrito de compras, lógica de negocio</p>
+      <p><strong>Motivo:</strong> Facilidad para unir frontend y backend</p>
+    </div>
+
+    <div class="col team-member">
+      <h4>Chavez Ariel</h4>
+      <p><strong>Rol:</strong> Frontend - Hotel y Reserva</p>
+      <p><strong>Tareas:</strong> Formularios de reserva, carrito de pago, diseño general</p>
+      <p><strong>Motivo:</strong> Afinidad con diseño visual y experiencia de usuario</p>
+    </div>
+
+    <div class="col team-member">
+      <h4>Equise Natalia</h4>
+      <p><strong>Rol:</strong> Analista funcional</p>
+      <p><strong>Tareas:</strong> Especificaciones, listado de hoteles</p>
+      <p><strong>Motivo:</strong> Capacidad para convertir necesidades en tareas técnicas</p>
+    </div>
+
+  </div>
+</div>
 
         <div class="text-center mt-5">
             <a href="<%=request.getContextPath()%>/galeria.jsp" class="btn btn-secondary">Volver al inicio</a>
@@ -442,6 +474,7 @@ body {
 	<script src="<%=request.getContextPath()%>/scripts/excursion.js"></script>
 	<script src="<%=request.getContextPath()%>/scripts/hotel.js"></script>
 	<script src="<%=request.getContextPath()%>/scripts/vuelo.js"></script>
+	<script src="<%=request.getContextPath()%>/scripts/contadorCarrito.js"></script>
 
 </body>
 </html>

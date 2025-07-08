@@ -24,10 +24,10 @@ class Vuelo {
 		const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
 
 		for (let i = 0; i < fullStars; i++) {
-			html += '<i class="fas fa-star" style="color: gold;"></i>';
+			html += '<i class="fas fa-star" style="color: gold; text-shadow: 0 0 1px white, 0 0 2px white;"></i>';
 		}
 		if (halfStar) {
-			html += '<i class="fas fa-star-half-alt" style="color: gold;"></i>';
+			html += '<i class="fas fa-star-half-alt" style="color: gold; text-shadow: 0 0 1px white, 0 0 2px white;"></i>';
 		}
 		for (let i = 0; i < emptyStars; i++) {
 			html += '<i class="far fa-star" style="color: gold;"></i>';
