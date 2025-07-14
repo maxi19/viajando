@@ -295,6 +295,15 @@ body {
   padding: 35px
   }
 
+:root[data-bs-theme="light"] #mensajeBienvenida {
+  color: white;
+}
+
+:root[data-bs-theme="light"] #mensajeBienvenida h1,
+:root[data-bs-theme="light"] #mensajeBienvenida p {
+  color: white;
+}
+
 </style>
 
 <main>

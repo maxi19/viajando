@@ -667,14 +667,14 @@ document.addEventListener('DOMContentLoaded', function() {
               hora_vuelta: { required: "Ingrese la hora de vuelta" },
               precio: {
                 required: "Ingrese un precio",
-                number: "Debe ser un n�mero",
+                number: "Debe ser un número",
                 min: "No puede ser negativo"
               },
               destino_id: { required: "Seleccione un destino" },
               id_avion: { required: "Seleccione un avi�n" },
               estrellas: {
                 required: "Ingrese estrellas",
-                number: "Debe ser un n�mero",
+                number: "Debe ser un número",
                 min: "M�nimo 0", max: "M�ximo 5"
               },
               imagen: {
@@ -782,7 +782,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
 
         <div class="form-group">
-          <label for="descripcion">DescripciÃ³n:</label>
+          <label for="descripcion">Descripción:</label>
           <input type="text" class="form-control" id="descripcion" name="descripcion" required placeholder="Ingrese una descripcion">
         </div>
 
@@ -864,26 +864,26 @@ document.addEventListener('DOMContentLoaded', function() {
 								minlength: "El nombre debe tener al menos 2 caracteres"
 							},
 							descripcion: {
-								required: "Por favor, ingrese una descripciÃ³n",
-								minlength: "La descripciÃ³n debe tener al menos 10 caracteres"
+								required: "Por favor, ingrese una descripción",
+								minlength: "La descripción debe tener al menos 10 caracteres"
 							},
 							fecha_inicio: {
 								required: "Por favor, ingrese una fecha de inicio"
 							},
 							fecha_fin: {
-								required: "Por favor, ingrese una fecha de finalizaciÃ³n"	
+								required: "Por favor, ingrese una fecha de finalización"	
 								},
 							precio: {
 								required: "Por favor, ingrese un precio",
-								number: "Por favor, ingrese un nÃºmero vÃ¡lido",
+								number: "Por favor, ingrese un número válido",
 								min: "El precio no puede ser negativo"
 							},
 							destino_id: {
 								required: "Por favor, ingrese un destino"
 							},
 							estrellas: {
-								required: "Por favor, ingrese una calificaciÃ³n de estrellas",
-								number: "Por favor, ingrese un nÃºmero vÃ¡lido",
+								required: "Por favor, ingrese una calificación de estrellas",
+								number: "Por favor, ingrese un nÃºmero válido",
 								min: "Debe ser al menos 0",
 								max: "No puede ser mayor a 5"
 							},
@@ -906,7 +906,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			    }); 
 
-			</script> ```
+			</script> 
 			
 			
 
@@ -1067,7 +1067,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         <div class="form-group">
           <label for="descripcion">Descripción:</label>
-          <input type="text" class="form-control" id="descripcion" name="descripcion" required placeholder="Ingrese una descripciï¿½n">
+          <input type="text" class="form-control" id="descripcion" name="descripcion" required placeholder="Ingrese una descripción">
         </div>
 
         <div class="form-group">
